@@ -11,6 +11,11 @@ const LocalSEOPlusPlus = () => {
   const [selectedStoreForTab2, setSelectedStoreForTab2] = useState('Downtown Location - Store #001');
   const [isStoreTab2DropdownOpen, setIsStoreTab2DropdownOpen] = useState(false);
   
+  // Strategic Impact filters
+  const [clickTypeFilter, setClickTypeFilter] = useState('all');
+  const [localSeoContribution, setLocalSeoContribution] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
+  
   // Regional Performance drill-down states
   const [performanceDrillLevel, setPerformanceDrillLevel] = useState('country');
   const [relevanceDrillLevel, setRelevanceDrillLevel] = useState('country');
@@ -33,26 +38,64 @@ const LocalSEOPlusPlus = () => {
   ];
 
   // Strategic Impact Data
-  const attributionFunnelData = [
-    { stage: 'Local Search Views', count: 125000, percentage: 100, color: 'bg-blue-500' },
-    { stage: 'Local Clicks', count: 15000, percentage: 12, color: 'bg-teal-500' },
-    { stage: 'Website Sessions', count: 12000, percentage: 9.6, color: 'bg-green-500' },
-    { stage: 'Conversions', count: 1800, percentage: 1.4, color: 'bg-purple-500' }
+  const localSeoFunnelData = [
+    { stage: 'Local Search Views', count: 125000, percentage: 100 },
+    { stage: 'Local Clicks', count: 15000, percentage: 12 },
+    { stage: 'Local Conversions', count: 1800, percentage: 1.4 }
   ];
 
-  const kpiComparisonData = [
-    { metric: 'Traffic Contribution', local: 35, core: 65, trend: 'up' },
-    { metric: 'Conversion Rate', local: 4.2, core: 2.8, trend: 'up' },
-    { metric: 'Brand Searches', local: 28, core: 72, trend: 'up' },
-    { metric: 'Revenue Attribution', local: 22, core: 78, trend: 'up' }
+  const coreSeoFunnelData = [
+    { stage: 'Organic Views', count: 450000, percentage: 100 },
+    { stage: 'Organic Clicks', count: 36000, percentage: 8 },
+    { stage: 'Organic Conversions', count: 2880, percentage: 0.64 }
   ];
 
-  const brandAuthorityData = [
-    { region: 'Downtown', strength: 92, color: 'bg-green-500' },
-    { region: 'Suburbs', strength: 78, color: 'bg-yellow-500' },
-    { region: 'University Area', strength: 85, color: 'bg-blue-500' },
-    { region: 'Airport District', strength: 71, color: 'bg-orange-500' },
-    { region: 'Mall Corridor', strength: 88, color: 'bg-teal-500' }
+  const attributionData = [
+    { metric: 'Views', localContribution: 21.7 }, // 125k / (125k + 450k)
+    { metric: 'Clicks', localContribution: 29.4 }, // 15k / (15k + 36k)
+    { metric: 'Conversions', localContribution: 38.5 } // 1800 / (1800 + 2880)
+  ];
+
+  const conversionDriversData = [
+    { type: 'Country', name: 'United States', contribution: 100, conversionRate: 1.4, ctr: 12 },
+    { type: 'State', name: 'California', contribution: 36, conversionRate: 1.6, ctr: 13.2 },
+    { type: 'MSA', name: 'Seattle Metro', contribution: 18, conversionRate: 1.8, ctr: 14.1 },
+    { type: 'City', name: 'Seattle', contribution: 12, conversionRate: 2.1, ctr: 15.3 },
+    { type: 'ZIP', name: '98101', contribution: 3.2, conversionRate: 2.8, ctr: 16.7 },
+    { type: 'Store', name: 'Downtown #001', contribution: 1.8, conversionRate: 3.2, ctr: 18.2 }
+  ];
+
+  const clickConversionData = [
+    { type: 'Phone Calls', percentage: 45, conversions: 810, color: 'bg-purple-500' },
+    { type: 'Store Visits', percentage: 35, conversions: 630, color: 'bg-green-500' },
+    { type: 'Website Visits', percentage: 20, conversions: 360, color: 'bg-blue-500' }
+  ];
+
+  const revenueData = [
+    { 
+      period: 'YTD (Actual)', 
+      amount: 1247500, 
+      growth: '+28% vs last year',
+      type: 'actual',
+      color: 'from-green-50 to-emerald-50',
+      textColor: 'text-emerald-800'
+    },
+    { 
+      period: 'Current FY (Actual)', 
+      amount: 1580000, 
+      growth: 'Based on current trends',
+      type: 'actual',
+      color: 'from-blue-50 to-cyan-50',
+      textColor: 'text-blue-800'
+    },
+    { 
+      period: 'Next Year (Forecast)', 
+      amount: 2150000, 
+      growth: 'With recommended actions',
+      type: 'forecast',
+      color: 'from-purple-50 to-pink-50',
+      textColor: 'text-purple-800'
+    }
   ];
 
   // Store Insights Data
@@ -181,18 +224,27 @@ const LocalSEOPlusPlus = () => {
     }
   };
 
+  const formatCurrency = (amount) => {
+    const symbols = { USD: '$', EUR: '€', GBP: '£' };
+    return `${symbols[selectedCurrency] || '$'}${(amount / 1000).toFixed(0)}K`;
+  };
+
   const renderStrategicImpact = () => (
     <div className="space-y-8">
-      {/* SEO Attribution Funnel */}
+      {/* SEO Attribution */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">🔄 SEO Attribution Funnel</h3>
+          <h3 className="text-lg font-semibold text-slate-900">🔄 SEO Attribution</h3>
           <div className="flex items-center space-x-4">
-            <select className="text-sm border border-slate-300 rounded-lg px-3 py-2">
-              <option>All Clicks</option>
-              <option>Phone Calls</option>
-              <option>Store Visits</option>
-              <option>Online</option>
+            <select 
+              value={clickTypeFilter}
+              onChange={(e) => setClickTypeFilter(e.target.value)}
+              className="text-sm border border-slate-300 rounded-lg px-3 py-2"
+            >
+              <option value="all">All Clicks</option>
+              <option value="phone">Phone Calls</option>
+              <option value="store">Store Visits</option>
+              <option value="online">Online</option>
             </select>
             <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
               <Download className="h-4 w-4" />
@@ -200,27 +252,77 @@ const LocalSEOPlusPlus = () => {
             </button>
           </div>
         </div>
-        <div className="space-y-4">
-          {attributionFunnelData.map((item, index) => (
-            <div key={index} className="relative">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-slate-700">{item.stage}</span>
-                <span className="text-sm text-slate-600">{item.percentage}%</span>
-              </div>
-              <div className="relative">
-                <div className="w-full bg-slate-200 rounded-full h-10 flex items-center">
-                  <div
-                    className={`h-10 rounded-full ${item.color} transition-all duration-500 flex items-center justify-end pr-4`}
-                    style={{ width: `${item.percentage}%` }}
-                  >
-                    <span className="text-white text-sm font-medium">
-                      {item.count.toLocaleString()}
-                    </span>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Local SEO Funnel */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-slate-900 text-center">Local SEO Funnel</h4>
+            {localSeoFunnelData.map((item, index) => (
+              <div key={index} className="relative">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-slate-700">{item.stage}</span>
+                  <span className="text-sm text-slate-600">{item.percentage}%</span>
+                </div>
+                <div className="relative">
+                  <div className="w-full bg-slate-200 rounded-full h-8 flex items-center">
+                    <div
+                      className="h-8 rounded-full bg-emerald-500 transition-all duration-500 flex items-center justify-end pr-3"
+                      style={{ width: `${item.percentage}%` }}
+                    >
+                      <span className="text-white text-sm font-medium">
+                        {item.count.toLocaleString()}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Core SEO Funnel */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-slate-900 text-center">Core SEO Funnel</h4>
+            {coreSeoFunnelData.map((item, index) => (
+              <div key={index} className="relative">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-slate-700">{item.stage}</span>
+                  <span className="text-sm text-slate-600">{item.percentage}%</span>
+                </div>
+                <div className="relative">
+                  <div className="w-full bg-slate-200 rounded-full h-8 flex items-center">
+                    <div
+                      className="h-8 rounded-full bg-blue-500 transition-all duration-500 flex items-center justify-end pr-3"
+                      style={{ width: `${item.percentage}%` }}
+                    >
+                      <span className="text-white text-sm font-medium">
+                        {item.count.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Attribution Percentages */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-slate-900 text-center">Local SEO Attribution</h4>
+            {attributionData.map((item, index) => (
+              <div key={index} className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-purple-800">{item.metric}</span>
+                  <span className="text-lg font-bold text-purple-900">{item.localContribution}%</span>
+                </div>
+                <div className="w-full bg-purple-200 rounded-full h-3">
+                  <div
+                    className="h-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500"
+                    style={{ width: `${item.localContribution}%` }}
+                  ></div>
+                </div>
+                <p className="text-xs text-purple-600 mt-1">Local SEO contribution to total</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -228,27 +330,39 @@ const LocalSEOPlusPlus = () => {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">📊 Conversion Drivers</h3>
-          <label className="flex items-center space-x-2">
-            <input type="checkbox" className="rounded" />
-            <span className="text-sm text-slate-700">Local SEO Contribution</span>
-          </label>
+          <div className="flex items-center space-x-4">
+            <label className="flex items-center space-x-2">
+              <input 
+                type="checkbox" 
+                checked={localSeoContribution}
+                onChange={(e) => setLocalSeoContribution(e.target.checked)}
+                className="rounded" 
+              />
+              <span className="text-sm text-slate-700">Local SEO Contribution</span>
+            </label>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            { type: 'Country', name: 'United States', contribution: 100, conversionRate: 1.4, ctr: 12 },
-            { type: 'State', name: 'California', contribution: 36, conversionRate: 1.6, ctr: 13.2 },
-            { type: 'MSA', name: 'Seattle Metro', contribution: 18, conversionRate: 1.8, ctr: 14.1 },
-            { type: 'City', name: 'Seattle', contribution: 12, conversionRate: 2.1, ctr: 15.3 },
-            { type: 'ZIP', name: '98101', contribution: 3.2, conversionRate: 2.8, ctr: 16.7 },
-            { type: 'Store', name: 'Downtown #001', contribution: 1.8, conversionRate: 3.2, ctr: 18.2 }
-          ].map((item, index) => (
-            <div key={index} className="p-4 bg-slate-50 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors">
+          {conversionDriversData.map((item, index) => (
+            <div 
+              key={index} 
+              className="p-4 bg-slate-50 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors group"
+              onClick={() => setActiveTab('regional')}
+            >
               <div className="text-xs text-slate-500 mb-1">{item.type}</div>
-              <div className="font-semibold text-slate-900 mb-2">{item.name}</div>
+              <div className="font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                {item.name}
+              </div>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
                   <span className="text-slate-600">Contribution:</span>
-                  <span className="font-medium">{item.contribution}%</span>
+                  <span className="font-medium">
+                    {localSeoContribution ? `${(item.contribution * 0.3).toFixed(1)}%` : `${item.contribution}%`}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-600">Conv. Rate:</span>
@@ -259,6 +373,11 @@ const LocalSEOPlusPlus = () => {
                   <span className="font-medium">{item.ctr}%</span>
                 </div>
               </div>
+              {localSeoContribution && (
+                <div className="mt-2 text-xs text-blue-600 font-medium">
+                  Local SEO: ~30% contribution
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -268,27 +387,41 @@ const LocalSEOPlusPlus = () => {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">📈 Click-to-Conversion Correlation</h3>
-          <label className="flex items-center space-x-2">
-            <input type="checkbox" className="rounded" />
-            <span className="text-sm text-slate-700">Local SEO Contribution</span>
-          </label>
+          <div className="flex items-center space-x-4">
+            <label className="flex items-center space-x-2">
+              <input 
+                type="checkbox" 
+                checked={localSeoContribution}
+                onChange={(e) => setLocalSeoContribution(e.target.checked)}
+                className="rounded" 
+              />
+              <span className="text-sm text-slate-700">Local SEO Contribution</span>
+            </label>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {[
-            { type: 'Phone Calls', percentage: 45, conversions: 810, color: 'bg-purple-500' },
-            { type: 'Store Visits', percentage: 35, conversions: 630, color: 'bg-green-500' },
-            { type: 'Website Visits', percentage: 20, conversions: 360, color: 'bg-blue-500' }
-          ].map((item, index) => (
+          {clickConversionData.map((item, index) => (
             <div key={index} className="text-center">
               <div className="relative w-32 h-32 mx-auto mb-4">
                 <div className="w-full h-full rounded-full bg-slate-200 flex items-center justify-center">
                   <div className={`w-24 h-24 rounded-full ${item.color} flex items-center justify-center`}>
-                    <span className="text-white font-semibold">{item.percentage}%</span>
+                    <span className="text-white font-semibold">
+                      {localSeoContribution ? `${(item.percentage * 0.35).toFixed(0)}%` : `${item.percentage}%`}
+                    </span>
                   </div>
                 </div>
               </div>
               <h4 className="font-medium text-slate-900 mb-1">{item.type}</h4>
-              <p className="text-sm text-slate-600">{item.conversions} conversions</p>
+              <p className="text-sm text-slate-600">
+                {localSeoContribution ? Math.round(item.conversions * 0.35) : item.conversions} conversions
+              </p>
+              {localSeoContribution && (
+                <p className="text-xs text-blue-600 mt-1">Local SEO: ~35% contribution</p>
+              )}
             </div>
           ))}
         </div>
@@ -299,52 +432,77 @@ const LocalSEOPlusPlus = () => {
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">💰 Revenue Impact</h3>
           <div className="flex items-center space-x-4">
-            <select className="text-sm border border-slate-300 rounded-lg px-3 py-2">
-              <option>USD</option>
-              <option>EUR</option>
-              <option>GBP</option>
+            <select 
+              value={selectedCurrency}
+              onChange={(e) => setSelectedCurrency(e.target.value)}
+              className="text-sm border border-slate-300 rounded-lg px-3 py-2"
+            >
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
             </select>
             <label className="flex items-center space-x-2">
-              <input type="checkbox" className="rounded" />
+              <input 
+                type="checkbox" 
+                checked={localSeoContribution}
+                onChange={(e) => setLocalSeoContribution(e.target.checked)}
+                className="rounded" 
+              />
               <span className="text-sm text-slate-700">Local SEO Contribution</span>
             </label>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
-            <h4 className="font-medium text-emerald-800 mb-2">YTD (Actual)</h4>
-            <p className="text-2xl font-bold text-emerald-900">$1,247,500</p>
-            <p className="text-sm text-emerald-600">+28% vs last year</p>
-          </div>
-          <div className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg">
-            <h4 className="font-medium text-blue-800 mb-2">Current FY (Actual)</h4>
-            <p className="text-2xl font-bold text-blue-900">$1,580,000</p>
-            <p className="text-sm text-blue-600">Based on current trends</p>
-          </div>
-          <div className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-            <h4 className="font-medium text-purple-800 mb-2">Next Year (Forecast)</h4>
-            <p className="text-2xl font-bold text-purple-900">$2,150,000</p>
-            <p className="text-sm text-purple-600">With recommended actions</p>
-          </div>
+          {revenueData.map((item, index) => (
+            <div key={index} className={`p-6 bg-gradient-to-r ${item.color} rounded-lg`}>
+              <h4 className={`font-medium ${item.textColor} mb-2`}>{item.period}</h4>
+              <p className={`text-2xl font-bold ${item.textColor.replace('800', '900')}`}>
+                {formatCurrency(localSeoContribution ? item.amount * 0.25 : item.amount)}
+              </p>
+              <p className={`text-sm ${item.textColor.replace('800', '600')} mb-2`}>{item.growth}</p>
+              <div className="flex items-center space-x-2">
+                <div className={`w-2 h-2 rounded-full ${item.type === 'actual' ? 'bg-green-500' : 'bg-orange-500'}`}></div>
+                <span className="text-xs text-slate-600">
+                  {item.type === 'actual' ? 'Actual Data' : 'Forecast'}
+                </span>
+              </div>
+              {localSeoContribution && (
+                <p className={`text-xs ${item.textColor} mt-2 font-medium`}>
+                  Local SEO: ~25% contribution
+                </p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Strategic Insights */}
       <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 border border-blue-200">
-        <h3 className="text-lg font-semibold text-blue-900 mb-4">💡 Strategic Insights</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-blue-900">💡 Strategic Insights</h3>
+          <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
             <h4 className="font-medium text-blue-800 mb-3">Growth Opportunities</h4>
             <div className="space-y-2 text-sm text-blue-700">
-              <div>• Expand phone call optimization - 45% conversion rate vs 20% web visits</div>
-              <div>• Focus on California market - 36% contribution with room for 15% growth</div>
+              <div>• <strong>Phone Call Optimization:</strong> 45% conversion rate vs 20% web visits - expand phone-focused campaigns</div>
+              <div>• <strong>California Market Expansion:</strong> 36% contribution with potential for 15% growth through local keyword optimization</div>
             </div>
           </div>
           <div>
             <h4 className="font-medium text-blue-800 mb-3">Competitive Intelligence</h4>
             <div className="space-y-2 text-sm text-blue-700">
-              <div>• Competitor A gaining 8% market share in Seattle Metro</div>
-              <div>• <a href="#" className="underline">View detailed competitive report →</a></div>
+              <div>• <strong>Market Share Alert:</strong> Competitor A gaining 8% market share in Seattle Metro area</div>
+              <div>• <strong>Opportunity Gap:</strong> 23% higher conversion rates possible in ZIP code 98101</div>
+              <div>• <a href="#" className="underline hover:text-blue-800 transition-colors">View detailed competitive report →</a></div>
             </div>
           </div>
         </div>
@@ -356,39 +514,45 @@ const LocalSEOPlusPlus = () => {
     <div className="space-y-8">
       {/* Store Selection */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
-        <div className="flex items-center space-x-3">
-          <MapPin className="h-5 w-5 text-slate-500" />
-          <span className="text-sm font-medium text-slate-700">Selected Store:</span>
-          <div className="relative">
-            <button
-              onClick={() => setIsStoreTab2DropdownOpen(!isStoreTab2DropdownOpen)}
-              className="flex items-center space-x-2 bg-slate-100 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-200 transition-colors"
-            >
-              <span className="font-medium">{selectedStoreForTab2}</span>
-              <ChevronDown className={`h-4 w-4 transition-transform ${isStoreTab2DropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {isStoreTab2DropdownOpen && (
-              <div className="absolute top-full mt-2 w-80 bg-white border border-slate-200 rounded-lg shadow-lg z-10">
-                <div className="py-2">
-                  {storesForTab2.map((store, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setSelectedStoreForTab2(store);
-                        setIsStoreTab2DropdownOpen(false);
-                      }}
-                      className={`w-full text-left px-4 py-2 hover:bg-slate-50 transition-colors ${
-                        selectedStoreForTab2 === store ? 'bg-blue-50 text-blue-700 font-medium' : 'text-slate-700'
-                      }`}
-                    >
-                      {store}
-                    </button>
-                  ))}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <MapPin className="h-5 w-5 text-slate-500" />
+            <span className="text-sm font-medium text-slate-700">Selected Store:</span>
+            <div className="relative">
+              <button
+                onClick={() => setIsStoreTab2DropdownOpen(!isStoreTab2DropdownOpen)}
+                className="flex items-center space-x-2 bg-slate-100 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                <span className="font-medium">{selectedStoreForTab2}</span>
+                <ChevronDown className={`h-4 w-4 transition-transform ${isStoreTab2DropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isStoreTab2DropdownOpen && (
+                <div className="absolute top-full mt-2 w-80 bg-white border border-slate-200 rounded-lg shadow-lg z-10">
+                  <div className="py-2">
+                    {storesForTab2.map((store, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          setSelectedStoreForTab2(store);
+                          setIsStoreTab2DropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-2 hover:bg-slate-50 transition-colors ${
+                          selectedStoreForTab2 === store ? 'bg-blue-50 text-blue-700 font-medium' : 'text-slate-700'
+                        }`}
+                      >
+                        {store}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
+          <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
         </div>
       </div>
 
@@ -414,7 +578,13 @@ const LocalSEOPlusPlus = () => {
       {/* Local Context Comparison */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 className="text-lg font-semibold text-slate-900 mb-6">📊 CTR Comparison</h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-slate-900">📊 CTR Comparison</h3>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
           <div className="space-y-4">
             {[
               { level: 'Store', value: 4.2, color: 'bg-blue-500' },
@@ -441,7 +611,13 @@ const LocalSEOPlusPlus = () => {
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 className="text-lg font-semibold text-slate-900 mb-6">📈 Conversion Rate Comparison</h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-slate-900">📈 Conversion Rate Comparison</h3>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
           <div className="space-y-4">
             {[
               { level: 'Store', value: 6.2, color: 'bg-blue-500' },
@@ -471,7 +647,13 @@ const LocalSEOPlusPlus = () => {
       {/* Customer Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 className="text-lg font-semibold text-slate-900 mb-6">📊 Clicks by Type</h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-slate-900">📊 Clicks by Type</h3>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
           <div className="space-y-4">
             {clickTypeBreakdown.map((item, index) => (
               <div key={index} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
@@ -491,7 +673,13 @@ const LocalSEOPlusPlus = () => {
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 className="text-lg font-semibold text-slate-900 mb-6">🗺️ Engagement by Distance</h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-slate-900">🗺️ Engagement by Distance</h3>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
           <div className="space-y-4">
             {[
               { distance: 'Online', visits: 2100, color: 'bg-purple-500' },
@@ -516,7 +704,13 @@ const LocalSEOPlusPlus = () => {
 
       {/* Syndication Status */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <h3 className="text-lg font-semibold text-slate-900 mb-6">📋 Syndication Status</h3>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-slate-900">📋 Syndication Status</h3>
+          <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="text-center">
             <div className="relative w-32 h-32 mx-auto mb-4">
@@ -557,7 +751,13 @@ const LocalSEOPlusPlus = () => {
       {/* Store Insights */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 className="text-lg font-semibold text-slate-900 mb-6">⭐ Store Prominence</h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-slate-900">⭐ Store Prominence</h3>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             {prominenceScores.map((item, index) => (
               <div key={index} className="p-4 bg-slate-50 rounded-lg text-center">
@@ -573,7 +773,13 @@ const LocalSEOPlusPlus = () => {
         </div>
 
         <div className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-xl p-6 border border-blue-200">
-          <h3 className="text-lg font-semibold text-blue-900 mb-4">💡 Recommended Actions</h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-blue-900">💡 Recommended Actions</h3>
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
           <div className="space-y-3 text-sm text-blue-800">
             <div className="flex items-start space-x-2">
               <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
@@ -593,7 +799,13 @@ const LocalSEOPlusPlus = () => {
 
       {/* Top Keywords Table */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <h3 className="text-lg font-semibold text-slate-900 mb-6">🔍 Top 10 Keywords</h3>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-slate-900">🔍 Top 10 Keywords</h3>
+          <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -643,15 +855,21 @@ const LocalSEOPlusPlus = () => {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">📍 Performance by Location</h3>
-          {performanceDrillLevel === 'state' && (
-            <button
-              onClick={handlePerformanceRollUp}
-              className="flex items-center space-x-2 text-sm bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700"
-            >
-              <ArrowUp className="h-4 w-4" />
-              <span>Roll Up</span>
+          <div className="flex items-center space-x-4">
+            {performanceDrillLevel === 'state' && (
+              <button
+                onClick={handlePerformanceRollUp}
+                className="flex items-center space-x-2 text-sm bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700"
+              >
+                <ArrowUp className="h-4 w-4" />
+                <span>Roll Up</span>
+              </button>
+            )}
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
             </button>
-          )}
+          </div>
         </div>
         <p className="text-sm text-slate-600 mb-4">
           {performanceDrillLevel === 'country' ? 'Double-click to drill down to states' : 'Showing state-level performance'}
@@ -718,7 +936,13 @@ const LocalSEOPlusPlus = () => {
 
       {/* Comparative Analysis */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <h3 className="text-lg font-semibold text-slate-900 mb-6">📊 Comparative Analysis</h3>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-slate-900">📊 Comparative Analysis</h3>
+          <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-4">
             <h4 className="font-medium text-slate-900">Location A</h4>
@@ -792,15 +1016,21 @@ const LocalSEOPlusPlus = () => {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">🔍 Query Relevance Score</h3>
-          {relevanceDrillLevel === 'state' && (
-            <button
-              onClick={handleRelevanceRollUp}
-              className="flex items-center space-x-2 text-sm bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700"
-            >
-              <ArrowUp className="h-4 w-4" />
-              <span>Roll Up</span>
+          <div className="flex items-center space-x-4">
+            {relevanceDrillLevel === 'state' && (
+              <button
+                onClick={handleRelevanceRollUp}
+                className="flex items-center space-x-2 text-sm bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700"
+              >
+                <ArrowUp className="h-4 w-4" />
+                <span>Roll Up</span>
+              </button>
+            )}
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
             </button>
-          )}
+          </div>
         </div>
         <p className="text-sm text-slate-600 mb-4">
           {relevanceDrillLevel === 'country' ? 'Double-click to drill down to states' : 'Showing state-level relevance scores'}
@@ -832,15 +1062,21 @@ const LocalSEOPlusPlus = () => {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">⭐ Customer Review Score</h3>
-          {reviewDrillLevel === 'state' && (
-            <button
-              onClick={handleReviewRollUp}
-              className="flex items-center space-x-2 text-sm bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700"
-            >
-              <ArrowUp className="h-4 w-4" />
-              <span>Roll Up</span>
+          <div className="flex items-center space-x-4">
+            {reviewDrillLevel === 'state' && (
+              <button
+                onClick={handleReviewRollUp}
+                className="flex items-center space-x-2 text-sm bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700"
+              >
+                <ArrowUp className="h-4 w-4" />
+                <span>Roll Up</span>
+              </button>
+            )}
+            <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
             </button>
-          )}
+          </div>
         </div>
         <p className="text-sm text-slate-600 mb-4">
           {reviewDrillLevel === 'country' ? 'Double-click to drill down to states' : 'Showing state-level review scores'}
@@ -870,7 +1106,13 @@ const LocalSEOPlusPlus = () => {
 
       {/* Regional Insights */}
       <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
-        <h3 className="text-lg font-semibold text-purple-900 mb-4">💡 Regional Performance Insights</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-purple-900">💡 Regional Performance Insights</h3>
+          <button className="flex items-center space-x-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3">
             <h4 className="font-medium text-purple-800">Performance Gaps</h4>
