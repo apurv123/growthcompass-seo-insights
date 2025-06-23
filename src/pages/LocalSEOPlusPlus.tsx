@@ -791,7 +791,7 @@ const LocalSEOPlusPlus = () => {
             </div>
             <div className="flex items-start space-x-2">
               <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-              <span>Optimize for "pizza delivery downtown" - potential 15% CTR increase</span>
+              <span>Optimize for "free delivery downtown" - potential 15% CTR increase</span>
             </div>
           </div>
         </div>
