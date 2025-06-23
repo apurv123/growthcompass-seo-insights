@@ -5,7 +5,7 @@ import { ArrowRight, MapPin, BarChart3, TrendingUp, Users, Zap, Shield, Target }
 const HomePage = () => {
   const dashboards = [
     {
-      title: 'Local SEO Dashboard',
+      title: 'Local SEO',
       subtitle: 'Store-Level Analytics',
       description: 'Monitor individual store performance with syndication status, keyword rankings, and local search metrics.',
       icon: MapPin,
@@ -24,7 +24,7 @@ const HomePage = () => {
       badge: 'Enhanced'
     },
     {
-      title: 'Core SEO Dashboard',
+      title: 'Core SEO',
       subtitle: 'Essential Analytics',
       description: 'Track top level metrics, keyword rankings, website traffic, conversions, and brand authority—all in one place.',
       icon: BarChart3,
