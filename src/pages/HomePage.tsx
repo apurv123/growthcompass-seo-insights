@@ -7,7 +7,7 @@ const HomePage = () => {
     {
       title: 'Local SEO Dashboard',
       subtitle: 'Store-Level Analytics',
-      description: 'Monitor store performance with syndication status, keyword rankings, and local search metrics.',
+      description: 'Monitor individual store performance with syndication status, keyword rankings, and local search metrics.',
       icon: MapPin,
       path: '/local-seo',
       gradient: 'from-emerald-500 to-teal-600',
@@ -16,7 +16,7 @@ const HomePage = () => {
     {
       title: 'Local SEO++',
       subtitle: 'Advanced Multi-Location',
-      description: 'Strategic insights across locations with attribution funnels, regional performance, and AI recommendations.',
+      description: 'Strategic insights across locations with attribution funnels, regional performance, and store optimization recommendations.',
       icon: TrendingUp,
       path: '/local-seo-plus',
       gradient: 'from-purple-500 to-pink-600',
@@ -26,7 +26,7 @@ const HomePage = () => {
     {
       title: 'Core SEO Dashboard',
       subtitle: 'Essential Analytics',
-      description: 'Track keyword rankings, website traffic, conversions, and brand authority—all in one place.',
+      description: 'Track top level metrics, keyword rankings, website traffic, conversions, and brand authority—all in one place.',
       icon: BarChart3,
       path: '/core-seo',
       gradient: 'from-blue-500 to-indigo-600',
