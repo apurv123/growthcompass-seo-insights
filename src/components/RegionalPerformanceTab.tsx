@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, ArrowUpDown } from 'lucide-react';
+import { Download, ArrowUpDown, RotateCcw } from 'lucide-react';
 import FunnelChart from './FunnelChart';
 import BarChart from './BarChart';
 import PieChart from './PieChart';
@@ -23,10 +23,8 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
   const [keywordSortColumn, setKeywordSortColumn] = useState<string>('');
   const [keywordSortDirection, setKeywordSortDirection] = useState<'asc' | 'desc'>('desc');
   
-  // Location Analysis drill-down state
-  const [performanceDrillLevel, setPerformanceDrillLevel] = useState('country');
-  const [relevanceDrillLevel, setRelevanceDrillLevel] = useState('country');
-  const [reviewDrillLevel, setReviewDrillLevel] = useState('country');
+  // Synchronized Location Analysis drill-down state
+  const [locationAnalysisDrillLevel, setLocationAnalysisDrillLevel] = useState('country');
 
   // Comparative Analysis state
   const [locationAType, setLocationAType] = useState('state');
@@ -169,7 +167,7 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
   ];
 
   // Location Analysis Data
-  const getPerformanceData = (level: string) => {
+  const getViewsData = (level: string) => {
     const data = {
       country: [{ label: 'United States', value: 450000, color: '#3b82f6' }],
       state: [
@@ -237,30 +235,66 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
     return locationData[value as keyof typeof locationData] || locationData.california;
   };
 
-  // Customer Journey Data for Comparative Analysis
+  // Customer Journey Data for Comparative Analysis - Updated to match Strategic Impact style
   const getCustomerJourneyNodes = (location: string) => {
     const baseNodes = [
-      { id: `${location}-searches`, label: 'Local Searches', value: 100, percentage: 100, color: '#10b981', x: 50, y: 150, width: 100, height: 40 },
-      { id: `${location}-brand`, label: 'Chose our brand', value: 75, percentage: 75, color: '#10b981', x: 180, y: 120, width: 100, height: 40 },
-      { id: `${location}-competitor`, label: 'Chose competitor', value: 25, percentage: 25, color: '#ef4444', x: 180, y: 180, width: 100, height: 40 },
-      { id: `${location}-website`, label: 'Website visit', value: 40, percentage: 40, color: '#10b981', x: 310, y: 100, width: 100, height: 40 },
-      { id: `${location}-store`, label: 'Store visit', value: 25, percentage: 25, color: '#10b981', x: 310, y: 150, width: 100, height: 40 },
-      { id: `${location}-call`, label: 'Phone call', value: 10, percentage: 10, color: '#10b981', x: 310, y: 200, width: 100, height: 40 },
-      { id: `${location}-purchase`, label: 'Purchase', value: 15, percentage: 15, color: '#10b981', x: 440, y: 125, width: 100, height: 40 }
+      // Starting point
+      { id: `${location}-searches`, label: 'Local Searches', value: 100, percentage: 100, color: '#10b981', x: 30, y: 150, width: 90, height: 35 },
+      
+      // First decision point
+      { id: `${location}-brand`, label: 'Chose our brand', value: 75, percentage: 75, color: '#10b981', x: 150, y: 120, width: 90, height: 35 },
+      { id: `${location}-competitor`, label: 'Chose competitor', value: 25, percentage: 25, color: '#ef4444', x: 150, y: 180, width: 90, height: 35 },
+      
+      // Second level actions
+      { id: `${location}-website`, label: 'Website', value: 40, percentage: 40, color: '#10b981', x: 270, y: 90, width: 70, height: 30 },
+      { id: `${location}-store`, label: 'Store visit', value: 25, percentage: 25, color: '#10b981', x: 270, y: 130, width: 70, height: 30 },
+      { id: `${location}-call`, label: 'Phone call', value: 10, percentage: 10, color: '#10b981', x: 270, y: 170, width: 70, height: 30 },
+      { id: `${location}-dropped1`, label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 270, y: 210, width: 70, height: 30 },
+      
+      // Third level - from website
+      { id: `${location}-cart`, label: 'Add to cart', value: 30, percentage: 30, color: '#10b981', x: 370, y: 80, width: 70, height: 30 },
+      { id: `${location}-dropped2`, label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 370, y: 120, width: 70, height: 30 },
+      
+      // From call
+      { id: `${location}-scheduled`, label: 'Scheduled', value: 5, percentage: 5, color: '#10b981', x: 370, y: 160, width: 70, height: 30 },
+      { id: `${location}-dropped3`, label: 'Dropped', value: 5, percentage: 5, color: '#ef4444', x: 370, y: 200, width: 70, height: 30 },
+      
+      // Fourth level - from cart
+      { id: `${location}-checkout`, label: 'Checkout', value: 20, percentage: 20, color: '#10b981', x: 470, y: 70, width: 70, height: 30 },
+      { id: `${location}-dropped4`, label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 470, y: 110, width: 70, height: 30 },
+      
+      // Final outcomes
+      { id: `${location}-purchase`, label: 'Purchase', value: 15, percentage: 15, color: '#10b981', x: 570, y: 80, width: 70, height: 30 }
     ];
     return baseNodes;
   };
 
   const getCustomerJourneyFlows = (location: string) => {
     return [
+      // From local searches
       { source: `${location}-searches`, target: `${location}-brand`, value: 75, percentage: 75, color: '#10b981' },
       { source: `${location}-searches`, target: `${location}-competitor`, value: 25, percentage: 25, color: '#ef4444' },
+      
+      // From chose brand
       { source: `${location}-brand`, target: `${location}-website`, value: 40, percentage: 40, color: '#10b981' },
       { source: `${location}-brand`, target: `${location}-store`, value: 25, percentage: 25, color: '#10b981' },
       { source: `${location}-brand`, target: `${location}-call`, value: 10, percentage: 10, color: '#10b981' },
-      { source: `${location}-website`, target: `${location}-purchase`, value: 8, percentage: 8, color: '#10b981' },
-      { source: `${location}-store`, target: `${location}-purchase`, value: 5, percentage: 5, color: '#10b981' },
-      { source: `${location}-call`, target: `${location}-purchase`, value: 2, percentage: 2, color: '#10b981' }
+      { source: `${location}-brand`, target: `${location}-dropped1`, value: 10, percentage: 10, color: '#ef4444' },
+      
+      // From website
+      { source: `${location}-website`, target: `${location}-cart`, value: 30, percentage: 30, color: '#10b981' },
+      { source: `${location}-website`, target: `${location}-dropped2`, value: 10, percentage: 10, color: '#ef4444' },
+      
+      // From call
+      { source: `${location}-call`, target: `${location}-scheduled`, value: 5, percentage: 5, color: '#10b981' },
+      { source: `${location}-call`, target: `${location}-dropped3`, value: 5, percentage: 5, color: '#ef4444' },
+      
+      // From cart
+      { source: `${location}-cart`, target: `${location}-checkout`, value: 20, percentage: 20, color: '#10b981' },
+      { source: `${location}-cart`, target: `${location}-dropped4`, value: 10, percentage: 10, color: '#ef4444' },
+      
+      // Final outcome
+      { source: `${location}-checkout`, target: `${location}-purchase`, value: 15, percentage: 15, color: '#10b981' }
     ];
   };
 
@@ -357,20 +391,21 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
     referringDomains: getMinMaxValues(competitorData, 'referringDomains')
   };
 
-  // Drill-down handlers
-  const handlePerformanceDrillDown = () => {
-    if (performanceDrillLevel === 'country') setPerformanceDrillLevel('state');
-    else if (performanceDrillLevel === 'state') setPerformanceDrillLevel('city');
+  // Synchronized drill-down handlers
+  const handleLocationAnalysisDrillDown = () => {
+    if (locationAnalysisDrillLevel === 'country') {
+      setLocationAnalysisDrillLevel('state');
+    } else if (locationAnalysisDrillLevel === 'state') {
+      setLocationAnalysisDrillLevel('city');
+    }
   };
 
-  const handleRelevanceDrillDown = () => {
-    if (relevanceDrillLevel === 'country') setRelevanceDrillLevel('state');
-    else if (relevanceDrillLevel === 'state') setRelevanceDrillLevel('city');
-  };
-
-  const handleReviewDrillDown = () => {
-    if (reviewDrillLevel === 'country') setReviewDrillLevel('state');
-    else if (reviewDrillLevel === 'state') setReviewDrillLevel('city');
+  const handleLocationAnalysisRollUp = () => {
+    if (locationAnalysisDrillLevel === 'city') {
+      setLocationAnalysisDrillLevel('state');
+    } else if (locationAnalysisDrillLevel === 'state') {
+      setLocationAnalysisDrillLevel('country');
+    }
   };
 
   // Venn Diagram Component
@@ -503,12 +538,12 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
             {/* Customer Journey Funnel */}
             <div className="mb-4">
               <h5 className="text-sm font-medium text-slate-700 mb-2">Customer Journey</h5>
-              <div className="bg-slate-50 p-3 rounded-lg">
+              <div className="bg-slate-50 p-3 rounded-lg overflow-x-auto">
                 <SankeyDiagram 
                   nodes={getCustomerJourneyNodes('locationA')} 
                   flows={getCustomerJourneyFlows('locationA')} 
-                  width={350} 
-                  height={250} 
+                  width={680} 
+                  height={280} 
                 />
               </div>
             </div>
@@ -585,12 +620,12 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
             {/* Customer Journey Funnel */}
             <div className="mb-4">
               <h5 className="text-sm font-medium text-slate-700 mb-2">Customer Journey</h5>
-              <div className="bg-slate-50 p-3 rounded-lg">
+              <div className="bg-slate-50 p-3 rounded-lg overflow-x-auto">
                 <SankeyDiagram 
                   nodes={getCustomerJourneyNodes('locationB')} 
                   flows={getCustomerJourneyFlows('locationB')} 
-                  width={350} 
-                  height={250} 
+                  width={680} 
+                  height={280} 
                 />
               </div>
             </div>
@@ -908,23 +943,34 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
         </div>
       </div>
 
-      {/* Location Analysis - New Section */}
+      {/* Location Analysis - New Section with Synchronized Drill-down */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">Location Analysis</h3>
-          <button
-            onClick={() => exportCSV('location-analysis')}
-            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-          >
-            <Download className="h-4 w-4" />
-            <span>Export CSV</span>
-          </button>
+          <div className="flex items-center space-x-3">
+            {locationAnalysisDrillLevel !== 'country' && (
+              <button
+                onClick={handleLocationAnalysisRollUp}
+                className="flex items-center space-x-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors text-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+                <span>Roll Up</span>
+              </button>
+            )}
+            <button
+              onClick={() => exportCSV('location-analysis')}
+              className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            >
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
         </div>
 
-        {/* Performance by Location */}
+        {/* Views by Location */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-md font-medium text-slate-700">Performance by Location</h4>
+            <h4 className="text-md font-medium text-slate-700">Views by Location</h4>
           </div>
           
           <div className="text-center">
@@ -932,10 +978,10 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
             <div className="inline-block">
               <div 
                 className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
-                onDoubleClick={handlePerformanceDrillDown}
+                onDoubleClick={handleLocationAnalysisDrillDown}
               >
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {getPerformanceData(performanceDrillLevel).map((item, index) => (
+                  {getViewsData(locationAnalysisDrillLevel).map((item, index) => (
                     <div key={index} className="p-3 bg-blue-50 rounded-lg text-center">
                       <p className="text-sm font-medium text-blue-700">{item.label}</p>
                       <p className="text-lg font-bold text-blue-900">{item.value.toLocaleString()}</p>
@@ -944,16 +990,8 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
                 </div>
               </div>
               <p className="text-lg font-semibold text-slate-900 mt-4">
-                Performance by {performanceDrillLevel.charAt(0).toUpperCase() + performanceDrillLevel.slice(1)}
+                Views by {locationAnalysisDrillLevel.charAt(0).toUpperCase() + locationAnalysisDrillLevel.slice(1)}
               </p>
-              {performanceDrillLevel !== 'country' && (
-                <button 
-                  onClick={() => setPerformanceDrillLevel('country')}
-                  className="mt-2 px-3 py-1 bg-slate-200 text-slate-700 rounded text-sm hover:bg-slate-300"
-                >
-                  Roll Up
-                </button>
-              )}
             </div>
           </div>
         </div>
@@ -969,10 +1007,10 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
             <div className="inline-block">
               <div 
                 className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
-                onDoubleClick={handleRelevanceDrillDown}
+                onDoubleClick={handleLocationAnalysisDrillDown}
               >
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {getRelevanceData(relevanceDrillLevel).map((item, index) => (
+                  {getRelevanceData(locationAnalysisDrillLevel).map((item, index) => (
                     <div key={index} className="p-3 bg-green-50 rounded-lg text-center">
                       <p className="text-sm font-medium text-green-700">{item.label}</p>
                       <p className="text-lg font-bold text-green-900">{item.value}</p>
@@ -981,16 +1019,8 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
                 </div>
               </div>
               <p className="text-lg font-semibold text-slate-900 mt-4">
-                Relevance Score by {relevanceDrillLevel.charAt(0).toUpperCase() + relevanceDrillLevel.slice(1)}
+                Relevance Score by {locationAnalysisDrillLevel.charAt(0).toUpperCase() + locationAnalysisDrillLevel.slice(1)}
               </p>
-              {relevanceDrillLevel !== 'country' && (
-                <button 
-                  onClick={() => setRelevanceDrillLevel('country')}
-                  className="mt-2 px-3 py-1 bg-slate-200 text-slate-700 rounded text-sm hover:bg-slate-300"
-                >
-                  Roll Up
-                </button>
-              )}
             </div>
           </div>
         </div>
@@ -1006,10 +1036,10 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
             <div className="inline-block">
               <div 
                 className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
-                onDoubleClick={handleReviewDrillDown}
+                onDoubleClick={handleLocationAnalysisDrillDown}
               >
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {getReviewData(reviewDrillLevel).map((item, index) => (
+                  {getReviewData(locationAnalysisDrillLevel).map((item, index) => (
                     <div key={index} className="p-3 bg-purple-50 rounded-lg text-center">
                       <p className="text-sm font-medium text-purple-700">{item.label}</p>
                       <p className="text-lg font-bold text-purple-900">{item.value}</p>
@@ -1018,16 +1048,8 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
                 </div>
               </div>
               <p className="text-lg font-semibold text-slate-900 mt-4">
-                Review Score by {reviewDrillLevel.charAt(0).toUpperCase() + reviewDrillLevel.slice(1)}
+                Review Score by {locationAnalysisDrillLevel.charAt(0).toUpperCase() + locationAnalysisDrillLevel.slice(1)}
               </p>
-              {reviewDrillLevel !== 'country' && (
-                <button 
-                  onClick={() => setReviewDrillLevel('country')}
-                  className="mt-2 px-3 py-1 bg-slate-200 text-slate-700 rounded text-sm hover:bg-slate-300"
-                >
-                  Roll Up
-                </button>
-              )}
             </div>
           </div>
         </div>
