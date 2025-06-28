@@ -273,19 +273,23 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Local SEO Funnel */}
-          <div>
+          <div className="flex flex-col items-center">
             <h4 className="text-md font-medium text-slate-700 mb-4">Local SEO Funnel</h4>
-            <FunnelChart data={localSEOFunnelData} />
+            <div className="flex justify-center">
+              <FunnelChart data={localSEOFunnelData} />
+            </div>
           </div>
           
           {/* Core SEO Funnel */}
-          <div>
+          <div className="flex flex-col items-center">
             <h4 className="text-md font-medium text-slate-700 mb-4">Core SEO Funnel</h4>
-            <FunnelChart data={coreSEOFunnelData} />
+            <div className="flex justify-center">
+              <FunnelChart data={coreSEOFunnelData} />
+            </div>
           </div>
           
           {/* Attribution Comparison */}
-          <div>
+          <div className="flex flex-col items-center">
             <h4 className="text-md font-medium text-slate-700 mb-4">Local SEO Attribution to Core SEO</h4>
             <div className="space-y-4">
               <div className="p-4 bg-blue-50 rounded-lg">

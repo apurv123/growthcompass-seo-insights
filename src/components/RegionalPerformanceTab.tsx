@@ -408,6 +408,16 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
     }
   };
 
+  // Get dynamic title based on drill level
+  const getDynamicTitle = (baseTitle: string) => {
+    const levelMap = {
+      country: 'Country',
+      state: 'State', 
+      city: 'City'
+    };
+    return `${baseTitle} by ${levelMap[locationAnalysisDrillLevel as keyof typeof levelMap]}`;
+  };
+
   // Venn Diagram Component
   const VennDiagram: React.FC = () => {
     return (
@@ -970,10 +980,10 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
         {/* Views by Location */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-md font-medium text-slate-700">Views by Location</h4>
+            <h4 className="text-md font-medium text-slate-700">{getDynamicTitle('Views')}</h4>
           </div>
           
-          <div className="text-center">
+          <div className="text-left">
             <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
             <div className="inline-block">
               <div 
@@ -989,9 +999,6 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
                   ))}
                 </div>
               </div>
-              <p className="text-lg font-semibold text-slate-900 mt-4">
-                Views by {locationAnalysisDrillLevel.charAt(0).toUpperCase() + locationAnalysisDrillLevel.slice(1)}
-              </p>
             </div>
           </div>
         </div>
@@ -999,10 +1006,10 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
         {/* Query Relevance Score */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-md font-medium text-slate-700">Query Relevance Score</h4>
+            <h4 className="text-md font-medium text-slate-700">{getDynamicTitle('Query Relevance Score')}</h4>
           </div>
           
-          <div className="text-center">
+          <div className="text-left">
             <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
             <div className="inline-block">
               <div 
@@ -1018,9 +1025,6 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
                   ))}
                 </div>
               </div>
-              <p className="text-lg font-semibold text-slate-900 mt-4">
-                Relevance Score by {locationAnalysisDrillLevel.charAt(0).toUpperCase() + locationAnalysisDrillLevel.slice(1)}
-              </p>
             </div>
           </div>
         </div>
@@ -1028,10 +1032,10 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
         {/* Customer Review Score */}
         <div>
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-md font-medium text-slate-700">Customer Review Score</h4>
+            <h4 className="text-md font-medium text-slate-700">{getDynamicTitle('Customer Review Score')}</h4>
           </div>
           
-          <div className="text-center">
+          <div className="text-left">
             <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
             <div className="inline-block">
               <div 
@@ -1047,9 +1051,6 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
                   ))}
                 </div>
               </div>
-              <p className="text-lg font-semibold text-slate-900 mt-4">
-                Review Score by {locationAnalysisDrillLevel.charAt(0).toUpperCase() + locationAnalysisDrillLevel.slice(1)}
-              </p>
             </div>
           </div>
         </div>
