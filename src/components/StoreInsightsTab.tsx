@@ -46,18 +46,18 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
     { store: "Specialized#Nob Hill", review: 4.5, reviewCount: 1320, citationAccuracy: 91, brandMentions: 280, isCurrentStore: false }
   ];
 
-  // Top 10 Keywords Data
+  // Top 10 Keywords Data - Updated to bike-related keywords
   const keywordsData = [
-    { keyword: 'pizza near downtown', position: 2, views: 8500, change: 1 },
-    { keyword: 'best pizza downtown', position: 1, views: 7200, change: 0 },
-    { keyword: 'downtown italian food', position: 4, views: 5800, change: -1 },
-    { keyword: 'pizza delivery downtown', position: 3, views: 4900, change: 2 },
-    { keyword: 'authentic pizza downtown', position: 5, views: 3600, change: 1 },
-    { keyword: 'wood fired pizza', position: 6, views: 3200, change: 0 },
-    { keyword: 'italian restaurant downtown', position: 7, views: 2800, change: -2 },
-    { keyword: 'pizza place downtown', position: 8, views: 2400, change: 1 },
-    { keyword: 'family restaurant downtown', position: 9, views: 2100, change: 0 },
-    { keyword: 'lunch downtown', position: 11, views: 1900, change: -1 }
+    { keyword: 'bike shop near me', position: 2, views: 8500, change: 1 },
+    { keyword: 'best bike shop downtown', position: 1, views: 7200, change: 0 },
+    { keyword: 'bicycle repair downtown', position: 4, views: 5800, change: -1 },
+    { keyword: 'bike delivery service', position: 3, views: 4900, change: 2 },
+    { keyword: 'mountain bikes downtown', position: 5, views: 3600, change: 1 },
+    { keyword: 'demo bikes available', position: 6, views: 3200, change: 0 },
+    { keyword: 'electric bike shop', position: 7, views: 2800, change: -2 },
+    { keyword: 'bike tune up service', position: 8, views: 2400, change: 1 },
+    { keyword: 'road bikes for sale', position: 9, views: 2100, change: 0 },
+    { keyword: 'bike accessories store', position: 11, views: 1900, change: -1 }
   ];
 
   // Helper function to get min/max values for styling
@@ -123,8 +123,8 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
     brandMentions: getMinMaxValues(prominenceData, 'brandMentions')
   };
 
-  // Stacked Column Chart Component for Local Context
-  const StackedColumnChart: React.FC<{ 
+  // Horizontal Bar Chart Component for Local Context and Customer Actions
+  const HorizontalBarChart: React.FC<{ 
     data: Array<{label: string, value: number, color: string}>, 
     title: string,
     height?: number 
@@ -132,23 +132,22 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
     const maxValue = Math.max(...data.map(d => d.value));
     const chartWidth = 400;
     const chartHeight = height - 80;
-    const barWidth = 40;
-    const barSpacing = (chartWidth - barWidth * data.length) / (data.length + 1);
+    const barHeight = 25;
+    const barSpacing = (chartHeight - barHeight * data.length) / (data.length + 1);
 
     return (
       <div className="w-full">
         <h4 className="text-md font-medium text-slate-700 mb-4">{title}</h4>
         <div className="flex justify-center">
-          <svg width={chartWidth} height={height}>
+          <svg width={chartWidth + 100} height={height}>
             {data.map((item, index) => {
-              const barHeight = (item.value / maxValue) * chartHeight;
-              const x = barSpacing + index * (barWidth + barSpacing);
-              const y = 40 + chartHeight - barHeight;
+              const barWidth = (item.value / maxValue) * chartWidth;
+              const y = 40 + barSpacing + index * (barHeight + barSpacing);
 
               return (
                 <g key={index}>
                   <rect
-                    x={x}
+                    x={120}
                     y={y}
                     width={barWidth}
                     height={barHeight}
@@ -156,19 +155,19 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
                     className="hover:opacity-80 transition-opacity"
                   />
                   <text
-                    x={x + barWidth / 2}
-                    y={40 + chartHeight + 20}
-                    textAnchor="middle"
-                    className="text-xs fill-slate-700"
-                    transform={`rotate(-45, ${x + barWidth / 2}, ${40 + chartHeight + 20})`}
+                    x={110}
+                    y={y + barHeight / 2}
+                    textAnchor="end"
+                    className="text-sm fill-slate-700"
+                    dominantBaseline="middle"
                   >
                     {item.label}
                   </text>
                   <text
-                    x={x + barWidth / 2}
-                    y={y - 5}
-                    textAnchor="middle"
+                    x={130 + barWidth}
+                    y={y + barHeight / 2}
                     className="text-sm font-medium fill-slate-900"
+                    dominantBaseline="middle"
                   >
                     {item.value}%
                   </text>
@@ -212,15 +211,15 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
     { label: 'Global', value: 10.9, color: '#374151' }
   ];
 
-  // Customer Actions Data for Column Charts
+  // Customer Actions Data for Bar Charts
   const clicksByTypeData = [
-    { label: 'Website', value: 45, color: '#3b82f6' },
+    { label: 'Website Visits', value: 45, color: '#3b82f6' },
     { label: 'Store Visits', value: 35, color: '#10b981' },
     { label: 'Phone Calls', value: 20, color: '#8b5cf6' }
   ];
 
   const engagementByDistanceData = [
-    { label: 'Online', value: 28, color: '#3b82f6' },
+    { label: 'Online visits', value: 28, color: '#3b82f6' },
     { label: '0-1 KM', value: 26, color: '#10b981' },
     { label: '1-5 KM', value: 27, color: '#f59e0b' },
     { label: '5-10 KM', value: 15, color: '#ef4444' },
@@ -358,7 +357,67 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
       </div>
 
-      {/* Local Context - Updated with Stacked Column Charts */}
+      {/* Customer Journey Funnel - Store - Moved here */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-slate-900">Customer Journey Funnel - Store</h3>
+          <button
+            onClick={() => exportCSV('store-customer-journey')}
+            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          >
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
+        
+        <div className="mb-4">
+          <p className="text-sm text-slate-600 mb-2">
+            Visualizing the complete customer journey from local searches to final outcomes for this specific store. 
+            Green nodes represent positive actions, red nodes represent drop-offs.
+          </p>
+        </div>
+        
+        <div className="overflow-x-auto">
+          <SankeyDiagram 
+            nodes={storeCustomerJourneyNodes} 
+            flows={storeCustomerJourneyFlows} 
+            width={1200} 
+            height={450} 
+          />
+        </div>
+        
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Store Conversion Highlights</h4>
+            <div className="space-y-1 text-sm text-green-600">
+              <div>• 65% chose our store over competitor stores</div>
+              <div>• 30% visited our website</div>
+              <div>• 20% visited our physical store</div>
+              <div>• 12% completed payment process</div>
+            </div>
+          </div>
+          <div className="p-4 bg-red-50 rounded-lg">
+            <h4 className="font-medium text-red-700 mb-2">Store Drop-off Points</h4>
+            <div className="space-y-1 text-sm text-red-600">
+              <div>• 35% chose competitor stores</div>
+              <div>• 8% dropped after website visit</div>
+              <div>• 7% abandoned cart</div>
+              <div>• 3% dropped after phone call</div>
+            </div>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">Store Optimization Opportunities</h4>
+            <div className="space-y-1 text-sm text-blue-600">
+              <div>• Improve store website conversion</div>
+              <div>• Enhance phone call follow-up</div>
+              <div>• Optimize in-store experience</div>
+              <div>• Reduce cart abandonment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Local Context - Updated with Horizontal Bar Charts */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">Local Context</h3>
@@ -372,15 +431,15 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <StackedColumnChart 
+          <HorizontalBarChart 
             data={ctrComparisonData} 
             title="CTR Comparison"
           />
-          <StackedColumnChart 
+          <HorizontalBarChart 
             data={conversionComparisonData} 
             title="Conversion Rate Comparison"
           />
-          <StackedColumnChart 
+          <HorizontalBarChart 
             data={addonUpsellData} 
             title="Addon Upsell Rate Comparison"
           />
@@ -587,67 +646,7 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
       </div>
 
-      {/* Customer Journey Funnel - Store */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Customer Journey Funnel - Store</h3>
-          <button
-            onClick={() => exportCSV('store-customer-journey')}
-            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-          >
-            <Download className="h-4 w-4" />
-            <span>Export CSV</span>
-          </button>
-        </div>
-        
-        <div className="mb-4">
-          <p className="text-sm text-slate-600 mb-2">
-            Visualizing the complete customer journey from local searches to final outcomes for this specific store. 
-            Green nodes represent positive actions, red nodes represent drop-offs.
-          </p>
-        </div>
-        
-        <div className="overflow-x-auto">
-          <SankeyDiagram 
-            nodes={storeCustomerJourneyNodes} 
-            flows={storeCustomerJourneyFlows} 
-            width={1200} 
-            height={450} 
-          />
-        </div>
-        
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 bg-green-50 rounded-lg">
-            <h4 className="font-medium text-green-700 mb-2">Store Conversion Highlights</h4>
-            <div className="space-y-1 text-sm text-green-600">
-              <div>• 65% chose our store over competitor stores</div>
-              <div>• 30% visited our website</div>
-              <div>• 20% visited our physical store</div>
-              <div>• 12% completed payment process</div>
-            </div>
-          </div>
-          <div className="p-4 bg-red-50 rounded-lg">
-            <h4 className="font-medium text-red-700 mb-2">Store Drop-off Points</h4>
-            <div className="space-y-1 text-sm text-red-600">
-              <div>• 35% chose competitor stores</div>
-              <div>• 8% dropped after website visit</div>
-              <div>• 7% abandoned cart</div>
-              <div>• 3% dropped after phone call</div>
-            </div>
-          </div>
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <h4 className="font-medium text-blue-700 mb-2">Store Optimization Opportunities</h4>
-            <div className="space-y-1 text-sm text-blue-600">
-              <div>• Improve store website conversion</div>
-              <div>• Enhance phone call follow-up</div>
-              <div>• Optimize in-store experience</div>
-              <div>• Reduce cart abandonment</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Customer Actions - Updated with Column Charts */}
+      {/* Customer Actions - Updated with Horizontal Bar Charts */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">Customer Actions</h3>
@@ -661,11 +660,11 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <StackedColumnChart 
+          <HorizontalBarChart 
             data={clicksByTypeData} 
             title="Clicks by Type"
           />
-          <StackedColumnChart 
+          <HorizontalBarChart 
             data={engagementByDistanceData} 
             title="Engagement by Distance"
           />
