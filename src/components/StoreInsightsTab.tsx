@@ -123,58 +123,57 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
     brandMentions: getMinMaxValues(prominenceData, 'brandMentions')
   };
 
-  // Horizontal Bar Chart Component for Local Context and Customer Actions
+  // Enhanced Horizontal Bar Chart Component with better visibility
   const HorizontalBarChart: React.FC<{ 
     data: Array<{label: string, value: number, color: string}>, 
     title: string,
     height?: number 
-  }> = ({ data, title, height = 300 }) => {
+  }> = ({ data, title, height = 320 }) => {
     const maxValue = Math.max(...data.map(d => d.value));
-    const chartWidth = 400;
-    const chartHeight = height - 80;
-    const barHeight = 25;
-    const barSpacing = (chartHeight - barHeight * data.length) / (data.length + 1);
-
+    const minValue = Math.min(...data.map(d => d.value));
+    const valueRange = maxValue - minValue;
+    
+    // Use a minimum bar width percentage to ensure visibility
+    const minBarWidthPercent = 15;
+    const maxBarWidthPercent = 85;
+    
     return (
       <div className="w-full">
         <h4 className="text-md font-medium text-slate-700 mb-4">{title}</h4>
-        <div className="flex justify-center">
-          <svg width={chartWidth + 100} height={height}>
-            {data.map((item, index) => {
-              const barWidth = (item.value / maxValue) * chartWidth;
-              const y = 40 + barSpacing + index * (barHeight + barSpacing);
+        <div className="space-y-3">
+          {data.map((item, index) => {
+            // Calculate bar width with better scaling
+            let barWidthPercent;
+            if (valueRange === 0) {
+              barWidthPercent = maxBarWidthPercent;
+            } else {
+              const normalizedValue = (item.value - minValue) / valueRange;
+              barWidthPercent = minBarWidthPercent + (normalizedValue * (maxBarWidthPercent - minBarWidthPercent));
+            }
 
-              return (
-                <g key={index}>
-                  <rect
-                    x={120}
-                    y={y}
-                    width={barWidth}
-                    height={barHeight}
-                    fill={item.color}
-                    className="hover:opacity-80 transition-opacity"
-                  />
-                  <text
-                    x={110}
-                    y={y + barHeight / 2}
-                    textAnchor="end"
-                    className="text-sm fill-slate-700"
-                    dominantBaseline="middle"
-                  >
-                    {item.label}
-                  </text>
-                  <text
-                    x={130 + barWidth}
-                    y={y + barHeight / 2}
-                    className="text-sm font-medium fill-slate-900"
-                    dominantBaseline="middle"
-                  >
-                    {item.value}%
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
+            return (
+              <div key={index} className="flex items-center space-x-3">
+                <div className="w-32 text-right">
+                  <span className="text-sm text-slate-700 font-medium">{item.label}</span>
+                </div>
+                <div className="flex-1 relative">
+                  <div className="w-full bg-slate-200 rounded-full h-6 relative">
+                    <div
+                      className="h-6 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
+                      style={{ 
+                        width: `${barWidthPercent}%`,
+                        backgroundColor: item.color
+                      }}
+                    >
+                      <span className="text-white text-xs font-medium">
+                        {item.value}%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -417,7 +416,7 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
       </div>
 
-      {/* Local Context - Updated with Horizontal Bar Charts */}
+      {/* Local Context - Updated with Enhanced Horizontal Bar Charts */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">Local Context</h3>
@@ -646,7 +645,7 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
       </div>
 
-      {/* Customer Actions - Updated with Horizontal Bar Charts */}
+      {/* Customer Actions - Updated with Enhanced Horizontal Bar Charts */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">Customer Actions</h3>
