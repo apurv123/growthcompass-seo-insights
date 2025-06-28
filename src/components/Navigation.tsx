@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MapPin, BarChart3, TrendingUp, LogOut } from 'lucide-react';
+import { MapPin, BarChart3, TrendingUp, LogOut, Home } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
@@ -29,6 +29,16 @@ const Navigation = () => {
           </div>
 
           <div className="flex items-center space-x-6">
+            {/* Home Button - Only on dashboard pages */}
+            <Link
+              to="/dashboard"
+              className="flex items-center space-x-2 px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300"
+            >
+              <Home className="h-4 w-4" />
+              <span>Home</span>
+            </Link>
+
+            {/* Dashboard Navigation Buttons */}
             {navItems.map(({ path, label, icon: Icon }) => {
               const isActive = location.pathname === path;
               return (
@@ -43,6 +53,8 @@ const Navigation = () => {
                 </Link>
               );
             })}
+
+            {/* Logout Button */}
             <Link
               to="/"
               className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
