@@ -2,6 +2,7 @@ import React from 'react';
 import { Download, ChevronRight } from 'lucide-react';
 import FunnelChart from './FunnelChart';
 import PieChart from './PieChart';
+import BarChart from './BarChart';
 import SankeyDiagram from './SankeyDiagram';
 
 interface StrategicImpactTabProps {
@@ -129,10 +130,25 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
     { location: 'Beverly Hills Store', contribution: 2.5, conversionRate: 7.8, ctr: 5.8 }
   ];
 
-  const clickConversionData = [
-    { label: 'Phone Calls', value: 45, percentage: 45, color: '#8b5cf6' },
-    { label: 'Store Visits', value: 35, percentage: 35, color: '#10b981' },
-    { label: 'Online Orders', value: 20, percentage: 20, color: '#3b82f6' }
+  // Conversion Insights Data
+  const conversionByClickTypeData = [
+    { label: 'Phone Calls', value: 5, percentage: 5, color: '#8b5cf6' },
+    { label: 'Store Visits', value: 55, percentage: 55, color: '#10b981' },
+    { label: 'Online Orders', value: 40, percentage: 40, color: '#3b82f6' }
+  ];
+
+  const conversionByCategoryData = [
+    { label: 'Bikes', value: 45, percentage: 45, color: '#3b82f6' },
+    { label: 'Components', value: 25, percentage: 25, color: '#10b981' },
+    { label: 'Accessories', value: 15, percentage: 15, color: '#f59e0b' },
+    { label: 'Apparel', value: 10, percentage: 10, color: '#ef4444' },
+    { label: 'Services', value: 5, percentage: 5, color: '#8b5cf6' }
+  ];
+
+  const repeatConversionData = [
+    { label: '6 months', value: 85, color: '#10b981' },
+    { label: '12 months', value: 65, color: '#f59e0b' },
+    { label: '18 months', value: 45, color: '#ef4444' }
   ];
 
   // Competitive Analysis Data
@@ -353,10 +369,10 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         </div>
       </div>
 
-      {/* Click-to-Conversion Correlation */}
+      {/* Conversion Insights */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Click-to-Conversion Correlation</h3>
+          <h3 className="text-lg font-semibold text-slate-900">Conversion Insights</h3>
           <div className="flex items-center space-x-4">
             <label className="flex items-center space-x-2">
               <input
@@ -368,7 +384,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
               <span className="text-sm text-slate-700">Local SEO Contribution</span>
             </label>
             <button
-              onClick={() => exportCSV('click-conversion')}
+              onClick={() => exportCSV('conversion-insights')}
               className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
             >
               <Download className="h-4 w-4" />
@@ -377,14 +393,53 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
           </div>
         </div>
         
-        <div className="flex justify-center">
-          <PieChart data={clickConversionData} size={300} />
-        </div>
-        {localSEOContribution && (
-          <div className="text-center text-sm text-blue-600 mt-4">
-            Local SEO contributes 33% to these conversions
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Conversion by Click Type */}
+          <div>
+            <div className="mb-4">
+              <h4 className="text-md font-medium text-slate-700">Conversion by Click Type</h4>
+              <p className="text-sm text-slate-500">% split for sales by type of click</p>
+            </div>
+            <div className="flex justify-center">
+              <PieChart data={conversionByClickTypeData} size={200} showLegend={true} />
+            </div>
+            {localSEOContribution && (
+              <div className="text-center text-sm text-blue-600 mt-4">
+                Local SEO contributes 33% to these conversions
+              </div>
+            )}
           </div>
-        )}
+          
+          {/* Conversion by Category */}
+          <div>
+            <div className="mb-4">
+              <h4 className="text-md font-medium text-slate-700">Conversion by Category</h4>
+              <p className="text-sm text-slate-500">% split of sales by product category</p>
+            </div>
+            <div className="flex justify-center">
+              <PieChart data={conversionByCategoryData} size={200} showLegend={true} />
+            </div>
+            {localSEOContribution && (
+              <div className="text-center text-sm text-blue-600 mt-4">
+                Local SEO contributes 33% to these conversions
+              </div>
+            )}
+          </div>
+          
+          {/* Repeat Conversion */}
+          <div>
+            <div className="mb-4">
+              <h4 className="text-md font-medium text-slate-700">Repeat Conversion</h4>
+              <p className="text-sm text-slate-500">% probability of customer buying again</p>
+            </div>
+            <BarChart data={repeatConversionData} height={200} showValues={true} />
+            {localSEOContribution && (
+              <div className="text-center text-sm text-blue-600 mt-4">
+                Local SEO customers show 15% higher repeat rates
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Revenue Impact */}
@@ -486,7 +541,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         </div>
       </div>
 
-      {/* Insights */}
+      {/* Strategic Insights */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">Strategic Insights</h3>
