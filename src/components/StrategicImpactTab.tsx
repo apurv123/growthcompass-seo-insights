@@ -345,9 +345,9 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
             title="Local SEO Attribution"
             subtitle=" "
             data={[
-              { label: 'Views', value: 27.7%, percentage: 27.7 },
-              { label: 'Clicks', value: 29.4%, percentage: 29.4 },
-              { label: 'Conversions', value: 38.5%, percentage: 38.5 }
+              { label: 'Views', value: 27.7, percentage: 27.7 },
+              { label: 'Clicks', value: 29.4, percentage: 29.4 },
+              { label: 'Conversions', value: 38.5, percentage: 38.5 }
             ]}
             color="#8b5cf6"
           />
