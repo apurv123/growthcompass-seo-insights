@@ -191,9 +191,10 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
   ];
 
   // Custom Stacked Bar Chart Component
-  const StackedBarChart: React.FC<{ data: Array<{label: string, value: number, color: string}>, height?: number }> = ({ 
+  const StackedBarChart: React.FC<{ data: Array<{label: string, value: number, color: string}>, height?: number, showDollar?: boolean }> = ({ 
     data, 
-    height = 200 
+    height = 200,
+    showDollar = false
   }) => {
     const maxValue = Math.max(...data.map(d => d.value));
     const chartWidth = 280;
@@ -233,7 +234,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
                   textAnchor="middle"
                   className="text-sm font-medium fill-slate-900"
                 >
-                  {item.value}%
+                  {showDollar ? `$${item.value}` : `${item.value}%`}
                 </text>
               </g>
             );
@@ -619,7 +620,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
               <p className="text-sm text-slate-500">Difference in online vs in-store purchases</p>
             </div>
             <div className="flex justify-center flex-1">
-              <StackedBarChart data={averageOrderValueData} height={200} />
+              <StackedBarChart data={averageOrderValueData} height={200} showDollar={true} />
             </div>
             {localSEOContribution && (
               <div className="text-center text-sm text-blue-600 mt-4">
