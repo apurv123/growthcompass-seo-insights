@@ -263,19 +263,21 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
               </div>
               <div className="w-full bg-slate-200 rounded-full h-6">
                 <div
-                  className="h-6 rounded-full transition-all duration-500 flex items-center justify-end pr-3"
+                  className="h-6 rounded-full transition-all duration-500"
                   style={{ 
                     width: `${item.percentage}%`,
                     backgroundColor: color
                   }}
                 >
-                  <span className="text-white text-sm font-medium">
-                    {item.value.toLocaleString()}
-                  </span>
                 </div>
               </div>
+              <div className="text-left">
+                <span className="text-sm font-medium text-slate-900">
+                  {item.value.toLocaleString()}
+                </span>
+              </div>
               {index < data.length - 1 && (
-                <div className="text-xs text-slate-500 text-center">
+                <div className="text-xs text-slate-500 text-left">
                   {subtitle}
                 </div>
               )}
@@ -343,9 +345,9 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
             title="Local SEO Attribution"
             subtitle="Local SEO contribution to total"
             data={[
-              { label: 'Views', value: 0, percentage: 27.7 },
-              { label: 'Clicks', value: 0, percentage: 41.7 },
-              { label: 'Conversions', value: 0, percentage: 62.5 }
+              { label: 'Views', value: 27.7, percentage: 27.7 },
+              { label: 'Clicks', value: 29.4, percentage: 29.4 },
+              { label: 'Conversions', value: 38.5, percentage: 38.5 }
             ]}
             color="#8b5cf6"
           />

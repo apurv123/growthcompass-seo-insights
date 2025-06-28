@@ -1,39 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, BarChart3, TrendingUp, Users, Zap, Shield, Target } from 'lucide-react';
+import { ArrowRight, Users, Zap, Shield, Target, Building2, TrendingUp, Award, CheckCircle } from 'lucide-react';
 
 const HomePage = () => {
-  const dashboards = [
-    {
-      title: 'Local SEO',
-      subtitle: 'Store-Level Analytics',
-      description: 'Monitor individual store performance with syndication status, keyword rankings, and local search metrics.',
-      icon: MapPin,
-      path: '/local-seo',
-      gradient: 'from-emerald-500 to-teal-600',
-      features: ['Store-level insights', 'Listing syndication', 'Local keyword tracking']
-    },
-    {
-      title: 'Local SEO++',
-      subtitle: 'Advanced Multi-Location',
-      description: 'Strategic insights across locations with attribution funnels, regional performance, and store optimization recommendations.',
-      icon: TrendingUp,
-      path: '/local-seo-plus',
-      gradient: 'from-purple-500 to-pink-600',
-      features: ['Strategic impact analysis', 'Regional benchmarking', 'Store optimization insights'],
-      badge: 'Enhanced'
-    },
-    {
-      title: 'Core SEO',
-      subtitle: 'Essential Analytics',
-      description: 'Track top level metrics, keyword rankings, website traffic, conversions, and brand authority—all in one place.',
-      icon: BarChart3,
-      path: '/core-seo',
-      gradient: 'from-blue-500 to-indigo-600',
-      features: ['Organic traffic analysis', 'Conversion tracking', 'Performance monitoring']
-    }
-  ];
-
   const features = [
     {
       icon: TrendingUp,
@@ -57,8 +26,55 @@ const HomePage = () => {
     }
   ];
 
+  const fortune500Companies = [
+    { name: 'Microsoft', logo: '🏢' },
+    { name: 'Apple', logo: '🍎' },
+    { name: 'Amazon', logo: '📦' },
+    { name: 'Google', logo: '🔍' },
+    { name: 'Meta', logo: '📘' },
+    { name: 'Tesla', logo: '⚡' },
+    { name: 'Netflix', logo: '🎬' },
+    { name: 'Salesforce', logo: '☁️' }
+  ];
+
+  const successStories = [
+    {
+      company: 'RetailCorp',
+      result: '300% increase in local search visibility',
+      metric: '2.4M monthly searches',
+      icon: Building2
+    },
+    {
+      company: 'FoodChain Plus',
+      result: '85% improvement in conversion rates',
+      metric: '500+ locations optimized',
+      icon: TrendingUp
+    },
+    {
+      company: 'ServicePro',
+      result: '150% growth in organic traffic',
+      metric: '40% cost reduction',
+      icon: Award
+    }
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Header with Navigation Buttons */}
+      <div className="flex justify-end mb-8">
+        <div className="flex space-x-4">
+          <button className="px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300">
+            Request Demo
+          </button>
+          <Link
+            to="/dashboard"
+            className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
+          >
+            Login
+          </Link>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div className="text-center mb-16">
         <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-teal-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
@@ -77,18 +93,15 @@ const HomePage = () => {
           Growth Compass helps you navigate the path to growth with clarity, precision, and actionable insights.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            to="/local-seo-plus"
-            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-2"
-          >
-            <span>Explore Local SEO++</span>
+          <button className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-2">
+            <span>Request Demo</span>
             <ArrowRight className="h-5 w-5" />
-          </Link>
+          </button>
           <Link
-            to="/core-seo"
+            to="/dashboard"
             className="border-2 border-slate-300 text-slate-700 px-8 py-4 rounded-lg font-semibold hover:bg-slate-50 transition-all duration-300 hover:border-slate-400"
           >
-            View Core Dashboard
+            Login
           </Link>
         </div>
       </div>
@@ -109,60 +122,51 @@ const HomePage = () => {
         ))}
       </div>
 
-      {/* Dashboards Section */}
+      {/* Fortune 500 Social Proof */}
       <div className="mb-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-slate-900 mb-4">
-            🚀 Explore Your Dashboards
+            Trusted by Fortune 500 Companies
           </h2>
           <p className="text-slate-600 text-lg">
-            Choose the dashboard that best fits your current needs and growth stage
+            Join industry leaders who rely on Growth Compass for their SEO success
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {dashboards.map((dashboard, index) => (
-            <Link
+        {/* Company Logos */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-8 mb-12">
+          {fortune500Companies.map((company, index) => (
+            <div
               key={index}
-              to={dashboard.path}
-              className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 hover:border-slate-200 transform hover:-translate-y-2 relative"
+              className="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-slate-100"
             >
-              {dashboard.badge && (
-                <div className="absolute -top-3 -right-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                  {dashboard.badge}
-                </div>
-              )}
-              <div className="flex items-start space-x-4 mb-6">
-                <div className={`bg-gradient-to-r ${dashboard.gradient} w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                  <dashboard.icon className="h-7 w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center space-x-2 mb-1">
-                    <h3 className="text-xl font-bold text-slate-900">{dashboard.title}</h3>
-                  </div>
-                  <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full mb-2 inline-block">
-                    {dashboard.subtitle}
-                  </span>
-                  <p className="text-slate-600 leading-relaxed mb-4">{dashboard.description}</p>
-                </div>
-              </div>
-              
-              <div className="space-y-2 mb-6">
-                {dashboard.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center space-x-2 text-sm text-slate-600">
-                    <div className="w-1.5 h-1.5 bg-slate-400 rounded-full"></div>
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
+              <div className="text-3xl mb-2">{company.logo}</div>
+              <span className="text-sm font-medium text-slate-700">{company.name}</span>
+            </div>
+          ))}
+        </div>
 
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-slate-500">
-                  Click to explore →
-                </span>
-                <ArrowRight className="h-5 w-5 text-slate-400 group-hover:text-slate-600 group-hover:translate-x-1 transition-all" />
+        {/* Success Stories */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {successStories.map((story, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-lg transition-shadow"
+            >
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="bg-gradient-to-r from-green-100 to-emerald-100 w-12 h-12 rounded-lg flex items-center justify-center">
+                  <story.icon className="h-6 w-6 text-green-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-900">{story.company}</h3>
+                  <p className="text-sm text-slate-600">{story.metric}</p>
+                </div>
               </div>
-            </Link>
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="h-5 w-5 text-green-600" />
+                <p className="text-sm font-medium text-slate-700">{story.result}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -174,15 +178,15 @@ const HomePage = () => {
           Join thousands of multi-location brands who trust Growth Compass to drive their SEO success.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            to="/local-seo-plus"
-            className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:-translate-y-1"
-          >
-            Start Your Free Trial
-          </Link>
-          <button className="border-2 border-white/30 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-all duration-300">
-            Schedule Demo
+          <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:-translate-y-1">
+            Request Demo
           </button>
+          <Link
+            to="/dashboard"
+            className="border-2 border-white/30 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-all duration-300"
+          >
+            Login
+          </Link>
         </div>
       </div>
     </div>
