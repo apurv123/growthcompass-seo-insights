@@ -50,6 +50,25 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
     { label: 'Online Orders', value: 20, percentage: 20, color: '#3b82f6' }
   ];
 
+  // Competitive Analysis Data
+  const shareOfVoiceData = [
+    { label: "Mike's Bikes", value: 35, percentage: 35, color: '#3b82f6' },
+    { label: 'Specialized', value: 25, percentage: 25, color: '#10b981' },
+    { label: 'Trek Bikes', value: 20, percentage: 20, color: '#f59e0b' },
+    { label: "Erik's Bike Shop", value: 10, percentage: 10, color: '#ef4444' },
+    { label: 'Jenson USA', value: 6, percentage: 6, color: '#8b5cf6' },
+    { label: 'Others', value: 4, percentage: 4, color: '#6b7280' }
+  ];
+
+  const shareOfSearchData = [
+    { label: "Mike's Bikes", value: 28, percentage: 28, color: '#3b82f6' },
+    { label: 'Specialized', value: 30, percentage: 30, color: '#10b981' },
+    { label: 'Trek Bikes', value: 22, percentage: 22, color: '#f59e0b' },
+    { label: "Erik's Bike Shop", value: 12, percentage: 12, color: '#ef4444' },
+    { label: 'Jenson USA', value: 5, percentage: 5, color: '#8b5cf6' },
+    { label: 'Others', value: 3, percentage: 3, color: '#6b7280' }
+  ];
+
   return (
     <div className="space-y-8">
       {/* SEO Attribution */}
@@ -267,10 +286,48 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         </div>
       </div>
 
+      {/* Competitive Analysis */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-slate-900">Competitive Analysis</h3>
+          <button
+            onClick={() => exportCSV('competitive-analysis')}
+            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          >
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Share of Voice */}
+          <div>
+            <div className="mb-4">
+              <h4 className="text-md font-medium text-slate-700">Share of Voice</h4>
+              <p className="text-sm text-slate-500">% share of ad/media presence</p>
+            </div>
+            <div className="flex justify-center">
+              <PieChart data={shareOfVoiceData} size={280} showLegend={true} />
+            </div>
+          </div>
+          
+          {/* Share of Search */}
+          <div>
+            <div className="mb-4">
+              <h4 className="text-md font-medium text-slate-700">Share of Search</h4>
+              <p className="text-sm text-slate-500">% share of search volume</p>
+            </div>
+            <div className="flex justify-center">
+              <PieChart data={shareOfSearchData} size={280} showLegend={true} />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Insights */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Insights</h3>
+          <h3 className="text-lg font-semibold text-slate-900">Strategic Insights</h3>
           <button
             onClick={() => exportCSV('insights')}
             className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
