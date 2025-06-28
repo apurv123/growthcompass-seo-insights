@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Store, Eye, MousePointer, ShoppingCart, Target, TrendingUp, Download, ArrowUpDown } from 'lucide-react';
+import { Store, Eye, MousePointer, ShoppingCart, Target, TrendingUp, Download, ArrowUpDown, Search } from 'lucide-react';
+import SankeyDiagram from './SankeyDiagram';
 
 interface StoreInsightsTabProps {
   selectedStore: string;
@@ -43,6 +44,20 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
     { store: "Erik's Bike Shop#Haight", review: 4.2, reviewCount: 850, citationAccuracy: 86, brandMentions: 190, isCurrentStore: false },
     { store: "Jenson USA#Richmond", review: 4.1, reviewCount: 720, citationAccuracy: 82, brandMentions: 150, isCurrentStore: false },
     { store: "Specialized#Nob Hill", review: 4.5, reviewCount: 1320, citationAccuracy: 91, brandMentions: 280, isCurrentStore: false }
+  ];
+
+  // Top 10 Keywords Data
+  const keywordsData = [
+    { keyword: 'pizza near downtown', position: 2, views: 8500, change: 1 },
+    { keyword: 'best pizza downtown', position: 1, views: 7200, change: 0 },
+    { keyword: 'downtown italian food', position: 4, views: 5800, change: -1 },
+    { keyword: 'pizza delivery downtown', position: 3, views: 4900, change: 2 },
+    { keyword: 'authentic pizza downtown', position: 5, views: 3600, change: 1 },
+    { keyword: 'wood fired pizza', position: 6, views: 3200, change: 0 },
+    { keyword: 'italian restaurant downtown', position: 7, views: 2800, change: -2 },
+    { keyword: 'pizza place downtown', position: 8, views: 2400, change: 1 },
+    { keyword: 'family restaurant downtown', position: 9, views: 2100, change: 0 },
+    { keyword: 'lunch downtown', position: 11, views: 1900, change: -1 }
   ];
 
   // Helper function to get min/max values for styling
@@ -108,8 +123,8 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
     brandMentions: getMinMaxValues(prominenceData, 'brandMentions')
   };
 
-  // Stacked Bar Chart Component for Local Context
-  const StackedBarChart: React.FC<{ 
+  // Stacked Column Chart Component for Local Context
+  const StackedColumnChart: React.FC<{ 
     data: Array<{label: string, value: number, color: string}>, 
     title: string,
     height?: number 
@@ -187,6 +202,101 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
     { label: 'Global', value: 3.0, color: '#374151' }
   ];
 
+  const addonUpsellData = [
+    { label: 'Store', value: 18.5, color: '#3b82f6' },
+    { label: 'ZIP (90210)', value: 16.2, color: '#10b981' },
+    { label: 'City (Beverly Hills)', value: 14.8, color: '#f59e0b' },
+    { label: 'MSA (Los Angeles)', value: 13.1, color: '#ef4444' },
+    { label: 'State (California)', value: 12.4, color: '#8b5cf6' },
+    { label: 'Country (US)', value: 11.8, color: '#6b7280' },
+    { label: 'Global', value: 10.9, color: '#374151' }
+  ];
+
+  // Customer Actions Data for Column Charts
+  const clicksByTypeData = [
+    { label: 'Website', value: 45, color: '#3b82f6' },
+    { label: 'Store Visits', value: 35, color: '#10b981' },
+    { label: 'Phone Calls', value: 20, color: '#8b5cf6' }
+  ];
+
+  const engagementByDistanceData = [
+    { label: 'Online', value: 28, color: '#3b82f6' },
+    { label: '0-1 KM', value: 26, color: '#10b981' },
+    { label: '1-5 KM', value: 27, color: '#f59e0b' },
+    { label: '5-10 KM', value: 15, color: '#ef4444' },
+    { label: '>10 KM', value: 4, color: '#8b5cf6' }
+  ];
+
+  // Store-level Customer Journey Data
+  const storeCustomerJourneyNodes = [
+    // Starting point
+    { id: 'local-searches', label: 'Local Searches', value: 100, percentage: 100, color: '#10b981', x: 50, y: 250, width: 120, height: 50 },
+    
+    // First decision point
+    { id: 'chose-store', label: 'Chose our store', value: 65, percentage: 65, color: '#10b981', x: 220, y: 200, width: 120, height: 50 },
+    { id: 'chose-competitor', label: 'Chose competitor store', value: 35, percentage: 35, color: '#ef4444', x: 220, y: 300, width: 120, height: 50 },
+    
+    // Second level actions
+    { id: 'navigated', label: 'Got directions', value: 20, percentage: 20, color: '#10b981', x: 390, y: 120, width: 100, height: 40 },
+    { id: 'opened-site', label: 'Visited website', value: 30, percentage: 30, color: '#10b981', x: 390, y: 180, width: 100, height: 40 },
+    { id: 'in-store-visit', label: 'Visited store', value: 20, percentage: 20, color: '#10b981', x: 390, y: 240, width: 100, height: 40 },
+    { id: 'called', label: 'Called store', value: 8, percentage: 8, color: '#10b981', x: 390, y: 300, width: 100, height: 40 },
+    { id: 'dropped-1', label: 'Dropped', value: 7, percentage: 7, color: '#ef4444', x: 390, y: 360, width: 100, height: 40 },
+    
+    // Third level - from website visit
+    { id: 'added-cart', label: 'Added to cart', value: 22, percentage: 22, color: '#10b981', x: 540, y: 140, width: 100, height: 40 },
+    { id: 'dropped-2', label: 'Dropped', value: 8, percentage: 8, color: '#ef4444', x: 540, y: 200, width: 100, height: 40 },
+    
+    // From store call
+    { id: 'scheduled-visit', label: 'Scheduled visit', value: 5, percentage: 5, color: '#10b981', x: 540, y: 280, width: 100, height: 40 },
+    { id: 'dropped-3', label: 'Dropped', value: 3, percentage: 3, color: '#ef4444', x: 540, y: 340, width: 100, height: 40 },
+    
+    // Fourth level - from cart
+    { id: 'checkout', label: 'Checkout', value: 15, percentage: 15, color: '#10b981', x: 690, y: 100, width: 100, height: 40 },
+    { id: 'dropped-4', label: 'Dropped', value: 7, percentage: 7, color: '#ef4444', x: 690, y: 160, width: 100, height: 40 },
+    
+    // Fifth level - from checkout
+    { id: 'payment', label: 'Payment', value: 12, percentage: 12, color: '#10b981', x: 840, y: 80, width: 100, height: 40 },
+    { id: 'dropped-5', label: 'Dropped', value: 3, percentage: 3, color: '#ef4444', x: 840, y: 140, width: 100, height: 40 },
+    
+    // Final outcomes
+    { id: 'store-pickup', label: 'Store Pickup', value: 4, percentage: 4, color: '#10b981', x: 990, y: 60, width: 100, height: 40 },
+    { id: 'delivery', label: 'Delivery', value: 8, percentage: 8, color: '#10b981', x: 990, y: 120, width: 100, height: 40 }
+  ];
+
+  const storeCustomerJourneyFlows = [
+    // From local searches
+    { source: 'local-searches', target: 'chose-store', value: 65, percentage: 65, color: '#10b981' },
+    { source: 'local-searches', target: 'chose-competitor', value: 35, percentage: 35, color: '#ef4444' },
+    
+    // From chose store
+    { source: 'chose-store', target: 'navigated', value: 20, percentage: 20, color: '#10b981' },
+    { source: 'chose-store', target: 'opened-site', value: 30, percentage: 30, color: '#10b981' },
+    { source: 'chose-store', target: 'in-store-visit', value: 20, percentage: 20, color: '#10b981' },
+    { source: 'chose-store', target: 'called', value: 8, percentage: 8, color: '#10b981' },
+    { source: 'chose-store', target: 'dropped-1', value: 7, percentage: 7, color: '#ef4444' },
+    
+    // From website visit
+    { source: 'opened-site', target: 'added-cart', value: 22, percentage: 22, color: '#10b981' },
+    { source: 'opened-site', target: 'dropped-2', value: 8, percentage: 8, color: '#ef4444' },
+    
+    // From called
+    { source: 'called', target: 'scheduled-visit', value: 5, percentage: 5, color: '#10b981' },
+    { source: 'called', target: 'dropped-3', value: 3, percentage: 3, color: '#ef4444' },
+    
+    // From added to cart
+    { source: 'added-cart', target: 'checkout', value: 15, percentage: 15, color: '#10b981' },
+    { source: 'added-cart', target: 'dropped-4', value: 7, percentage: 7, color: '#ef4444' },
+    
+    // From checkout
+    { source: 'checkout', target: 'payment', value: 12, percentage: 12, color: '#10b981' },
+    { source: 'checkout', target: 'dropped-5', value: 3, percentage: 3, color: '#ef4444' },
+    
+    // Final outcomes
+    { source: 'payment', target: 'store-pickup', value: 4, percentage: 4, color: '#10b981' },
+    { source: 'payment', target: 'delivery', value: 8, percentage: 8, color: '#10b981' }
+  ];
+
   return (
     <div className="space-y-8">
       {/* Store Selection */}
@@ -248,7 +358,7 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
       </div>
 
-      {/* Local Context - Updated with Stacked Bar Charts */}
+      {/* Local Context - Updated with Stacked Column Charts */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">Local Context</h3>
@@ -261,14 +371,18 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
           </button>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <StackedBarChart 
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <StackedColumnChart 
             data={ctrComparisonData} 
             title="CTR Comparison"
           />
-          <StackedBarChart 
+          <StackedColumnChart 
             data={conversionComparisonData} 
             title="Conversion Rate Comparison"
+          />
+          <StackedColumnChart 
+            data={addonUpsellData} 
+            title="Addon Upsell Rate Comparison"
           />
         </div>
       </div>
@@ -473,7 +587,67 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
       </div>
 
-      {/* Customer Actions */}
+      {/* Customer Journey Funnel - Store */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-slate-900">Customer Journey Funnel - Store</h3>
+          <button
+            onClick={() => exportCSV('store-customer-journey')}
+            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          >
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
+        
+        <div className="mb-4">
+          <p className="text-sm text-slate-600 mb-2">
+            Visualizing the complete customer journey from local searches to final outcomes for this specific store. 
+            Green nodes represent positive actions, red nodes represent drop-offs.
+          </p>
+        </div>
+        
+        <div className="overflow-x-auto">
+          <SankeyDiagram 
+            nodes={storeCustomerJourneyNodes} 
+            flows={storeCustomerJourneyFlows} 
+            width={1200} 
+            height={450} 
+          />
+        </div>
+        
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Store Conversion Highlights</h4>
+            <div className="space-y-1 text-sm text-green-600">
+              <div>• 65% chose our store over competitor stores</div>
+              <div>• 30% visited our website</div>
+              <div>• 20% visited our physical store</div>
+              <div>• 12% completed payment process</div>
+            </div>
+          </div>
+          <div className="p-4 bg-red-50 rounded-lg">
+            <h4 className="font-medium text-red-700 mb-2">Store Drop-off Points</h4>
+            <div className="space-y-1 text-sm text-red-600">
+              <div>• 35% chose competitor stores</div>
+              <div>• 8% dropped after website visit</div>
+              <div>• 7% abandoned cart</div>
+              <div>• 3% dropped after phone call</div>
+            </div>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">Store Optimization Opportunities</h4>
+            <div className="space-y-1 text-sm text-blue-600">
+              <div>• Improve store website conversion</div>
+              <div>• Enhance phone call follow-up</div>
+              <div>• Optimize in-store experience</div>
+              <div>• Reduce cart abandonment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Customer Actions - Updated with Column Charts */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-slate-900">Customer Actions</h3>
@@ -487,57 +661,14 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div>
-            <h4 className="text-md font-medium text-slate-700 mb-4">Clicks by Type</h4>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg">
-                <div>
-                  <p className="font-medium text-blue-900">Website Visits</p>
-                  <p className="text-sm text-blue-700">45% of total clicks</p>
-                </div>
-                <span className="text-lg font-bold text-blue-900">823</span>
-              </div>
-              <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg">
-                <div>
-                  <p className="font-medium text-green-900">Store Visits</p>
-                  <p className="text-sm text-green-700">35% of total clicks</p>
-                </div>
-                <span className="text-lg font-bold text-green-900">640</span>
-              </div>
-              <div className="flex justify-between items-center p-4 bg-purple-50 rounded-lg">
-                <div>
-                  <p className="font-medium text-purple-900">Phone Calls</p>
-                  <p className="text-sm text-purple-700">20% of total clicks</p>
-                </div>
-                <span className="text-lg font-bold text-purple-900">366</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-md font-medium text-slate-700 mb-4">Engagement by Distance</h4>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                <span className="text-sm text-slate-600">Online visits</span>
-                <span className="font-medium text-slate-900">4,250</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                <span className="text-sm text-slate-600">0-1 KM</span>
-                <span className="font-medium text-slate-900">3,890</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                <span className="text-sm text-slate-600">1-5 KM</span>
-                <span className="font-medium text-slate-900">4,120</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                <span className="text-sm text-slate-600">5-10 KM</span>
-                <span className="font-medium text-slate-900">2,340</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                <span className="text-sm text-slate-600">&gt;10 KM</span>
-                <span className="font-medium text-slate-900">647</span>
-              </div>
-            </div>
-          </div>
+          <StackedColumnChart 
+            data={clicksByTypeData} 
+            title="Clicks by Type"
+          />
+          <StackedColumnChart 
+            data={engagementByDistanceData} 
+            title="Engagement by Distance"
+          />
         </div>
       </div>
 
@@ -643,6 +774,71 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Top 10 Keywords */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <Search className="h-6 w-6 text-blue-600" />
+            <h3 className="text-lg font-semibold text-slate-900">Top 10 Keywords</h3>
+          </div>
+          <button
+            onClick={() => exportCSV('top-keywords')}
+            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          >
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
+        
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-slate-200">
+                <th className="text-left py-3 px-4 text-sm font-medium text-slate-600">Keyword</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-slate-600">Position</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-slate-600">Views</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-slate-600">Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              {keywordsData.map((keyword, index) => (
+                <tr key={index} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                  <td className="py-3 px-4">
+                    <span className="font-medium text-slate-900">{keyword.keyword}</span>
+                  </td>
+                  <td className="py-3 px-4 text-center">
+                    <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
+                      keyword.position <= 3 
+                        ? 'bg-green-100 text-green-800' 
+                        : keyword.position <= 10 
+                        ? 'bg-yellow-100 text-yellow-800' 
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {keyword.position}
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-center text-slate-900 font-medium">
+                    {keyword.views.toLocaleString()}
+                  </td>
+                  <td className="py-3 px-4 text-center">
+                    <div className={`flex items-center justify-center space-x-1 ${
+                      keyword.change > 0 ? 'text-green-600' : keyword.change < 0 ? 'text-red-600' : 'text-gray-400'
+                    }`}>
+                      {keyword.change > 0 && <span>↑</span>}
+                      {keyword.change < 0 && <span>↓</span>}
+                      {keyword.change === 0 && <span>—</span>}
+                      <span className="text-sm font-medium">
+                        {keyword.change > 0 ? `+${keyword.change}` : keyword.change === 0 ? '0' : keyword.change}
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
