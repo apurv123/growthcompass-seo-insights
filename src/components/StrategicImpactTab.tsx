@@ -145,6 +145,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
     { label: 'Services', value: 5, percentage: 5, color: '#8b5cf6' }
   ];
 
+  // Stacked bar chart data for repeat conversion
   const repeatConversionData = [
     { label: '6 months', value: 85, color: '#10b981' },
     { label: '12 months', value: 65, color: '#f59e0b' },
@@ -188,6 +189,59 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
     { label: 'Jenson USA', value: 5, percentage: 5, color: '#8b5cf6' },
     { label: 'Others', value: 3, percentage: 3, color: '#6b7280' }
   ];
+
+  // Custom Stacked Bar Chart Component
+  const StackedBarChart: React.FC<{ data: Array<{label: string, value: number, color: string}>, height?: number }> = ({ 
+    data, 
+    height = 200 
+  }) => {
+    const maxValue = Math.max(...data.map(d => d.value));
+    const chartWidth = 280;
+    const chartHeight = height - 80;
+    const barWidth = 60;
+    const barSpacing = (chartWidth - barWidth * data.length) / (data.length + 1);
+
+    return (
+      <div className="w-full flex justify-center">
+        <svg width={chartWidth} height={height}>
+          {data.map((item, index) => {
+            const barHeight = (item.value / maxValue) * chartHeight;
+            const x = barSpacing + index * (barWidth + barSpacing);
+            const y = 40 + chartHeight - barHeight;
+
+            return (
+              <g key={index}>
+                <rect
+                  x={x}
+                  y={y}
+                  width={barWidth}
+                  height={barHeight}
+                  fill={item.color}
+                  className="hover:opacity-80 transition-opacity"
+                />
+                <text
+                  x={x + barWidth / 2}
+                  y={40 + chartHeight + 20}
+                  textAnchor="middle"
+                  className="text-sm fill-slate-700"
+                >
+                  {item.label}
+                </text>
+                <text
+                  x={x + barWidth / 2}
+                  y={y - 5}
+                  textAnchor="middle"
+                  className="text-sm font-medium fill-slate-900"
+                >
+                  {item.value}%
+                </text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    );
+  };
 
   return (
     <div className="space-y-8">
@@ -445,14 +499,14 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
             )}
           </div>
           
-          {/* Repeat Conversion */}
+          {/* Repeat Conversion - Now Stacked Bar Chart */}
           <div className="flex flex-col">
             <div className="mb-4">
               <h4 className="text-md font-medium text-slate-700">Repeat Conversion</h4>
               <p className="text-sm text-slate-500">% probability of customer buying again</p>
             </div>
             <div className="flex justify-center flex-1">
-              <BarChart data={repeatConversionData} height={200} showValues={true} />
+              <StackedBarChart data={repeatConversionData} height={200} />
             </div>
             {localSEOContribution && (
               <div className="text-center text-sm text-blue-600 mt-4">
@@ -558,14 +612,14 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
             )}
           </div>
           
-          {/* Average Order Value */}
+          {/* Average Order Value - Now Bar Chart */}
           <div className="flex flex-col">
             <div className="mb-4">
               <h4 className="text-md font-medium text-slate-700">Average Order Value</h4>
               <p className="text-sm text-slate-500">Difference in online vs in-store purchases</p>
             </div>
             <div className="flex justify-center flex-1">
-              <BarChart data={averageOrderValueData} height={200} showValues={true} />
+              <StackedBarChart data={averageOrderValueData} height={200} />
             </div>
             {localSEOContribution && (
               <div className="text-center text-sm text-blue-600 mt-4">
