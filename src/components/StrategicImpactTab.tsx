@@ -151,6 +151,25 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
     { label: '18 months', value: 45, color: '#ef4444' }
   ];
 
+  // Revenue Analysis Data
+  const revenueByCategoryData = [
+    { label: 'Bikes', value: 55, percentage: 55, color: '#3b82f6' },
+    { label: 'Components', value: 20, percentage: 20, color: '#10b981' },
+    { label: 'Accessories', value: 12, percentage: 12, color: '#f59e0b' },
+    { label: 'Apparel', value: 8, percentage: 8, color: '#ef4444' },
+    { label: 'Services', value: 5, percentage: 5, color: '#8b5cf6' }
+  ];
+
+  const revenueSaleVsNonSaleData = [
+    { label: 'Sale Items', value: 35, percentage: 35, color: '#ef4444' },
+    { label: 'Regular Price', value: 65, percentage: 65, color: '#10b981' }
+  ];
+
+  const averageOrderValueData = [
+    { label: 'Online', value: 249, color: '#3b82f6' },
+    { label: 'In-Store', value: 187, color: '#10b981' }
+  ];
+
   // Competitive Analysis Data
   const shareOfVoiceData = [
     { label: "Mike's Bikes", value: 35, percentage: 35, color: '#3b82f6' },
@@ -395,12 +414,12 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Conversion by Click Type */}
-          <div>
+          <div className="flex flex-col">
             <div className="mb-4">
               <h4 className="text-md font-medium text-slate-700">Conversion by Click Type</h4>
               <p className="text-sm text-slate-500">% split for sales by type of click</p>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center flex-1">
               <PieChart data={conversionByClickTypeData} size={200} showLegend={true} />
             </div>
             {localSEOContribution && (
@@ -411,12 +430,12 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
           </div>
           
           {/* Conversion by Category */}
-          <div>
+          <div className="flex flex-col">
             <div className="mb-4">
               <h4 className="text-md font-medium text-slate-700">Conversion by Category</h4>
               <p className="text-sm text-slate-500">% split of sales by product category</p>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center flex-1">
               <PieChart data={conversionByCategoryData} size={200} showLegend={true} />
             </div>
             {localSEOContribution && (
@@ -427,12 +446,14 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
           </div>
           
           {/* Repeat Conversion */}
-          <div>
+          <div className="flex flex-col">
             <div className="mb-4">
               <h4 className="text-md font-medium text-slate-700">Repeat Conversion</h4>
               <p className="text-sm text-slate-500">% probability of customer buying again</p>
             </div>
-            <BarChart data={repeatConversionData} height={200} showValues={true} />
+            <div className="flex justify-center flex-1">
+              <BarChart data={repeatConversionData} height={200} showValues={true} />
+            </div>
             {localSEOContribution && (
               <div className="text-center text-sm text-blue-600 mt-4">
                 Local SEO customers show 15% higher repeat rates
@@ -475,7 +496,8 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
           </div>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Revenue Tiles */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="p-6 bg-green-50 rounded-lg">
             <h4 className="font-medium text-green-700 mb-2">YTD Revenue</h4>
             <p className="text-2xl font-bold text-green-900">${currency === 'USD' ? '2.4M' : currency === 'EUR' ? '€2.2M' : '£1.9M'}</p>
@@ -498,6 +520,57 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
             <p className="text-sm text-purple-600">Based on recommendations</p>
             {localSEOContribution && (
               <p className="text-xs text-blue-600 mt-1">Local SEO: 35%</p>
+            )}
+          </div>
+        </div>
+
+        {/* Revenue Analysis Visuals */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Revenue by Category */}
+          <div className="flex flex-col">
+            <div className="mb-4">
+              <h4 className="text-md font-medium text-slate-700">Revenue by Category</h4>
+              <p className="text-sm text-slate-500">% contribution of revenue from each category</p>
+            </div>
+            <div className="flex justify-center flex-1">
+              <PieChart data={revenueByCategoryData} size={200} showLegend={true} />
+            </div>
+            {localSEOContribution && (
+              <div className="text-center text-sm text-blue-600 mt-4">
+                Local SEO contributes 33% to category revenue
+              </div>
+            )}
+          </div>
+          
+          {/* Revenue: Sale vs Non-Sale Items */}
+          <div className="flex flex-col">
+            <div className="mb-4">
+              <h4 className="text-md font-medium text-slate-700">Revenue: Sale vs Non-Sale Items</h4>
+              <p className="text-sm text-slate-500">% contribution from items on sale or not on sale</p>
+            </div>
+            <div className="flex justify-center flex-1">
+              <PieChart data={revenueSaleVsNonSaleData} size={200} showLegend={true} />
+            </div>
+            {localSEOContribution && (
+              <div className="text-center text-sm text-blue-600 mt-4">
+                Local SEO drives 40% more full-price sales
+              </div>
+            )}
+          </div>
+          
+          {/* Average Order Value */}
+          <div className="flex flex-col">
+            <div className="mb-4">
+              <h4 className="text-md font-medium text-slate-700">Average Order Value</h4>
+              <p className="text-sm text-slate-500">Difference in online vs in-store purchases</p>
+            </div>
+            <div className="flex justify-center flex-1">
+              <BarChart data={averageOrderValueData} height={200} showValues={true} />
+            </div>
+            {localSEOContribution && (
+              <div className="text-center text-sm text-blue-600 mt-4">
+                Local SEO increases in-store AOV by 12%
+              </div>
             )}
           </div>
         </div>
