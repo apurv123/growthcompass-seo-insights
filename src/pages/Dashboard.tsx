@@ -35,20 +35,20 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-50">
       {/* Persistent Top Bar */}
       <nav className="bg-white/90 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gradient-to-r from-orange-600 to-red-600 rounded-lg">
+              <div className="p-2 bg-white rounded-lg border border-slate-200">
                 <img 
                   src="/src/assets/ODLS.png" 
                   alt="Mike's Bikes Logo" 
                   className="h-6 w-6 object-contain"
                 />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold text-blue-900">
                 Mike's Bikes
               </span>
             </div>
@@ -56,28 +56,25 @@ const Dashboard = () => {
             <div className="flex items-center space-x-6">
               <Link
                 to="/local-seo"
-                className="text-slate-600 hover:text-slate-800 font-medium transition-colors"
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
               >
                 Local SEO
               </Link>
               <Link
                 to="/core-seo"
-                className="text-slate-600 hover:text-slate-800 font-medium transition-colors"
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
               >
                 Core SEO
               </Link>
               <Link
                 to="/local-seo-plus"
-                className="text-slate-600 hover:text-slate-800 font-medium transition-colors"
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
               >
                 Local SEO++
               </Link>
-              <button className="px-4 py-2 border-2 border-orange-600 text-orange-600 rounded-lg font-semibold hover:bg-orange-50 transition-all duration-300 text-sm">
-                Request Demo
-              </button>
               <Link
                 to="/"
-                className="flex items-center space-x-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm"
+                className="flex items-center space-x-2 px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300"
               >
                 <LogOut className="h-4 w-4" />
                 <span>Logout</span>
@@ -160,8 +157,8 @@ const Dashboard = () => {
         <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
           <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">Quick Performance Overview</h3>
           <div className="grid md:grid-cols-4 gap-6">
-            <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-red-50 rounded-xl">
-              <div className="text-3xl font-bold text-orange-600 mb-2">47</div>
+            <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-sky-50 rounded-xl">
+              <div className="text-3xl font-bold text-blue-600 mb-2">47</div>
               <div className="text-sm text-slate-600">Store Locations</div>
             </div>
             <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
