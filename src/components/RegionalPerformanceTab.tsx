@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Download, ArrowUpDown } from 'lucide-react';
 import FunnelChart from './FunnelChart';
 import BarChart from './BarChart';
+import PieChart from './PieChart';
+import SankeyDiagram from './SankeyDiagram';
 
 interface RegionalPerformanceTabProps {
   drillLevel: string;
@@ -20,6 +22,17 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
   const [competitorSortDirection, setCompetitorSortDirection] = useState<'asc' | 'desc'>('desc');
   const [keywordSortColumn, setKeywordSortColumn] = useState<string>('');
   const [keywordSortDirection, setKeywordSortDirection] = useState<'asc' | 'desc'>('desc');
+  
+  // Location Analysis drill-down state
+  const [performanceDrillLevel, setPerformanceDrillLevel] = useState('country');
+  const [relevanceDrillLevel, setRelevanceDrillLevel] = useState('country');
+  const [reviewDrillLevel, setReviewDrillLevel] = useState('country');
+
+  // Comparative Analysis state
+  const [locationAType, setLocationAType] = useState('state');
+  const [locationAValue, setLocationAValue] = useState('california');
+  const [locationBType, setLocationBType] = useState('state');
+  const [locationBValue, setLocationBValue] = useState('texas');
 
   // Competitor Data
   const competitorData = [
@@ -155,6 +168,140 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
     'Wheel & Sprocket', 'Conte\'s Bike Shop'
   ];
 
+  // Location Analysis Data
+  const getPerformanceData = (level: string) => {
+    const data = {
+      country: [{ label: 'United States', value: 450000, color: '#3b82f6' }],
+      state: [
+        { label: 'California', value: 125000, color: '#3b82f6' },
+        { label: 'Texas', value: 98000, color: '#10b981' },
+        { label: 'New York', value: 87000, color: '#f59e0b' },
+        { label: 'Florida', value: 76000, color: '#ef4444' }
+      ],
+      city: [
+        { label: 'Los Angeles', value: 45000, color: '#3b82f6' },
+        { label: 'San Francisco', value: 38000, color: '#10b981' },
+        { label: 'San Diego', value: 32000, color: '#f59e0b' },
+        { label: 'Sacramento', value: 28000, color: '#ef4444' }
+      ]
+    };
+    return data[level as keyof typeof data] || data.country;
+  };
+
+  const getRelevanceData = (level: string) => {
+    const data = {
+      country: [{ label: 'United States', value: 87, color: '#3b82f6' }],
+      state: [
+        { label: 'California', value: 92, color: '#3b82f6' },
+        { label: 'Texas', value: 85, color: '#10b981' },
+        { label: 'New York', value: 88, color: '#f59e0b' },
+        { label: 'Florida', value: 83, color: '#ef4444' }
+      ],
+      city: [
+        { label: 'Los Angeles', value: 94, color: '#3b82f6' },
+        { label: 'San Francisco', value: 91, color: '#10b981' },
+        { label: 'San Diego', value: 89, color: '#f59e0b' },
+        { label: 'Sacramento', value: 86, color: '#ef4444' }
+      ]
+    };
+    return data[level as keyof typeof data] || data.country;
+  };
+
+  const getReviewData = (level: string) => {
+    const data = {
+      country: [{ label: 'United States', value: 4.7, color: '#10b981' }],
+      state: [
+        { label: 'California', value: 4.8, color: '#3b82f6' },
+        { label: 'Texas', value: 4.6, color: '#10b981' },
+        { label: 'New York', value: 4.7, color: '#f59e0b' },
+        { label: 'Florida', value: 4.5, color: '#ef4444' }
+      ],
+      city: [
+        { label: 'Los Angeles', value: 4.9, color: '#3b82f6' },
+        { label: 'San Francisco', value: 4.8, color: '#10b981' },
+        { label: 'San Diego', value: 4.7, color: '#f59e0b' },
+        { label: 'Sacramento', value: 4.6, color: '#ef4444' }
+      ]
+    };
+    return data[level as keyof typeof data] || data.country;
+  };
+
+  // Comparative Analysis Data
+  const getLocationData = (type: string, value: string) => {
+    const locationData = {
+      california: { views: 45000, clicks: 5400, conversions: 648 },
+      texas: { views: 38000, clicks: 4560, conversions: 547 },
+      newyork: { views: 35000, clicks: 4200, conversions: 504 },
+      florida: { views: 32000, clicks: 3840, conversions: 461 }
+    };
+    return locationData[value as keyof typeof locationData] || locationData.california;
+  };
+
+  // Customer Journey Data for Comparative Analysis
+  const getCustomerJourneyNodes = (location: string) => {
+    const baseNodes = [
+      { id: `${location}-searches`, label: 'Local Searches', value: 100, percentage: 100, color: '#10b981', x: 50, y: 150, width: 100, height: 40 },
+      { id: `${location}-brand`, label: 'Chose our brand', value: 75, percentage: 75, color: '#10b981', x: 180, y: 120, width: 100, height: 40 },
+      { id: `${location}-competitor`, label: 'Chose competitor', value: 25, percentage: 25, color: '#ef4444', x: 180, y: 180, width: 100, height: 40 },
+      { id: `${location}-website`, label: 'Website visit', value: 40, percentage: 40, color: '#10b981', x: 310, y: 100, width: 100, height: 40 },
+      { id: `${location}-store`, label: 'Store visit', value: 25, percentage: 25, color: '#10b981', x: 310, y: 150, width: 100, height: 40 },
+      { id: `${location}-call`, label: 'Phone call', value: 10, percentage: 10, color: '#10b981', x: 310, y: 200, width: 100, height: 40 },
+      { id: `${location}-purchase`, label: 'Purchase', value: 15, percentage: 15, color: '#10b981', x: 440, y: 125, width: 100, height: 40 }
+    ];
+    return baseNodes;
+  };
+
+  const getCustomerJourneyFlows = (location: string) => {
+    return [
+      { source: `${location}-searches`, target: `${location}-brand`, value: 75, percentage: 75, color: '#10b981' },
+      { source: `${location}-searches`, target: `${location}-competitor`, value: 25, percentage: 25, color: '#ef4444' },
+      { source: `${location}-brand`, target: `${location}-website`, value: 40, percentage: 40, color: '#10b981' },
+      { source: `${location}-brand`, target: `${location}-store`, value: 25, percentage: 25, color: '#10b981' },
+      { source: `${location}-brand`, target: `${location}-call`, value: 10, percentage: 10, color: '#10b981' },
+      { source: `${location}-website`, target: `${location}-purchase`, value: 8, percentage: 8, color: '#10b981' },
+      { source: `${location}-store`, target: `${location}-purchase`, value: 5, percentage: 5, color: '#10b981' },
+      { source: `${location}-call`, target: `${location}-purchase`, value: 2, percentage: 2, color: '#10b981' }
+    ];
+  };
+
+  // Conversion by Category Data
+  const getConversionByCategoryData = (location: string) => {
+    const data = {
+      california: [
+        { label: 'Bikes', value: 45, percentage: 45, color: '#3b82f6' },
+        { label: 'Components', value: 25, percentage: 25, color: '#10b981' },
+        { label: 'Accessories', value: 15, percentage: 15, color: '#f59e0b' },
+        { label: 'Apparel', value: 10, percentage: 10, color: '#ef4444' },
+        { label: 'Services', value: 5, percentage: 5, color: '#8b5cf6' }
+      ],
+      texas: [
+        { label: 'Bikes', value: 42, percentage: 42, color: '#3b82f6' },
+        { label: 'Components', value: 28, percentage: 28, color: '#10b981' },
+        { label: 'Accessories', value: 18, percentage: 18, color: '#f59e0b' },
+        { label: 'Apparel', value: 8, percentage: 8, color: '#ef4444' },
+        { label: 'Services', value: 4, percentage: 4, color: '#8b5cf6' }
+      ]
+    };
+    return data[location as keyof typeof data] || data.california;
+  };
+
+  // Repeat Conversion Probability Data
+  const getRepeatConversionData = (location: string) => {
+    const data = {
+      california: [
+        { label: '6 months', value: 85, color: '#10b981' },
+        { label: '12 months', value: 65, color: '#f59e0b' },
+        { label: '18 months', value: 45, color: '#ef4444' }
+      ],
+      texas: [
+        { label: '6 months', value: 82, color: '#10b981' },
+        { label: '12 months', value: 62, color: '#f59e0b' },
+        { label: '18 months', value: 42, color: '#ef4444' }
+      ]
+    };
+    return data[location as keyof typeof data] || data.california;
+  };
+
   // Helper functions for min/max values and styling
   const getMinMaxValues = (data: any[], key: string) => {
     const values = data.map(item => item[key]);
@@ -208,6 +355,22 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
     keywords: getMinMaxValues(competitorData, 'keywords'),
     totalTrafficCost: getMinMaxValues(competitorData, 'totalTrafficCost'),
     referringDomains: getMinMaxValues(competitorData, 'referringDomains')
+  };
+
+  // Drill-down handlers
+  const handlePerformanceDrillDown = () => {
+    if (performanceDrillLevel === 'country') setPerformanceDrillLevel('state');
+    else if (performanceDrillLevel === 'state') setPerformanceDrillLevel('city');
+  };
+
+  const handleRelevanceDrillDown = () => {
+    if (relevanceDrillLevel === 'country') setRelevanceDrillLevel('state');
+    else if (relevanceDrillLevel === 'state') setRelevanceDrillLevel('city');
+  };
+
+  const handleReviewDrillDown = () => {
+    if (reviewDrillLevel === 'country') setReviewDrillLevel('state');
+    else if (reviewDrillLevel === 'state') setReviewDrillLevel('city');
   };
 
   // Venn Diagram Component
@@ -279,36 +442,10 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
 
   return (
     <div className="space-y-8">
-      {/* Performance by Location */}
+      {/* Comparative Analysis - Extended */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Performance by Location</h3>
-          <button
-            onClick={() => exportCSV('regional-performance')}
-            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-          >
-            <Download className="h-4 w-4" />
-            <span>Export CSV</span>
-          </button>
-        </div>
-        
-        <div className="text-center">
-          <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
-          <div className="inline-block">
-            <FunnelChart data={[
-              { stage: 'Views', count: 450000, percentage: 100 },
-              { stage: 'Clicks', count: 22500, percentage: 5 },
-              { stage: 'Conversions', count: 1125, percentage: 0.25 }
-            ]} />
-            <p className="text-lg font-semibold text-slate-900 mt-4">{drillPath[drillPath.length - 1]}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Comparative Analysis */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Comparative Analysis</h3>
+          <h3 className="text-lg font-semibold text-slate-900">📊 Comparative Analysis</h3>
           <button
             onClick={() => exportCSV('comparative-analysis')}
             className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
@@ -319,97 +456,168 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Location A */}
           <div>
+            <h4 className="text-md font-medium text-slate-700 mb-4">Location A</h4>
             <div className="flex items-center space-x-4 mb-4">
-              <select className="px-3 py-2 border border-slate-300 rounded-lg text-sm">
+              <select 
+                value={locationAType}
+                onChange={(e) => setLocationAType(e.target.value)}
+                className="px-3 py-2 border border-slate-300 rounded-lg text-sm"
+              >
                 <option value="state">State</option>
                 <option value="city">City</option>
                 <option value="msa">MSA</option>
                 <option value="store">Store</option>
               </select>
-              <select className="px-3 py-2 border border-slate-300 rounded-lg text-sm">
+              <select 
+                value={locationAValue}
+                onChange={(e) => setLocationAValue(e.target.value)}
+                className="px-3 py-2 border border-slate-300 rounded-lg text-sm"
+              >
                 <option value="california">California</option>
                 <option value="texas">Texas</option>
                 <option value="newyork">New York</option>
+                <option value="florida">Florida</option>
               </select>
             </div>
-            <FunnelChart data={[
-              { stage: 'Views', count: 125000, percentage: 100 },
-              { stage: 'Clicks', count: 7500, percentage: 6 },
-              { stage: 'Conversions', count: 375, percentage: 0.3 }
-            ]} />
+            
+            {/* Views/Clicks/Conversions */}
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-blue-700">Views:</span>
+                  <span className="font-medium text-blue-900">{getLocationData(locationAType, locationAValue).views.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-blue-700">Clicks:</span>
+                  <span className="font-medium text-blue-900">{getLocationData(locationAType, locationAValue).clicks.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-blue-700">Conversions:</span>
+                  <span className="font-medium text-blue-900">{getLocationData(locationAType, locationAValue).conversions}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Customer Journey Funnel */}
+            <div className="mb-4">
+              <h5 className="text-sm font-medium text-slate-700 mb-2">Customer Journey</h5>
+              <div className="bg-slate-50 p-3 rounded-lg">
+                <SankeyDiagram 
+                  nodes={getCustomerJourneyNodes('locationA')} 
+                  flows={getCustomerJourneyFlows('locationA')} 
+                  width={350} 
+                  height={250} 
+                />
+              </div>
+            </div>
+
+            {/* Conversion by Category */}
+            <div className="mb-4">
+              <h5 className="text-sm font-medium text-slate-700 mb-2">Conversion by Category</h5>
+              <div className="flex justify-center">
+                <PieChart 
+                  data={getConversionByCategoryData(locationAValue)} 
+                  size={180} 
+                  showLegend={true} 
+                />
+              </div>
+            </div>
+
+            {/* Repeat Conversion Probability */}
+            <div>
+              <h5 className="text-sm font-medium text-slate-700 mb-2">Repeat Conversion Probability</h5>
+              <div className="flex justify-center">
+                <BarChart 
+                  data={getRepeatConversionData(locationAValue)} 
+                  height={150} 
+                  showValues={true} 
+                />
+              </div>
+            </div>
           </div>
+
+          {/* Location B */}
           <div>
+            <h4 className="text-md font-medium text-slate-700 mb-4">Location B</h4>
             <div className="flex items-center space-x-4 mb-4">
-              <select className="px-3 py-2 border border-slate-300 rounded-lg text-sm">
+              <select 
+                value={locationBType}
+                onChange={(e) => setLocationBType(e.target.value)}
+                className="px-3 py-2 border border-slate-300 rounded-lg text-sm"
+              >
                 <option value="state">State</option>
                 <option value="city">City</option>
                 <option value="msa">MSA</option>
                 <option value="store">Store</option>
               </select>
-              <select className="px-3 py-2 border border-slate-300 rounded-lg text-sm">
+              <select 
+                value={locationBValue}
+                onChange={(e) => setLocationBValue(e.target.value)}
+                className="px-3 py-2 border border-slate-300 rounded-lg text-sm"
+              >
                 <option value="texas">Texas</option>
                 <option value="california">California</option>
                 <option value="newyork">New York</option>
+                <option value="florida">Florida</option>
               </select>
             </div>
-            <FunnelChart data={[
-              { stage: 'Views', count: 98000, percentage: 100 },
-              { stage: 'Clicks', count: 4900, percentage: 5 },
-              { stage: 'Conversions', count: 245, percentage: 0.25 }
-            ]} />
-          </div>
-        </div>
-      </div>
+            
+            {/* Views/Clicks/Conversions */}
+            <div className="bg-green-50 p-4 rounded-lg mb-4">
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-green-700">Views:</span>
+                  <span className="font-medium text-green-900">{getLocationData(locationBType, locationBValue).views.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-green-700">Clicks:</span>
+                  <span className="font-medium text-green-900">{getLocationData(locationBType, locationBValue).clicks.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-green-700">Conversions:</span>
+                  <span className="font-medium text-green-900">{getLocationData(locationBType, locationBValue).conversions}</span>
+                </div>
+              </div>
+            </div>
 
-      {/* Relevance Attribution */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Relevance Attribution</h3>
-          <button
-            onClick={() => exportCSV('relevance-attribution')}
-            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-          >
-            <Download className="h-4 w-4" />
-            <span>Export CSV</span>
-          </button>
-        </div>
-        
-        <div className="text-center">
-          <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
-          <div className="inline-block">
-            <BarChart 
-              data={[{ label: 'United States', value: 87, color: '#3b82f6' }]} 
-              height={200} 
-              showValues={true}
-            />
-            <p className="text-lg font-semibold text-slate-900 mt-4">Query Relevance Score</p>
-          </div>
-        </div>
-      </div>
+            {/* Customer Journey Funnel */}
+            <div className="mb-4">
+              <h5 className="text-sm font-medium text-slate-700 mb-2">Customer Journey</h5>
+              <div className="bg-slate-50 p-3 rounded-lg">
+                <SankeyDiagram 
+                  nodes={getCustomerJourneyNodes('locationB')} 
+                  flows={getCustomerJourneyFlows('locationB')} 
+                  width={350} 
+                  height={250} 
+                />
+              </div>
+            </div>
 
-      {/* Prominence Attribution */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Prominence Attribution</h3>
-          <button
-            onClick={() => exportCSV('prominence-attribution')}
-            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-          >
-            <Download className="h-4 w-4" />
-            <span>Export CSV</span>
-          </button>
-        </div>
-        
-        <div className="text-center">
-          <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
-          <div className="inline-block">
-            <BarChart 
-              data={[{ label: 'United States', value: 4.7, color: '#10b981' }]} 
-              height={200} 
-              showValues={true}
-            />
-            <p className="text-lg font-semibold text-slate-900 mt-4">Customer Review Score</p>
+            {/* Conversion by Category */}
+            <div className="mb-4">
+              <h5 className="text-sm font-medium text-slate-700 mb-2">Conversion by Category</h5>
+              <div className="flex justify-center">
+                <PieChart 
+                  data={getConversionByCategoryData(locationBValue)} 
+                  size={180} 
+                  showLegend={true} 
+                />
+              </div>
+            </div>
+
+            {/* Repeat Conversion Probability */}
+            <div>
+              <h5 className="text-sm font-medium text-slate-700 mb-2">Repeat Conversion Probability</h5>
+              <div className="flex justify-center">
+                <BarChart 
+                  data={getRepeatConversionData(locationBValue)} 
+                  height={150} 
+                  showValues={true} 
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -695,6 +903,131 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
                   <p className="text-sm text-slate-500">Backlink gap analysis will be available in the next update</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Location Analysis - New Section */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-slate-900">Location Analysis</h3>
+          <button
+            onClick={() => exportCSV('location-analysis')}
+            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          >
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+        </div>
+
+        {/* Performance by Location */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <h4 className="text-md font-medium text-slate-700">Performance by Location</h4>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
+            <div className="inline-block">
+              <div 
+                className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
+                onDoubleClick={handlePerformanceDrillDown}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                  {getPerformanceData(performanceDrillLevel).map((item, index) => (
+                    <div key={index} className="p-3 bg-blue-50 rounded-lg text-center">
+                      <p className="text-sm font-medium text-blue-700">{item.label}</p>
+                      <p className="text-lg font-bold text-blue-900">{item.value.toLocaleString()}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="text-lg font-semibold text-slate-900 mt-4">
+                Performance by {performanceDrillLevel.charAt(0).toUpperCase() + performanceDrillLevel.slice(1)}
+              </p>
+              {performanceDrillLevel !== 'country' && (
+                <button 
+                  onClick={() => setPerformanceDrillLevel('country')}
+                  className="mt-2 px-3 py-1 bg-slate-200 text-slate-700 rounded text-sm hover:bg-slate-300"
+                >
+                  Roll Up
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Query Relevance Score */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <h4 className="text-md font-medium text-slate-700">Query Relevance Score</h4>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
+            <div className="inline-block">
+              <div 
+                className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
+                onDoubleClick={handleRelevanceDrillDown}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                  {getRelevanceData(relevanceDrillLevel).map((item, index) => (
+                    <div key={index} className="p-3 bg-green-50 rounded-lg text-center">
+                      <p className="text-sm font-medium text-green-700">{item.label}</p>
+                      <p className="text-lg font-bold text-green-900">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="text-lg font-semibold text-slate-900 mt-4">
+                Relevance Score by {relevanceDrillLevel.charAt(0).toUpperCase() + relevanceDrillLevel.slice(1)}
+              </p>
+              {relevanceDrillLevel !== 'country' && (
+                <button 
+                  onClick={() => setRelevanceDrillLevel('country')}
+                  className="mt-2 px-3 py-1 bg-slate-200 text-slate-700 rounded text-sm hover:bg-slate-300"
+                >
+                  Roll Up
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Customer Review Score */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <h4 className="text-md font-medium text-slate-700">Customer Review Score</h4>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
+            <div className="inline-block">
+              <div 
+                className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
+                onDoubleClick={handleReviewDrillDown}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                  {getReviewData(reviewDrillLevel).map((item, index) => (
+                    <div key={index} className="p-3 bg-purple-50 rounded-lg text-center">
+                      <p className="text-sm font-medium text-purple-700">{item.label}</p>
+                      <p className="text-lg font-bold text-purple-900">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="text-lg font-semibold text-slate-900 mt-4">
+                Review Score by {reviewDrillLevel.charAt(0).toUpperCase() + reviewDrillLevel.slice(1)}
+              </p>
+              {reviewDrillLevel !== 'country' && (
+                <button 
+                  onClick={() => setReviewDrillLevel('country')}
+                  className="mt-2 px-3 py-1 bg-slate-200 text-slate-700 rounded text-sm hover:bg-slate-300"
+                >
+                  Roll Up
+                </button>
+              )}
             </div>
           </div>
         </div>
