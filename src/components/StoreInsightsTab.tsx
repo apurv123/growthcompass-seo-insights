@@ -216,7 +216,7 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
                 <span className="font-medium text-slate-900">2,340</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                <span className="text-sm text-slate-600">>10 KM</span>
+                <span className="text-sm text-slate-600">&gt;10 KM</span>
                 <span className="font-medium text-slate-900">647</span>
               </div>
             </div>
