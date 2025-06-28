@@ -2,6 +2,7 @@ import React from 'react';
 import { Download, ChevronRight } from 'lucide-react';
 import FunnelChart from './FunnelChart';
 import PieChart from './PieChart';
+import SankeyDiagram from './SankeyDiagram';
 
 interface StrategicImpactTabProps {
   clickTypeFilter: string;
@@ -33,6 +34,90 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
     { stage: 'Views', count: 450000, percentage: 100 },
     { stage: 'Clicks', count: 22500, percentage: 5 },
     { stage: 'Conversions', count: 1125, percentage: 0.25 }
+  ];
+
+  // Customer Journey Sankey Data - Updated to match the flowchart structure
+  const customerJourneyNodes = [
+    // Starting point
+    { id: 'local-searches', label: 'Local Searches', value: 100, percentage: 100, color: '#10b981', x: 50, y: 250, width: 120, height: 50 },
+    
+    // First decision point
+    { id: 'chose-brand', label: 'Chose our brand', value: 75, percentage: 75, color: '#10b981', x: 220, y: 200, width: 120, height: 50 },
+    { id: 'chose-competitor', label: 'Chose competitor', value: 25, percentage: 25, color: '#ef4444', x: 220, y: 300, width: 120, height: 50 },
+    
+    // Second level actions
+    { id: 'navigated', label: 'Navigated', value: 25, percentage: 25, color: '#10b981', x: 390, y: 120, width: 100, height: 40 },
+    { id: 'opened-site', label: 'Opened site', value: 40, percentage: 40, color: '#10b981', x: 390, y: 180, width: 100, height: 40 },
+    { id: 'in-store-visit', label: 'In-Store Visit', value: 15, percentage: 15, color: '#10b981', x: 390, y: 240, width: 100, height: 40 },
+    { id: 'called', label: 'Called', value: 10, percentage: 10, color: '#10b981', x: 390, y: 300, width: 100, height: 40 },
+    { id: 'dropped-1', label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 390, y: 360, width: 100, height: 40 },
+    
+    // Third level - from opened site
+    { id: 'added-cart', label: 'Added to cart', value: 30, percentage: 30, color: '#10b981', x: 540, y: 140, width: 100, height: 40 },
+    { id: 'dropped-2', label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 540, y: 200, width: 100, height: 40 },
+    
+    // From called
+    { id: 'shopped-later', label: 'Shopped later', value: 2, percentage: 2, color: '#10b981', x: 540, y: 280, width: 100, height: 40 },
+    { id: 'dropped-3', label: 'Dropped', value: 8, percentage: 8, color: '#ef4444', x: 540, y: 340, width: 100, height: 40 },
+    
+    // Fourth level - from added to cart
+    { id: 'checkout', label: 'Checkout', value: 20, percentage: 20, color: '#10b981', x: 690, y: 100, width: 100, height: 40 },
+    { id: 'dropped-4', label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 690, y: 160, width: 100, height: 40 },
+    
+    // Fifth level - from checkout
+    { id: 'billing', label: 'Billing', value: 10, percentage: 10, color: '#10b981', x: 840, y: 80, width: 100, height: 40 },
+    { id: 'dropped-5', label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 840, y: 140, width: 100, height: 40 },
+    
+    // Sixth level - from billing
+    { id: 'payment', label: 'Payment', value: 15, percentage: 15, color: '#10b981', x: 990, y: 60, width: 100, height: 40 },
+    { id: 'handover', label: 'Handover', value: 8, percentage: 8, color: '#10b981', x: 990, y: 120, width: 100, height: 40 },
+    { id: 'special-order', label: 'Special Order', value: 2, percentage: 2, color: '#10b981', x: 990, y: 180, width: 100, height: 40 },
+    { id: 'dropped-6', label: 'Dropped', value: 5, percentage: 5, color: '#ef4444', x: 990, y: 240, width: 100, height: 40 },
+    
+    // Final outcomes
+    { id: 'store-pickup', label: 'Store Pickup', value: 2, percentage: 2, color: '#10b981', x: 1140, y: 40, width: 100, height: 40 },
+    { id: 'delivery', label: 'Delivery', value: 10, percentage: 10, color: '#10b981', x: 1140, y: 100, width: 100, height: 40 },
+    { id: 'dropped-7', label: 'Dropped', value: 3, percentage: 3, color: '#ef4444', x: 1140, y: 160, width: 100, height: 40 }
+  ];
+
+  const customerJourneyFlows = [
+    // From local searches
+    { source: 'local-searches', target: 'chose-brand', value: 75, percentage: 75, color: '#10b981' },
+    { source: 'local-searches', target: 'chose-competitor', value: 25, percentage: 25, color: '#ef4444' },
+    
+    // From chose brand
+    { source: 'chose-brand', target: 'navigated', value: 25, percentage: 25, color: '#10b981' },
+    { source: 'chose-brand', target: 'opened-site', value: 40, percentage: 40, color: '#10b981' },
+    { source: 'chose-brand', target: 'in-store-visit', value: 15, percentage: 15, color: '#10b981' },
+    { source: 'chose-brand', target: 'called', value: 10, percentage: 10, color: '#10b981' },
+    { source: 'chose-brand', target: 'dropped-1', value: 10, percentage: 10, color: '#ef4444' },
+    
+    // From opened site
+    { source: 'opened-site', target: 'added-cart', value: 30, percentage: 30, color: '#10b981' },
+    { source: 'opened-site', target: 'dropped-2', value: 10, percentage: 10, color: '#ef4444' },
+    
+    // From called
+    { source: 'called', target: 'shopped-later', value: 2, percentage: 2, color: '#10b981' },
+    { source: 'called', target: 'dropped-3', value: 8, percentage: 8, color: '#ef4444' },
+    
+    // From added to cart
+    { source: 'added-cart', target: 'checkout', value: 20, percentage: 20, color: '#10b981' },
+    { source: 'added-cart', target: 'dropped-4', value: 10, percentage: 10, color: '#ef4444' },
+    
+    // From checkout
+    { source: 'checkout', target: 'billing', value: 10, percentage: 10, color: '#10b981' },
+    { source: 'checkout', target: 'dropped-5', value: 10, percentage: 10, color: '#ef4444' },
+    
+    // From billing
+    { source: 'billing', target: 'payment', value: 15, percentage: 15, color: '#10b981' },
+    { source: 'billing', target: 'handover', value: 8, percentage: 8, color: '#10b981' },
+    { source: 'billing', target: 'special-order', value: 2, percentage: 2, color: '#10b981' },
+    { source: 'billing', target: 'dropped-6', value: 5, percentage: 5, color: '#ef4444' },
+    
+    // Final outcomes
+    { source: 'payment', target: 'store-pickup', value: 2, percentage: 2, color: '#10b981' },
+    { source: 'payment', target: 'delivery', value: 10, percentage: 10, color: '#10b981' },
+    { source: 'payment', target: 'dropped-7', value: 3, percentage: 3, color: '#ef4444' }
   ];
 
   const conversionDrivers = [
@@ -134,6 +219,83 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
                 </div>
                 <div className="text-xs text-purple-600">375 of 1,125 total conversions</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Customer Journey Funnel */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-slate-900">Customer Journey Funnel</h3>
+          <div className="flex items-center space-x-4">
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={localSEOContribution}
+                onChange={(e) => setLocalSEOContribution(e.target.checked)}
+                className="rounded border-slate-300"
+              />
+              <span className="text-sm text-slate-700">Local SEO Contribution</span>
+            </label>
+            <button
+              onClick={() => exportCSV('customer-journey')}
+              className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            >
+              <Download className="h-4 w-4" />
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+        
+        <div className="mb-4">
+          <p className="text-sm text-slate-600 mb-2">
+            Visualizing the complete customer journey from local searches to final outcomes. 
+            Green nodes represent positive actions, red nodes represent drop-offs.
+          </p>
+          {localSEOContribution && (
+            <div className="text-sm text-blue-600 bg-blue-50 p-3 rounded-lg">
+              <strong>Local SEO Contribution:</strong> This funnel reflects local searches which are a subset of core searches. 
+              Local SEO contributes 33% to the overall customer journey.
+            </div>
+          )}
+        </div>
+        
+        <div className="overflow-x-auto">
+          <SankeyDiagram 
+            nodes={customerJourneyNodes} 
+            flows={customerJourneyFlows} 
+            width={1300} 
+            height={450} 
+          />
+        </div>
+        
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Conversion Highlights</h4>
+            <div className="space-y-1 text-sm text-green-600">
+              <div>• 75% chose our brand over competitors</div>
+              <div>• 40% opened our website</div>
+              <div>• 15% completed payment process</div>
+              <div>• 12% reached final delivery/pickup</div>
+            </div>
+          </div>
+          <div className="p-4 bg-red-50 rounded-lg">
+            <h4 className="font-medium text-red-700 mb-2">Drop-off Points</h4>
+            <div className="space-y-1 text-sm text-red-600">
+              <div>• 25% chose competitors</div>
+              <div>• 10% dropped after site visit</div>
+              <div>• 10% abandoned cart</div>
+              <div>• 8% dropped after phone call</div>
+            </div>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">Optimization Opportunities</h4>
+            <div className="space-y-1 text-sm text-blue-600">
+              <div>• Improve cart-to-checkout conversion</div>
+              <div>• Enhance phone call follow-up</div>
+              <div>• Reduce billing process friction</div>
+              <div>• Optimize competitor comparison</div>
             </div>
           </div>
         </div>
