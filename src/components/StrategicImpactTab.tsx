@@ -40,85 +40,85 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
   // Customer Journey Sankey Data - Updated to match the flowchart structure
   const customerJourneyNodes = [
     // Starting point
-    { id: 'local-searches', label: 'Local Searches', value: 100, percentage: 100, color: '#10b981', x: 50, y: 250, width: 120, height: 50 },
+    { id: 'local-searches', label: 'Local Searches', value: 100, percentage: 100, color: '#059669', x: 50, y: 250, width: 120, height: 50 },
     
     // First decision point
-    { id: 'chose-brand', label: 'Chose our brand', value: 75, percentage: 75, color: '#10b981', x: 220, y: 200, width: 120, height: 50 },
-    { id: 'chose-competitor', label: 'Chose competitor', value: 25, percentage: 25, color: '#ef4444', x: 220, y: 300, width: 120, height: 50 },
+    { id: 'chose-brand', label: 'Chose our brand', value: 75, percentage: 75, color: '#059669', x: 220, y: 200, width: 120, height: 50 },
+    { id: 'chose-competitor', label: 'Chose competitor', value: 25, percentage: 25, color: '#dc2626', x: 220, y: 300, width: 120, height: 50 },
     
     // Second level actions
-    { id: 'navigated', label: 'Navigated', value: 25, percentage: 25, color: '#10b981', x: 390, y: 120, width: 100, height: 40 },
-    { id: 'opened-site', label: 'Opened site', value: 40, percentage: 40, color: '#10b981', x: 390, y: 180, width: 100, height: 40 },
-    { id: 'in-store-visit', label: 'In-Store Visit', value: 15, percentage: 15, color: '#10b981', x: 390, y: 240, width: 100, height: 40 },
-    { id: 'called', label: 'Called', value: 10, percentage: 10, color: '#10b981', x: 390, y: 300, width: 100, height: 40 },
-    { id: 'dropped-1', label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 390, y: 360, width: 100, height: 40 },
+    { id: 'navigated', label: 'Navigated', value: 25, percentage: 25, color: '#059669', x: 390, y: 120, width: 100, height: 40 },
+    { id: 'opened-site', label: 'Opened site', value: 40, percentage: 40, color: '#059669', x: 390, y: 180, width: 100, height: 40 },
+    { id: 'in-store-visit', label: 'In-Store Visit', value: 15, percentage: 15, color: '#059669', x: 390, y: 240, width: 100, height: 40 },
+    { id: 'called', label: 'Called', value: 10, percentage: 10, color: '#059669', x: 390, y: 300, width: 100, height: 40 },
+    { id: 'dropped-1', label: 'Dropped', value: 10, percentage: 10, color: '#dc2626', x: 390, y: 360, width: 100, height: 40 },
     
     // Third level - from opened site
-    { id: 'added-cart', label: 'Added to cart', value: 30, percentage: 30, color: '#10b981', x: 540, y: 140, width: 100, height: 40 },
-    { id: 'dropped-2', label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 540, y: 200, width: 100, height: 40 },
+    { id: 'added-cart', label: 'Added to cart', value: 30, percentage: 30, color: '#059669', x: 540, y: 140, width: 100, height: 40 },
+    { id: 'dropped-2', label: 'Dropped', value: 10, percentage: 10, color: '#dc2626', x: 540, y: 200, width: 100, height: 40 },
     
     // From called
-    { id: 'shopped-later', label: 'Shopped later', value: 2, percentage: 2, color: '#10b981', x: 540, y: 280, width: 100, height: 40 },
-    { id: 'dropped-3', label: 'Dropped', value: 8, percentage: 8, color: '#ef4444', x: 540, y: 340, width: 100, height: 40 },
+    { id: 'shopped-later', label: 'Shopped later', value: 2, percentage: 2, color: '#059669', x: 540, y: 280, width: 100, height: 40 },
+    { id: 'dropped-3', label: 'Dropped', value: 8, percentage: 8, color: '#dc2626', x: 540, y: 340, width: 100, height: 40 },
     
     // Fourth level - from added to cart
-    { id: 'checkout', label: 'Checkout', value: 20, percentage: 20, color: '#10b981', x: 690, y: 100, width: 100, height: 40 },
-    { id: 'dropped-4', label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 690, y: 160, width: 100, height: 40 },
+    { id: 'checkout', label: 'Checkout', value: 20, percentage: 20, color: '#059669', x: 690, y: 100, width: 100, height: 40 },
+    { id: 'dropped-4', label: 'Dropped', value: 10, percentage: 10, color: '#dc2626', x: 690, y: 160, width: 100, height: 40 },
     
     // Fifth level - from checkout
-    { id: 'billing', label: 'Billing', value: 10, percentage: 10, color: '#10b981', x: 840, y: 80, width: 100, height: 40 },
-    { id: 'dropped-5', label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 840, y: 140, width: 100, height: 40 },
+    { id: 'billing', label: 'Billing', value: 10, percentage: 10, color: '#059669', x: 840, y: 80, width: 100, height: 40 },
+    { id: 'dropped-5', label: 'Dropped', value: 10, percentage: 10, color: '#dc2626', x: 840, y: 140, width: 100, height: 40 },
     
     // Sixth level - from billing
-    { id: 'payment', label: 'Payment', value: 15, percentage: 15, color: '#10b981', x: 990, y: 60, width: 100, height: 40 },
-    { id: 'handover', label: 'Handover', value: 8, percentage: 8, color: '#10b981', x: 990, y: 120, width: 100, height: 40 },
-    { id: 'special-order', label: 'Special Order', value: 2, percentage: 2, color: '#10b981', x: 990, y: 180, width: 100, height: 40 },
-    { id: 'dropped-6', label: 'Dropped', value: 5, percentage: 5, color: '#ef4444', x: 990, y: 240, width: 100, height: 40 },
+    { id: 'payment', label: 'Payment', value: 15, percentage: 15, color: '#059669', x: 990, y: 60, width: 100, height: 40 },
+    { id: 'handover', label: 'Handover', value: 8, percentage: 8, color: '#059669', x: 990, y: 120, width: 100, height: 40 },
+    { id: 'special-order', label: 'Special Order', value: 2, percentage: 2, color: '#059669', x: 990, y: 180, width: 100, height: 40 },
+    { id: 'dropped-6', label: 'Dropped', value: 5, percentage: 5, color: '#dc2626', x: 990, y: 240, width: 100, height: 40 },
     
     // Final outcomes
-    { id: 'store-pickup', label: 'Store Pickup', value: 2, percentage: 2, color: '#10b981', x: 1140, y: 40, width: 100, height: 40 },
-    { id: 'delivery', label: 'Delivery', value: 10, percentage: 10, color: '#10b981', x: 1140, y: 100, width: 100, height: 40 },
-    { id: 'dropped-7', label: 'Dropped', value: 3, percentage: 3, color: '#ef4444', x: 1140, y: 160, width: 100, height: 40 }
+    { id: 'store-pickup', label: 'Store Pickup', value: 2, percentage: 2, color: '#059669', x: 1140, y: 40, width: 100, height: 40 },
+    { id: 'delivery', label: 'Delivery', value: 10, percentage: 10, color: '#059669', x: 1140, y: 100, width: 100, height: 40 },
+    { id: 'dropped-7', label: 'Dropped', value: 3, percentage: 3, color: '#dc2626', x: 1140, y: 160, width: 100, height: 40 }
   ];
 
   const customerJourneyFlows = [
     // From local searches
-    { source: 'local-searches', target: 'chose-brand', value: 75, percentage: 75, color: '#10b981' },
-    { source: 'local-searches', target: 'chose-competitor', value: 25, percentage: 25, color: '#ef4444' },
+    { source: 'local-searches', target: 'chose-brand', value: 75, percentage: 75, color: '#059669' },
+    { source: 'local-searches', target: 'chose-competitor', value: 25, percentage: 25, color: '#dc2626' },
     
     // From chose brand
-    { source: 'chose-brand', target: 'navigated', value: 25, percentage: 25, color: '#10b981' },
-    { source: 'chose-brand', target: 'opened-site', value: 40, percentage: 40, color: '#10b981' },
-    { source: 'chose-brand', target: 'in-store-visit', value: 15, percentage: 15, color: '#10b981' },
-    { source: 'chose-brand', target: 'called', value: 10, percentage: 10, color: '#10b981' },
-    { source: 'chose-brand', target: 'dropped-1', value: 10, percentage: 10, color: '#ef4444' },
+    { source: 'chose-brand', target: 'navigated', value: 25, percentage: 25, color: '#059669' },
+    { source: 'chose-brand', target: 'opened-site', value: 40, percentage: 40, color: '#059669' },
+    { source: 'chose-brand', target: 'in-store-visit', value: 15, percentage: 15, color: '#059669' },
+    { source: 'chose-brand', target: 'called', value: 10, percentage: 10, color: '#059669' },
+    { source: 'chose-brand', target: 'dropped-1', value: 10, percentage: 10, color: '#dc2626' },
     
     // From opened site
-    { source: 'opened-site', target: 'added-cart', value: 30, percentage: 30, color: '#10b981' },
-    { source: 'opened-site', target: 'dropped-2', value: 10, percentage: 10, color: '#ef4444' },
+    { source: 'opened-site', target: 'added-cart', value: 30, percentage: 30, color: '#059669' },
+    { source: 'opened-site', target: 'dropped-2', value: 10, percentage: 10, color: '#dc2626' },
     
     // From called
-    { source: 'called', target: 'shopped-later', value: 2, percentage: 2, color: '#10b981' },
-    { source: 'called', target: 'dropped-3', value: 8, percentage: 8, color: '#ef4444' },
+    { source: 'called', target: 'shopped-later', value: 2, percentage: 2, color: '#059669' },
+    { source: 'called', target: 'dropped-3', value: 8, percentage: 8, color: '#dc2626' },
     
     // From added to cart
-    { source: 'added-cart', target: 'checkout', value: 20, percentage: 20, color: '#10b981' },
-    { source: 'added-cart', target: 'dropped-4', value: 10, percentage: 10, color: '#ef4444' },
+    { source: 'added-cart', target: 'checkout', value: 20, percentage: 20, color: '#059669' },
+    { source: 'added-cart', target: 'dropped-4', value: 10, percentage: 10, color: '#dc2626' },
     
     // From checkout
-    { source: 'checkout', target: 'billing', value: 10, percentage: 10, color: '#10b981' },
-    { source: 'checkout', target: 'dropped-5', value: 10, percentage: 10, color: '#ef4444' },
+    { source: 'checkout', target: 'billing', value: 10, percentage: 10, color: '#059669' },
+    { source: 'checkout', target: 'dropped-5', value: 10, percentage: 10, color: '#dc2626' },
     
     // From billing
-    { source: 'billing', target: 'payment', value: 15, percentage: 15, color: '#10b981' },
-    { source: 'billing', target: 'handover', value: 8, percentage: 8, color: '#10b981' },
-    { source: 'billing', target: 'special-order', value: 2, percentage: 2, color: '#10b981' },
-    { source: 'billing', target: 'dropped-6', value: 5, percentage: 5, color: '#ef4444' },
+    { source: 'billing', target: 'payment', value: 15, percentage: 15, color: '#059669' },
+    { source: 'billing', target: 'handover', value: 8, percentage: 8, color: '#059669' },
+    { source: 'billing', target: 'special-order', value: 2, percentage: 2, color: '#059669' },
+    { source: 'billing', target: 'dropped-6', value: 5, percentage: 5, color: '#dc2626' },
     
     // Final outcomes
-    { source: 'payment', target: 'store-pickup', value: 2, percentage: 2, color: '#10b981' },
-    { source: 'payment', target: 'delivery', value: 10, percentage: 10, color: '#10b981' },
-    { source: 'payment', target: 'dropped-7', value: 3, percentage: 3, color: '#ef4444' }
+    { source: 'payment', target: 'store-pickup', value: 2, percentage: 2, color: '#059669' },
+    { source: 'payment', target: 'delivery', value: 10, percentage: 10, color: '#059669' },
+    { source: 'payment', target: 'dropped-7', value: 3, percentage: 3, color: '#dc2626' }
   ];
 
   const conversionDrivers = [
@@ -132,61 +132,61 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
 
   // Conversion Insights Data
   const conversionByClickTypeData = [
-    { label: 'Phone Calls', value: 5, percentage: 5, color: '#8b5cf6' },
-    { label: 'Store Visits', value: 55, percentage: 55, color: '#10b981' },
-    { label: 'Online Orders', value: 40, percentage: 40, color: '#3b82f6' }
+    { label: 'Phone Calls', value: 5, percentage: 5, color: '#7c3aed' },
+    { label: 'Store Visits', value: 55, percentage: 55, color: '#059669' },
+    { label: 'Online Orders', value: 40, percentage: 40, color: '#6366f1' }
   ];
 
   const conversionByCategoryData = [
-    { label: 'Bikes', value: 45, percentage: 45, color: '#3b82f6' },
-    { label: 'Components', value: 25, percentage: 25, color: '#10b981' },
-    { label: 'Accessories', value: 15, percentage: 15, color: '#f59e0b' },
-    { label: 'Apparel', value: 10, percentage: 10, color: '#ef4444' },
-    { label: 'Services', value: 5, percentage: 5, color: '#8b5cf6' }
+    { label: 'Bikes', value: 45, percentage: 45, color: '#6366f1' },
+    { label: 'Components', value: 25, percentage: 25, color: '#059669' },
+    { label: 'Accessories', value: 15, percentage: 15, color: '#d97706' },
+    { label: 'Apparel', value: 10, percentage: 10, color: '#dc2626' },
+    { label: 'Services', value: 5, percentage: 5, color: '#7c3aed' }
   ];
 
   // Stacked bar chart data for repeat conversion
   const repeatConversionData = [
-    { label: '6 months', value: 85, color: '#10b981' },
-    { label: '12 months', value: 65, color: '#f59e0b' },
-    { label: '18 months', value: 45, color: '#ef4444' }
+    { label: '6 months', value: 85, color: '#059669' },
+    { label: '12 months', value: 65, color: '#d97706' },
+    { label: '18 months', value: 45, color: '#dc2626' }
   ];
 
   // Revenue Analysis Data
   const revenueByCategoryData = [
-    { label: 'Bikes', value: 55, percentage: 55, color: '#3b82f6' },
-    { label: 'Components', value: 20, percentage: 20, color: '#10b981' },
-    { label: 'Accessories', value: 12, percentage: 12, color: '#f59e0b' },
-    { label: 'Apparel', value: 8, percentage: 8, color: '#ef4444' },
-    { label: 'Services', value: 5, percentage: 5, color: '#8b5cf6' }
+    { label: 'Bikes', value: 55, percentage: 55, color: '#6366f1' },
+    { label: 'Components', value: 20, percentage: 20, color: '#059669' },
+    { label: 'Accessories', value: 12, percentage: 12, color: '#d97706' },
+    { label: 'Apparel', value: 8, percentage: 8, color: '#dc2626' },
+    { label: 'Services', value: 5, percentage: 5, color: '#7c3aed' }
   ];
 
   const revenueSaleVsNonSaleData = [
-    { label: 'Sale Items', value: 35, percentage: 35, color: '#ef4444' },
-    { label: 'Regular Price', value: 65, percentage: 65, color: '#10b981' }
+    { label: 'Sale Items', value: 35, percentage: 35, color: '#dc2626' },
+    { label: 'Regular Price', value: 65, percentage: 65, color: '#059669' }
   ];
 
   const averageOrderValueData = [
-    { label: 'Online', value: 249, color: '#3b82f6' },
-    { label: 'In-Store', value: 187, color: '#10b981' }
+    { label: 'Online', value: 249, color: '#6366f1' },
+    { label: 'In-Store', value: 187, color: '#059669' }
   ];
 
   // Competitive Analysis Data
   const shareOfVoiceData = [
-    { label: "Mike's Bikes", value: 35, percentage: 35, color: '#3b82f6' },
-    { label: 'Specialized', value: 25, percentage: 25, color: '#10b981' },
-    { label: 'Trek Bikes', value: 20, percentage: 20, color: '#f59e0b' },
-    { label: "Erik's Bike Shop", value: 10, percentage: 10, color: '#ef4444' },
-    { label: 'Jenson USA', value: 6, percentage: 6, color: '#8b5cf6' },
+    { label: "Mike's Bikes", value: 35, percentage: 35, color: '#6366f1' },
+    { label: 'Specialized', value: 25, percentage: 25, color: '#059669' },
+    { label: 'Trek Bikes', value: 20, percentage: 20, color: '#d97706' },
+    { label: "Erik's Bike Shop", value: 10, percentage: 10, color: '#dc2626' },
+    { label: 'Jenson USA', value: 6, percentage: 6, color: '#7c3aed' },
     { label: 'Others', value: 4, percentage: 4, color: '#6b7280' }
   ];
 
   const shareOfSearchData = [
-    { label: "Mike's Bikes", value: 28, percentage: 28, color: '#3b82f6' },
-    { label: 'Specialized', value: 30, percentage: 30, color: '#10b981' },
-    { label: 'Trek Bikes', value: 22, percentage: 22, color: '#f59e0b' },
-    { label: "Erik's Bike Shop", value: 12, percentage: 12, color: '#ef4444' },
-    { label: 'Jenson USA', value: 5, percentage: 5, color: '#8b5cf6' },
+    { label: "Mike's Bikes", value: 28, percentage: 28, color: '#6366f1' },
+    { label: 'Specialized', value: 30, percentage: 30, color: '#059669' },
+    { label: 'Trek Bikes', value: 22, percentage: 22, color: '#d97706' },
+    { label: "Erik's Bike Shop", value: 12, percentage: 12, color: '#dc2626' },
+    { label: 'Jenson USA', value: 5, percentage: 5, color: '#7c3aed' },
     { label: 'Others', value: 3, percentage: 3, color: '#6b7280' }
   ];
 
@@ -244,6 +244,48 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
     );
   };
 
+  // Custom Horizontal Bar Chart Component for SEO Attribution
+  const HorizontalBarChart: React.FC<{ 
+    title: string;
+    subtitle: string;
+    data: Array<{label: string, value: number, percentage: number}>;
+    color: string;
+  }> = ({ title, subtitle, data, color }) => {
+    return (
+      <div className="flex flex-col items-center">
+        <h4 className="text-md font-medium text-slate-700 mb-2">{title}</h4>
+        <div className="space-y-4 w-full max-w-sm">
+          {data.map((item, index) => (
+            <div key={index} className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium text-slate-700">{item.label}</span>
+                <span className="text-lg font-bold text-slate-900">{item.percentage}%</span>
+              </div>
+              <div className="w-full bg-slate-200 rounded-full h-6">
+                <div
+                  className="h-6 rounded-full transition-all duration-500 flex items-center justify-end pr-3"
+                  style={{ 
+                    width: `${item.percentage}%`,
+                    backgroundColor: color
+                  }}
+                >
+                  <span className="text-white text-sm font-medium">
+                    {item.value.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+              {index < data.length - 1 && (
+                <div className="text-xs text-slate-500 text-center">
+                  {subtitle}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-8">
       {/* SEO Attribution */}
@@ -273,48 +315,40 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Local SEO Funnel */}
-          <div className="flex flex-col items-center">
-            <h4 className="text-md font-medium text-slate-700 mb-4">Local SEO Funnel</h4>
-            <div className="flex justify-center">
-              <FunnelChart data={localSEOFunnelData} />
-            </div>
-          </div>
+          <HorizontalBarChart
+            title="Local SEO Funnel"
+            subtitle="Local SEO contribution to total"
+            data={[
+              { label: 'Local Views', value: 125000, percentage: 100 },
+              { label: 'Local Clicks', value: 15000, percentage: 12 },
+              { label: 'Local Conversions', value: 1800, percentage: 1.4 }
+            ]}
+            color="#8b5cf6"
+          />
           
           {/* Core SEO Funnel */}
-          <div className="flex flex-col items-center">
-            <h4 className="text-md font-medium text-slate-700 mb-4">Core SEO Funnel</h4>
-            <div className="flex justify-center">
-              <FunnelChart data={coreSEOFunnelData} />
-            </div>
-          </div>
+          <HorizontalBarChart
+            title="Core SEO Funnel"
+            subtitle="Core SEO contribution to total"
+            data={[
+              { label: 'Organic Views', value: 450000, percentage: 100 },
+              { label: 'Organic Clicks', value: 36000, percentage: 8 },
+              { label: 'Organic Conversions', value: 2880, percentage: 0.64 }
+            ]}
+            color="#8b5cf6"
+          />
           
-          {/* Attribution Comparison */}
-          <div className="flex flex-col items-center">
-            <h4 className="text-md font-medium text-slate-700 mb-4">Local SEO Attribution to Core SEO</h4>
-            <div className="space-y-4">
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-blue-700">Views</span>
-                  <span className="text-lg font-bold text-blue-900">27.8%</span>
-                </div>
-                <div className="text-xs text-blue-600">125K of 450K total views</div>
-              </div>
-              <div className="p-4 bg-green-50 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-green-700">Clicks</span>
-                  <span className="text-lg font-bold text-green-900">33.3%</span>
-                </div>
-                <div className="text-xs text-green-600">7.5K of 22.5K total clicks</div>
-              </div>
-              <div className="p-4 bg-purple-50 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-purple-700">Conversions</span>
-                  <span className="text-lg font-bold text-purple-900">33.3%</span>
-                </div>
-                <div className="text-xs text-purple-600">375 of 1,125 total conversions</div>
-              </div>
-            </div>
-          </div>
+          {/* Local SEO Attribution */}
+          <HorizontalBarChart
+            title="Local SEO Attribution"
+            subtitle="Local SEO contribution to total"
+            data={[
+              { label: 'Views', value: 0, percentage: 27.7 },
+              { label: 'Clicks', value: 0, percentage: 41.7 },
+              { label: 'Conversions', value: 0, percentage: 62.5 }
+            ]}
+            color="#8b5cf6"
+          />
         </div>
       </div>
 

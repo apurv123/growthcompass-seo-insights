@@ -169,18 +169,18 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
   // Location Analysis Data
   const getViewsData = (level: string) => {
     const data = {
-      country: [{ label: 'United States', value: 450000, color: '#3b82f6' }],
+      country: [{ label: 'United States', value: 450000, color: '#6366f1' }],
       state: [
-        { label: 'California', value: 125000, color: '#3b82f6' },
-        { label: 'Texas', value: 98000, color: '#10b981' },
-        { label: 'New York', value: 87000, color: '#f59e0b' },
-        { label: 'Florida', value: 76000, color: '#ef4444' }
+        { label: 'California', value: 125000, color: '#6366f1' },
+        { label: 'Texas', value: 98000, color: '#059669' },
+        { label: 'New York', value: 87000, color: '#d97706' },
+        { label: 'Florida', value: 76000, color: '#dc2626' }
       ],
       city: [
-        { label: 'Los Angeles', value: 45000, color: '#3b82f6' },
-        { label: 'San Francisco', value: 38000, color: '#10b981' },
-        { label: 'San Diego', value: 32000, color: '#f59e0b' },
-        { label: 'Sacramento', value: 28000, color: '#ef4444' }
+        { label: 'Los Angeles', value: 45000, color: '#6366f1' },
+        { label: 'San Francisco', value: 38000, color: '#059669' },
+        { label: 'San Diego', value: 32000, color: '#d97706' },
+        { label: 'Sacramento', value: 28000, color: '#dc2626' }
       ]
     };
     return data[level as keyof typeof data] || data.country;
@@ -188,18 +188,18 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
 
   const getRelevanceData = (level: string) => {
     const data = {
-      country: [{ label: 'United States', value: 87, color: '#3b82f6' }],
+      country: [{ label: 'United States', value: 87, color: '#6366f1' }],
       state: [
-        { label: 'California', value: 92, color: '#3b82f6' },
-        { label: 'Texas', value: 85, color: '#10b981' },
-        { label: 'New York', value: 88, color: '#f59e0b' },
-        { label: 'Florida', value: 83, color: '#ef4444' }
+        { label: 'California', value: 92, color: '#6366f1' },
+        { label: 'Texas', value: 85, color: '#059669' },
+        { label: 'New York', value: 88, color: '#d97706' },
+        { label: 'Florida', value: 83, color: '#dc2626' }
       ],
       city: [
-        { label: 'Los Angeles', value: 94, color: '#3b82f6' },
-        { label: 'San Francisco', value: 91, color: '#10b981' },
-        { label: 'San Diego', value: 89, color: '#f59e0b' },
-        { label: 'Sacramento', value: 86, color: '#ef4444' }
+        { label: 'Los Angeles', value: 94, color: '#6366f1' },
+        { label: 'San Francisco', value: 91, color: '#059669' },
+        { label: 'San Diego', value: 89, color: '#d97706' },
+        { label: 'Sacramento', value: 86, color: '#dc2626' }
       ]
     };
     return data[level as keyof typeof data] || data.country;
@@ -207,18 +207,18 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
 
   const getReviewData = (level: string) => {
     const data = {
-      country: [{ label: 'United States', value: 4.7, color: '#10b981' }],
+      country: [{ label: 'United States', value: 4.7, color: '#059669' }],
       state: [
-        { label: 'California', value: 4.8, color: '#3b82f6' },
-        { label: 'Texas', value: 4.6, color: '#10b981' },
-        { label: 'New York', value: 4.7, color: '#f59e0b' },
-        { label: 'Florida', value: 4.5, color: '#ef4444' }
+        { label: 'California', value: 4.8, color: '#6366f1' },
+        { label: 'Texas', value: 4.6, color: '#059669' },
+        { label: 'New York', value: 4.7, color: '#d97706' },
+        { label: 'Florida', value: 4.5, color: '#dc2626' }
       ],
       city: [
-        { label: 'Los Angeles', value: 4.9, color: '#3b82f6' },
-        { label: 'San Francisco', value: 4.8, color: '#10b981' },
-        { label: 'San Diego', value: 4.7, color: '#f59e0b' },
-        { label: 'Sacramento', value: 4.6, color: '#ef4444' }
+        { label: 'Los Angeles', value: 4.9, color: '#6366f1' },
+        { label: 'San Francisco', value: 4.8, color: '#059669' },
+        { label: 'San Diego', value: 4.7, color: '#d97706' },
+        { label: 'Sacramento', value: 4.6, color: '#dc2626' }
       ]
     };
     return data[level as keyof typeof data] || data.country;
@@ -239,32 +239,32 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
   const getCustomerJourneyNodes = (location: string) => {
     const baseNodes = [
       // Starting point
-      { id: `${location}-searches`, label: 'Local Searches', value: 100, percentage: 100, color: '#10b981', x: 30, y: 150, width: 90, height: 35 },
+      { id: `${location}-searches`, label: 'Local Searches', value: 100, percentage: 100, color: '#059669', x: 30, y: 150, width: 90, height: 35 },
       
       // First decision point
-      { id: `${location}-brand`, label: 'Chose our brand', value: 75, percentage: 75, color: '#10b981', x: 150, y: 120, width: 90, height: 35 },
-      { id: `${location}-competitor`, label: 'Chose competitor', value: 25, percentage: 25, color: '#ef4444', x: 150, y: 180, width: 90, height: 35 },
+      { id: `${location}-brand`, label: 'Chose our brand', value: 75, percentage: 75, color: '#059669', x: 150, y: 120, width: 90, height: 35 },
+      { id: `${location}-competitor`, label: 'Chose competitor', value: 25, percentage: 25, color: '#dc2626', x: 150, y: 180, width: 90, height: 35 },
       
       // Second level actions
-      { id: `${location}-website`, label: 'Website', value: 40, percentage: 40, color: '#10b981', x: 270, y: 90, width: 70, height: 30 },
-      { id: `${location}-store`, label: 'Store visit', value: 25, percentage: 25, color: '#10b981', x: 270, y: 130, width: 70, height: 30 },
-      { id: `${location}-call`, label: 'Phone call', value: 10, percentage: 10, color: '#10b981', x: 270, y: 170, width: 70, height: 30 },
-      { id: `${location}-dropped1`, label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 270, y: 210, width: 70, height: 30 },
+      { id: `${location}-website`, label: 'Website', value: 40, percentage: 40, color: '#059669', x: 270, y: 90, width: 70, height: 30 },
+      { id: `${location}-store`, label: 'Store visit', value: 25, percentage: 25, color: '#059669', x: 270, y: 130, width: 70, height: 30 },
+      { id: `${location}-call`, label: 'Phone call', value: 10, percentage: 10, color: '#059669', x: 270, y: 170, width: 70, height: 30 },
+      { id: `${location}-dropped1`, label: 'Dropped', value: 10, percentage: 10, color: '#dc2626', x: 270, y: 210, width: 70, height: 30 },
       
       // Third level - from website
-      { id: `${location}-cart`, label: 'Add to cart', value: 30, percentage: 30, color: '#10b981', x: 370, y: 80, width: 70, height: 30 },
-      { id: `${location}-dropped2`, label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 370, y: 120, width: 70, height: 30 },
+      { id: `${location}-cart`, label: 'Add to cart', value: 30, percentage: 30, color: '#059669', x: 370, y: 80, width: 70, height: 30 },
+      { id: `${location}-dropped2`, label: 'Dropped', value: 10, percentage: 10, color: '#dc2626', x: 370, y: 120, width: 70, height: 30 },
       
       // From call
-      { id: `${location}-scheduled`, label: 'Scheduled', value: 5, percentage: 5, color: '#10b981', x: 370, y: 160, width: 70, height: 30 },
-      { id: `${location}-dropped3`, label: 'Dropped', value: 5, percentage: 5, color: '#ef4444', x: 370, y: 200, width: 70, height: 30 },
+      { id: `${location}-scheduled`, label: 'Scheduled', value: 5, percentage: 5, color: '#059669', x: 370, y: 160, width: 70, height: 30 },
+      { id: `${location}-dropped3`, label: 'Dropped', value: 5, percentage: 5, color: '#dc2626', x: 370, y: 200, width: 70, height: 30 },
       
       // Fourth level - from cart
-      { id: `${location}-checkout`, label: 'Checkout', value: 20, percentage: 20, color: '#10b981', x: 470, y: 70, width: 70, height: 30 },
-      { id: `${location}-dropped4`, label: 'Dropped', value: 10, percentage: 10, color: '#ef4444', x: 470, y: 110, width: 70, height: 30 },
+      { id: `${location}-checkout`, label: 'Checkout', value: 20, percentage: 20, color: '#059669', x: 470, y: 70, width: 70, height: 30 },
+      { id: `${location}-dropped4`, label: 'Dropped', value: 10, percentage: 10, color: '#dc2626', x: 470, y: 110, width: 70, height: 30 },
       
       // Final outcomes
-      { id: `${location}-purchase`, label: 'Purchase', value: 15, percentage: 15, color: '#10b981', x: 570, y: 80, width: 70, height: 30 }
+      { id: `${location}-purchase`, label: 'Purchase', value: 15, percentage: 15, color: '#059669', x: 570, y: 80, width: 70, height: 30 }
     ];
     return baseNodes;
   };
@@ -272,29 +272,29 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
   const getCustomerJourneyFlows = (location: string) => {
     return [
       // From local searches
-      { source: `${location}-searches`, target: `${location}-brand`, value: 75, percentage: 75, color: '#10b981' },
-      { source: `${location}-searches`, target: `${location}-competitor`, value: 25, percentage: 25, color: '#ef4444' },
+      { source: `${location}-searches`, target: `${location}-brand`, value: 75, percentage: 75, color: '#059669' },
+      { source: `${location}-searches`, target: `${location}-competitor`, value: 25, percentage: 25, color: '#dc2626' },
       
       // From chose brand
-      { source: `${location}-brand`, target: `${location}-website`, value: 40, percentage: 40, color: '#10b981' },
-      { source: `${location}-brand`, target: `${location}-store`, value: 25, percentage: 25, color: '#10b981' },
-      { source: `${location}-brand`, target: `${location}-call`, value: 10, percentage: 10, color: '#10b981' },
-      { source: `${location}-brand`, target: `${location}-dropped1`, value: 10, percentage: 10, color: '#ef4444' },
+      { source: `${location}-brand`, target: `${location}-website`, value: 40, percentage: 40, color: '#059669' },
+      { source: `${location}-brand`, target: `${location}-store`, value: 25, percentage: 25, color: '#059669' },
+      { source: `${location}-brand`, target: `${location}-call`, value: 10, percentage: 10, color: '#059669' },
+      { source: `${location}-brand`, target: `${location}-dropped1`, value: 10, percentage: 10, color: '#dc2626' },
       
       // From website
-      { source: `${location}-website`, target: `${location}-cart`, value: 30, percentage: 30, color: '#10b981' },
-      { source: `${location}-website`, target: `${location}-dropped2`, value: 10, percentage: 10, color: '#ef4444' },
+      { source: `${location}-website`, target: `${location}-cart`, value: 30, percentage: 30, color: '#059669' },
+      { source: `${location}-website`, target: `${location}-dropped2`, value: 10, percentage: 10, color: '#dc2626' },
       
       // From call
-      { source: `${location}-call`, target: `${location}-scheduled`, value: 5, percentage: 5, color: '#10b981' },
-      { source: `${location}-call`, target: `${location}-dropped3`, value: 5, percentage: 5, color: '#ef4444' },
+      { source: `${location}-call`, target: `${location}-scheduled`, value: 5, percentage: 5, color: '#059669' },
+      { source: `${location}-call`, target: `${location}-dropped3`, value: 5, percentage: 5, color: '#dc2626' },
       
       // From cart
-      { source: `${location}-cart`, target: `${location}-checkout`, value: 20, percentage: 20, color: '#10b981' },
-      { source: `${location}-cart`, target: `${location}-dropped4`, value: 10, percentage: 10, color: '#ef4444' },
+      { source: `${location}-cart`, target: `${location}-checkout`, value: 20, percentage: 20, color: '#059669' },
+      { source: `${location}-cart`, target: `${location}-dropped4`, value: 10, percentage: 10, color: '#dc2626' },
       
       // Final outcome
-      { source: `${location}-checkout`, target: `${location}-purchase`, value: 15, percentage: 15, color: '#10b981' }
+      { source: `${location}-checkout`, target: `${location}-purchase`, value: 15, percentage: 15, color: '#059669' }
     ];
   };
 
@@ -302,18 +302,18 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
   const getConversionByCategoryData = (location: string) => {
     const data = {
       california: [
-        { label: 'Bikes', value: 45, percentage: 45, color: '#3b82f6' },
-        { label: 'Components', value: 25, percentage: 25, color: '#10b981' },
-        { label: 'Accessories', value: 15, percentage: 15, color: '#f59e0b' },
-        { label: 'Apparel', value: 10, percentage: 10, color: '#ef4444' },
-        { label: 'Services', value: 5, percentage: 5, color: '#8b5cf6' }
+        { label: 'Bikes', value: 45, percentage: 45, color: '#6366f1' },
+        { label: 'Components', value: 25, percentage: 25, color: '#059669' },
+        { label: 'Accessories', value: 15, percentage: 15, color: '#d97706' },
+        { label: 'Apparel', value: 10, percentage: 10, color: '#dc2626' },
+        { label: 'Services', value: 5, percentage: 5, color: '#7c3aed' }
       ],
       texas: [
-        { label: 'Bikes', value: 42, percentage: 42, color: '#3b82f6' },
-        { label: 'Components', value: 28, percentage: 28, color: '#10b981' },
-        { label: 'Accessories', value: 18, percentage: 18, color: '#f59e0b' },
-        { label: 'Apparel', value: 8, percentage: 8, color: '#ef4444' },
-        { label: 'Services', value: 4, percentage: 4, color: '#8b5cf6' }
+        { label: 'Bikes', value: 42, percentage: 42, color: '#6366f1' },
+        { label: 'Components', value: 28, percentage: 28, color: '#059669' },
+        { label: 'Accessories', value: 18, percentage: 18, color: '#d97706' },
+        { label: 'Apparel', value: 8, percentage: 8, color: '#dc2626' },
+        { label: 'Services', value: 4, percentage: 4, color: '#7c3aed' }
       ]
     };
     return data[location as keyof typeof data] || data.california;
@@ -323,14 +323,14 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
   const getRepeatConversionData = (location: string) => {
     const data = {
       california: [
-        { label: '6 months', value: 85, color: '#10b981' },
-        { label: '12 months', value: 65, color: '#f59e0b' },
-        { label: '18 months', value: 45, color: '#ef4444' }
+        { label: '6 months', value: 85, color: '#059669' },
+        { label: '12 months', value: 65, color: '#d97706' },
+        { label: '18 months', value: 45, color: '#dc2626' }
       ],
       texas: [
-        { label: '6 months', value: 82, color: '#10b981' },
-        { label: '12 months', value: 62, color: '#f59e0b' },
-        { label: '18 months', value: 42, color: '#ef4444' }
+        { label: '6 months', value: 82, color: '#059669' },
+        { label: '12 months', value: 62, color: '#d97706' },
+        { label: '18 months', value: 42, color: '#dc2626' }
       ]
     };
     return data[location as keyof typeof data] || data.california;
@@ -428,9 +428,9 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
             cx="100"
             cy="120"
             r="60"
-            fill="#3b82f6"
+            fill="#6366f1"
             fillOpacity="0.3"
-            stroke="#3b82f6"
+            stroke="#6366f1"
             strokeWidth="2"
           />
           <text x="70" y="80" textAnchor="middle" className="text-xs font-medium fill-blue-700">
@@ -442,9 +442,9 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
             cx="160"
             cy="80"
             r="60"
-            fill="#10b981"
+            fill="#059669"
             fillOpacity="0.3"
-            stroke="#10b981"
+            stroke="#059669"
             strokeWidth="2"
           />
           <text x="190" y="50" textAnchor="middle" className="text-xs font-medium fill-green-700">
@@ -456,9 +456,9 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
             cx="160"
             cy="140"
             r="60"
-            fill="#f59e0b"
+            fill="#d97706"
             fillOpacity="0.3"
-            stroke="#f59e0b"
+            stroke="#d97706"
             strokeWidth="2"
           />
           <text x="190" y="180" textAnchor="middle" className="text-xs font-medium fill-yellow-700">
@@ -953,150 +953,147 @@ const RegionalPerformanceTab: React.FC<RegionalPerformanceTabProps> = ({
         </div>
       </div>
 
-      {/* Location Analysis - New Section with Synchronized Drill-down */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Location Analysis</h3>
-          <div className="flex items-center space-x-3">
-            {locationAnalysisDrillLevel !== 'country' && (
+      {/* Location Analysis and Insights - Side by Side */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Location Analysis - New Section with Synchronized Drill-down */}
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-slate-900">Location Analysis</h3>
+            <div className="flex items-center space-x-3">
+              {locationAnalysisDrillLevel !== 'country' && (
+                <button
+                  onClick={handleLocationAnalysisRollUp}
+                  className="flex items-center space-x-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors text-sm"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  <span>Roll Up</span>
+                </button>
+              )}
               <button
-                onClick={handleLocationAnalysisRollUp}
-                className="flex items-center space-x-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors text-sm"
+                onClick={() => exportCSV('location-analysis')}
+                className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
               >
-                <RotateCcw className="h-4 w-4" />
-                <span>Roll Up</span>
+                <Download className="h-4 w-4" />
+                <span>Export CSV</span>
               </button>
-            )}
+            </div>
+          </div>
+
+          {/* Views by Location */}
+          <div className="mb-8">
+            <h4 className="text-md font-medium text-slate-700 mb-4">{getDynamicTitle('Views')}</h4>
+            
+            <div className="text-left">
+              <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
+              <div className="inline-block">
+                <div 
+                  className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
+                  onDoubleClick={handleLocationAnalysisDrillDown}
+                >
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    {getViewsData(locationAnalysisDrillLevel).map((item, index) => (
+                      <div key={index} className="p-3 bg-blue-50 rounded-lg text-left">
+                        <p className="text-sm font-medium text-blue-700">{item.label}</p>
+                        <p className="text-lg font-bold text-blue-900">{item.value.toLocaleString()}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Query Relevance Score */}
+          <div className="mb-8">
+            <h4 className="text-md font-medium text-slate-700 mb-4">{getDynamicTitle('Query Relevance Score')}</h4>
+            
+            <div className="text-left">
+              <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
+              <div className="inline-block">
+                <div 
+                  className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
+                  onDoubleClick={handleLocationAnalysisDrillDown}
+                >
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    {getRelevanceData(locationAnalysisDrillLevel).map((item, index) => (
+                      <div key={index} className="p-3 bg-green-50 rounded-lg text-left">
+                        <p className="text-sm font-medium text-green-700">{item.label}</p>
+                        <p className="text-lg font-bold text-green-900">{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Customer Review Score */}
+          <div>
+            <h4 className="text-md font-medium text-slate-700 mb-4">{getDynamicTitle('Customer Review Score')}</h4>
+            
+            <div className="text-left">
+              <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
+              <div className="inline-block">
+                <div 
+                  className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
+                  onDoubleClick={handleLocationAnalysisDrillDown}
+                >
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    {getReviewData(locationAnalysisDrillLevel).map((item, index) => (
+                      <div key={index} className="p-3 bg-purple-50 rounded-lg text-left">
+                        <p className="text-sm font-medium text-purple-700">{item.label}</p>
+                        <p className="text-lg font-bold text-purple-900">{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Insights */}
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-slate-900">Insights</h3>
             <button
-              onClick={() => exportCSV('location-analysis')}
+              onClick={() => exportCSV('regional-insights')}
               className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
             >
               <Download className="h-4 w-4" />
               <span>Export CSV</span>
             </button>
           </div>
-        </div>
-
-        {/* Views by Location */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <h4 className="text-md font-medium text-slate-700">{getDynamicTitle('Views')}</h4>
-          </div>
           
-          <div className="text-left">
-            <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
-            <div className="inline-block">
-              <div 
-                className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
-                onDoubleClick={handleLocationAnalysisDrillDown}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {getViewsData(locationAnalysisDrillLevel).map((item, index) => (
-                    <div key={index} className="p-3 bg-blue-50 rounded-lg text-center">
-                      <p className="text-sm font-medium text-blue-700">{item.label}</p>
-                      <p className="text-lg font-bold text-blue-900">{item.value.toLocaleString()}</p>
-                    </div>
-                  ))}
+          <div className="space-y-8">
+            <div>
+              <h4 className="font-medium text-slate-900 mb-4">Performance Analysis</h4>
+              <div className="space-y-3">
+                <div className="p-4 bg-red-50 rounded-lg">
+                  <p className="font-medium text-red-900">Lowest performing city</p>
+                  <p className="text-sm text-red-700">Phoenix, AZ - 2.1% conversion rate</p>
+                </div>
+                <div className="p-4 bg-orange-50 rounded-lg">
+                  <p className="font-medium text-orange-900">Lowest performing MSA</p>
+                  <p className="text-sm text-orange-700">Detroit-Warren-Dearborn, MI - 2.8% conversion rate</p>
+                </div>
+                <div className="p-4 bg-yellow-50 rounded-lg">
+                  <p className="font-medium text-yellow-900">Lowest performing ZIP</p>
+                  <p className="text-sm text-yellow-700">85001 (Phoenix) - 1.9% conversion rate</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Query Relevance Score */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <h4 className="text-md font-medium text-slate-700">{getDynamicTitle('Query Relevance Score')}</h4>
-          </div>
-          
-          <div className="text-left">
-            <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
-            <div className="inline-block">
-              <div 
-                className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
-                onDoubleClick={handleLocationAnalysisDrillDown}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {getRelevanceData(locationAnalysisDrillLevel).map((item, index) => (
-                    <div key={index} className="p-3 bg-green-50 rounded-lg text-center">
-                      <p className="text-sm font-medium text-green-700">{item.label}</p>
-                      <p className="text-lg font-bold text-green-900">{item.value}</p>
-                    </div>
-                  ))}
+            <div>
+              <h4 className="font-medium text-slate-900 mb-4">Expansion Opportunities</h4>
+              <div className="space-y-3">
+                <div className="p-4 bg-green-50 rounded-lg">
+                  <p className="font-medium text-green-900">Recommended new store location</p>
+                  <p className="text-sm text-green-700">Austin, TX - High demand, minimal travel distance</p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Customer Review Score */}
-        <div>
-          <div className="flex items-center justify-between mb-6">
-            <h4 className="text-md font-medium text-slate-700">{getDynamicTitle('Customer Review Score')}</h4>
-          </div>
-          
-          <div className="text-left">
-            <p className="text-sm text-slate-600 mb-4">Double-click to drill down, use Roll Up button to go back</p>
-            <div className="inline-block">
-              <div 
-                className="cursor-pointer hover:bg-slate-50 p-4 rounded-lg transition-colors"
-                onDoubleClick={handleLocationAnalysisDrillDown}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {getReviewData(locationAnalysisDrillLevel).map((item, index) => (
-                    <div key={index} className="p-3 bg-purple-50 rounded-lg text-center">
-                      <p className="text-sm font-medium text-purple-700">{item.label}</p>
-                      <p className="text-lg font-bold text-purple-900">{item.value}</p>
-                    </div>
-                  ))}
+                <div className="p-4 bg-blue-50 rounded-lg">
+                  <p className="font-medium text-blue-900">Market gap identified</p>
+                  <p className="text-sm text-blue-700">Denver metro area shows 15% higher search volume</p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Insights */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Insights</h3>
-          <button
-            onClick={() => exportCSV('regional-insights')}
-            className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-          >
-            <Download className="h-4 w-4" />
-            <span>Export CSV</span>
-          </button>
-        </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div>
-            <h4 className="font-medium text-slate-900 mb-4">Performance Analysis</h4>
-            <div className="space-y-3">
-              <div className="p-4 bg-red-50 rounded-lg">
-                <p className="font-medium text-red-900">Lowest performing city</p>
-                <p className="text-sm text-red-700">Phoenix, AZ - 2.1% conversion rate</p>
-              </div>
-              <div className="p-4 bg-orange-50 rounded-lg">
-                <p className="font-medium text-orange-900">Lowest performing MSA</p>
-                <p className="text-sm text-orange-700">Detroit-Warren-Dearborn, MI - 2.8% conversion rate</p>
-              </div>
-              <div className="p-4 bg-yellow-50 rounded-lg">
-                <p className="font-medium text-yellow-900">Lowest performing ZIP</p>
-                <p className="text-sm text-yellow-700">85001 (Phoenix) - 1.9% conversion rate</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-medium text-slate-900 mb-4">Expansion Opportunities</h4>
-            <div className="space-y-3">
-              <div className="p-4 bg-green-50 rounded-lg">
-                <p className="font-medium text-green-900">Recommended new store location</p>
-                <p className="text-sm text-green-700">Austin, TX - High demand, minimal travel distance</p>
-              </div>
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <p className="font-medium text-blue-900">Market gap identified</p>
-                <p className="text-sm text-blue-700">Denver metro area shows 15% higher search volume</p>
               </div>
             </div>
           </div>
