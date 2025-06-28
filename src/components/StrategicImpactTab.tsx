@@ -319,7 +319,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
           {/* Local SEO Funnel */}
           <HorizontalBarChart
             title="Local SEO Funnel"
-            subtitle="Local SEO contribution to total"
+            subtitle=" "
             data={[
               { label: 'Local Views', value: 125000, percentage: 100 },
               { label: 'Local Clicks', value: 15000, percentage: 12 },
@@ -331,7 +331,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
           {/* Core SEO Funnel */}
           <HorizontalBarChart
             title="Core SEO Funnel"
-            subtitle="Core SEO contribution to total"
+            subtitle=" "
             data={[
               { label: 'Organic Views', value: 450000, percentage: 100 },
               { label: 'Organic Clicks', value: 36000, percentage: 8 },
@@ -343,7 +343,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
           {/* Local SEO Attribution */}
           <HorizontalBarChart
             title="Local SEO Attribution"
-            subtitle="Local SEO contribution to total"
+            subtitle=" "
             data={[
               { label: 'Views', value: 27.7, percentage: 27.7 },
               { label: 'Clicks', value: 29.4, percentage: 29.4 },
