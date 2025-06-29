@@ -73,13 +73,13 @@ const HomePage = () => {
               </span>
             </div>
 
-            <div className="flex space-x-4">
-              <button className="px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300">
+            <div className="flex space-x-6">
+              <button className="px-6 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg">
                 Request Demo
               </button>
               <Link
                 to="/dashboard"
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
+                className="px-6 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg"
               >
                 Login
               </Link>
@@ -113,7 +113,7 @@ const HomePage = () => {
             </button>
             <Link
               to="/dashboard"
-              className="border-2 border-slate-300 text-slate-700 px-8 py-4 rounded-lg font-semibold hover:bg-slate-50 transition-all duration-300 hover:border-slate-400"
+              className="px-8 py-4 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg"
             >
               Login
             </Link>
@@ -197,7 +197,7 @@ const HomePage = () => {
             </button>
             <Link
               to="/dashboard"
-              className="border-2 border-white/30 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-all duration-300"
+              className="px-8 py-4 text-white font-normal hover:bg-white/10 transition-all duration-300 rounded-lg"
             >
               Login
             </Link>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MapPin, BarChart3, TrendingUp, LogOut, Home } from 'lucide-react';
+import { MapPin, BarChart3, TrendingUp, LogOut, Home, Compass } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
@@ -15,27 +15,24 @@ const Navigation = () => {
     <nav className="bg-white/90 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-white rounded-lg border border-slate-200">
-              <img 
-                src="/src/assets/ODLS.png" 
-                alt="Mike's Bikes Logo" 
-                className="h-6 w-6 object-contain"
-              />
+          <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg">
+                <Compass className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-xl font-normal text-slate-800" style={{ fontFamily: 'Pacifico, cursive', fontStyle: 'italic' }}>
+                Mike's Bikes
+              </span>
             </div>
-            <span className="text-xl font-bold text-blue-900">
-              Mike's Bikes
-            </span>
-          </div>
 
-          <div className="flex items-center space-x-6">
-            {/* Home Button - Only on dashboard pages */}
+            {/* Home Button */}
             <Link
               to="/dashboard"
-              className="flex items-center space-x-2 px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300"
+              className={`px-4 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg ${
+                location.pathname === '/dashboard' ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600' : ''
+              }`}
             >
-              <Home className="h-4 w-4" />
-              <span>Home</span>
+              Home
             </Link>
 
             {/* Dashboard Navigation Buttons */}
@@ -45,24 +42,23 @@ const Navigation = () => {
                 <Link
                   key={path}
                   to={path}
-                  className={`px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 ${
-                    isActive ? 'bg-blue-50' : ''
+                  className={`px-4 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg ${
+                    isActive ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600' : ''
                   }`}
                 >
                   {label}
                 </Link>
               );
             })}
-
-            {/* Logout Button */}
-            <Link
-              to="/"
-              className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
-            >
-              <LogOut className="h-4 w-4" />
-              <span>Logout</span>
-            </Link>
           </div>
+
+          {/* Logout Button */}
+          <Link
+            to="/"
+            className="px-4 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg"
+          >
+            Logout
+          </Link>
         </div>
       </div>
     </nav>
