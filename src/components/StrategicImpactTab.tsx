@@ -122,12 +122,12 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
   ];
 
   const conversionDrivers = [
-    { location: 'United States', contribution: 100, conversionRate: 5.2, ctr: 4.1 },
-    { location: 'California', contribution: 28, conversionRate: 6.1, ctr: 4.8 },
-    { location: 'Los Angeles MSA', contribution: 15, conversionRate: 5.9, ctr: 4.6 },
-    { location: 'Los Angeles', contribution: 12, conversionRate: 6.2, ctr: 4.9 },
-    { location: '90210', contribution: 3, conversionRate: 7.1, ctr: 5.2 },
-    { location: 'Beverly Hills Store', contribution: 2.5, conversionRate: 7.8, ctr: 5.8 }
+    { location: 'United States', salesContribution: 100, conversionRate: 5.2, ctr: 4.1 },
+    { location: 'California', salesContribution: 28, conversionRate: 6.1, ctr: 4.8 },
+    { location: 'Los Angeles MSA', salesContribution: 15, conversionRate: 5.9, ctr: 4.6 },
+    { location: 'Los Angeles', salesContribution: 12, conversionRate: 6.2, ctr: 4.9 },
+    { location: '90210', salesContribution: 3, conversionRate: 7.1, ctr: 5.2 },
+    { location: 'Beverly Hills Store', salesContribution: 2.5, conversionRate: 7.8, ctr: 5.8 }
   ];
 
   // Conversion Insights Data
@@ -483,8 +483,8 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
               <h4 className="font-semibold text-slate-900 mb-2">{driver.location}</h4>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-sm text-slate-600">Contribution</span>
-                  <span className="font-medium">{driver.contribution}%</span>
+                  <span className="text-sm text-slate-600">Sales Contribution</span>
+                  <span className="font-medium">{driver.salesContribution}%</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-slate-600">Conversion Rate</span>
@@ -496,7 +496,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
                 </div>
                 {localSEOContribution && (
                   <div className="text-xs text-blue-600 mt-2">
-                    Local SEO: {Math.round(driver.contribution * 0.33)}%
+                    Local SEO: {Math.round(driver.salesContribution * 0.33)}%
                   </div>
                 )}
               </div>
