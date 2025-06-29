@@ -68,21 +68,21 @@ const HomePage = () => {
               <div className="p-2 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg">
                 <Compass className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                Growth Compass
+              <span className="text-xl font-bold text-blue-800" style={{ fontFamily: 'Inter, system-ui, sans-serif', fontStyle: 'italic', letterSpacing: '-0.02em' }}>
+                Mike's Bikes
               </span>
             </div>
 
             <div className="flex space-x-6">
+              <Link
+                to="/dashboard"
+                className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 py-2 rounded-lg font-bold hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-2"
+              >
+                <span>Login</span>
+              </Link>
               <button className="px-6 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg">
                 Request Demo
               </button>
-              <Link
-                to="/dashboard"
-                className="px-6 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg"
-              >
-                Login
-              </Link>
             </div>
           </div>
         </div>
@@ -107,15 +107,15 @@ const HomePage = () => {
             Growth Compass helps you navigate the path to growth with clarity, precision, and actionable insights.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-2">
-              <span>Request Demo</span>
-              <ArrowRight className="h-5 w-5" />
+            <button className="px-8 py-4 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg">
+              Request Demo
             </button>
             <Link
               to="/dashboard"
-              className="px-8 py-4 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg"
+              className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-2"
             >
-              Login
+              <span>Login</span>
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </div>
         </div>
@@ -192,12 +192,12 @@ const HomePage = () => {
             Join thousands of multi-location brands who trust Growth Compass to drive their SEO success.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:-translate-y-1">
+            <button className="px-8 py-4 text-white font-normal hover:bg-white/10 transition-all duration-300 rounded-lg">
               Request Demo
             </button>
             <Link
               to="/dashboard"
-              className="px-8 py-4 text-white font-normal hover:bg-white/10 transition-all duration-300 rounded-lg"
+              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 transform hover:-translate-y-1"
             >
               Login
             </Link>

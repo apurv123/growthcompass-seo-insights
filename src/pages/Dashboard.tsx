@@ -70,12 +70,21 @@ const Dashboard = () => {
               </Link>
             </div>
 
-            <Link
-              to="/"
-              className="px-4 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg"
-            >
-              Logout
-            </Link>
+            <div className="flex items-center space-x-4">
+              <Link
+                to="/dashboard"
+                className="px-4 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg bg-blue-50 text-blue-600 border-b-2 border-blue-600"
+              >
+                Home
+              </Link>
+
+              <Link
+                to="/"
+                className="px-4 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg"
+              >
+                Logout
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
