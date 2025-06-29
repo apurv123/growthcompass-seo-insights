@@ -669,6 +669,28 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
             )}
           </div>
         </div>
+
+        {/* Revenue Impact Insights */}
+        <div className="mt-8 space-y-4">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Local SEO Revenue Share</h4>
+            <p className="text-sm text-green-600">
+              Local SEO now drives <span className="font-semibold">38% of YTD revenue</span> (≈ $912K of $2.4M), up from 32% last year—showing that our local listings optimizations are directly lifting sales.
+            </p>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">Category Lift via Local Search</h4>
+            <p className="text-sm text-blue-600">
+              Although Bikes account for 55% of total revenue, Local SEO‐sourced traffic disproportionately fuels <span className="font-semibold">60% of component sales</span>—pinpointing a high‐ROI opportunity to double down on "bike parts" campaigns in key ZIP codes.
+            </p>
+          </div>
+          <div className="p-4 bg-orange-50 rounded-lg">
+            <h4 className="font-medium text-orange-700 mb-2">AOV Gap & Upsell Window</h4>
+            <p className="text-sm text-orange-600">
+              Local SEO‐driven in-store orders average <span className="font-semibold">$187—25% below the $249 online AOV</span>—so improving onsite cross-sell messaging (e.g., "Complete your purchase with accessories") could close that gap and boost per-visit revenue.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Competitive Analysis */}
