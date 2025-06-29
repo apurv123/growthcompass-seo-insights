@@ -74,15 +74,15 @@ const HomePage = () => {
             </div>
 
             <div className="flex space-x-6">
+              <button className="px-6 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg">
+                Request Demo
+              </button>
               <Link
                 to="/dashboard"
                 className="bg-gradient-to-r from-blue-600 to-teal-600 text-white px-6 py-2 rounded-lg font-bold hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-2"
               >
                 <span>Login</span>
               </Link>
-              <button className="px-6 py-2 text-slate-600 font-normal hover:bg-slate-100 hover:text-slate-900 transition-all duration-300 rounded-lg">
-                Request Demo
-              </button>
             </div>
           </div>
         </div>
