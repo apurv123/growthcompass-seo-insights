@@ -20,7 +20,7 @@ const Navigation = () => {
               <div className="p-2 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg">
                 <Compass className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-normal text-slate-800" style={{ fontFamily: 'Pacifico, cursive', fontStyle: 'italic' }}>
+              <span className="text-xl font-bold text-blue-800" style={{ fontFamily: 'Inter, system-ui, sans-serif', fontStyle: 'italic', letterSpacing: '-0.02em' }}>
                 Mike's Bikes
               </span>
             </div>
