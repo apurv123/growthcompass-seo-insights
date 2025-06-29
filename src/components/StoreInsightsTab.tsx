@@ -443,6 +443,28 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
             title="Addon Upsell Rate Comparison"
           />
         </div>
+
+        {/* Local Context Insights */}
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Store-Level Outperformance</h4>
+            <p className="text-sm text-green-600">
+              Our flagship store leads with a <span className="font-semibold">12% CTR, 5.2% conversion rate, and 18.5% upsell rate</span>—roughly double the global benchmarks. Replicate its in-store merchandising and staff-driven cross-sell tactics at other locations.
+            </p>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">ZIP 90210 as a "Lightning Rod"</h4>
+            <p className="text-sm text-blue-600">
+              That zip code ranks <span className="font-semibold">#2 in CTR (10.8%) and upsells (16.2%), and #3 in conversion (4.8%)</span>. Treat it as a testbed for local promotions and hyper-local ad targeting to squeeze out incremental gains.
+            </p>
+          </div>
+          <div className="p-4 bg-orange-50 rounded-lg">
+            <h4 className="font-medium text-orange-700 mb-2">Global Funnel Leak</h4>
+            <p className="text-sm text-orange-600">
+              By the time you zoom out to global, <span className="font-semibold">CTR (6.8%), conversions (3%), and upsells (10%) all drop sharply</span>. Close that gap by applying store-level best practices—like personalized follow-ups and in-cart accessory prompts—to your digital and regional campaigns.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Competitive Context */}

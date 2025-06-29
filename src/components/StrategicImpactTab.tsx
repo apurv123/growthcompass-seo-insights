@@ -354,7 +354,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         </div>
 
         {/* SEO Attribution Insights */}
-        <div className="mt-8 space-y-4">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="p-4 bg-green-50 rounded-lg">
             <h4 className="font-medium text-green-700 mb-2">Conversion Efficiency</h4>
             <p className="text-sm text-green-600">
@@ -580,7 +580,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         </div>
 
         {/* Conversion Insights */}
-        <div className="mt-8 space-y-4">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="p-4 bg-green-50 rounded-lg">
             <h4 className="font-medium text-green-700 mb-2">Local Foot Traffic Power</h4>
             <p className="text-sm text-green-600">
@@ -715,7 +715,7 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         </div>
 
         {/* Revenue Impact Insights */}
-        <div className="mt-8 space-y-4">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="p-4 bg-green-50 rounded-lg">
             <h4 className="font-medium text-green-700 mb-2">Local SEO Revenue Share</h4>
             <p className="text-sm text-green-600">

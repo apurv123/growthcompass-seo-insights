@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MapPin, BarChart3, TrendingUp, LogOut, Home, Compass } from 'lucide-react';
+import { MapPin, BarChart3, TrendingUp, LogOut, Home, Bike } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
@@ -18,7 +18,7 @@ const Navigation = () => {
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg">
-                <Compass className="h-6 w-6 text-white" />
+                <Bike className="h-6 w-6 text-white" />
               </div>
               <span className="text-xl font-bold text-blue-800" style={{ fontFamily: 'Inter, system-ui, sans-serif', fontStyle: 'italic', letterSpacing: '-0.02em' }}>
                 Mike's Bikes
