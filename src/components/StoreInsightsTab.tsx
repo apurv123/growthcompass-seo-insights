@@ -728,6 +728,28 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
             title="Engagement by Distance"
           />
         </div>
+
+        {/* Customer Actions Insights */}
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">Balance Digital & Physical Touchpoints</h4>
+            <p className="text-sm text-blue-600">
+              Website visits (45%) and store visits (35%) are nearly neck-and-neck, <span className="font-semibold">improve website UX to capture that 35% in-person audience</span>.
+            </p>
+          </div>
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Make Calls Easier to Book</h4>
+            <p className="text-sm text-green-600">
+              Phone calls still drive 20% of actions. <span className="font-semibold">Add prominent click-to-call buttons on local landing pages and Google My Business profiles</span> to nudge that share upward—especially on mobile.
+            </p>
+          </div>
+          <div className="p-4 bg-orange-50 rounded-lg">
+            <h4 className="font-medium text-orange-700 mb-2">Hyper-Local Targeting Pays</h4>
+            <p className="text-sm text-orange-600">
+              <span className="font-semibold">53% of in-store engagements happen within 0–5 km of a location</span>. Focus your local keyword bids and "near me" content on that radius.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Syndication */}
