@@ -731,10 +731,10 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         </div>
       </div>
 
-      {/* Strategic Insights */}
+      {/* Insights */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-900">Strategic Insights</h3>
+          <h3 className="text-lg font-semibold text-slate-900">Insights</h3>
           <button
             onClick={() => exportCSV('insights')}
             className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"

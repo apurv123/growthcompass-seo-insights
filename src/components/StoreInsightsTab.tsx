@@ -555,6 +555,25 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
                 </tbody>
               </table>
             </div>
+
+            {/* Store Performance Leaderboard Insights */}
+            <div className="mt-6 space-y-3">
+              <div className="p-3 bg-blue-50 rounded-lg">
+                <p className="text-sm text-blue-700">
+                  <span className="font-semibold">Clicks & Calls Leader:</span> Mike's Bikes #Downtown tops clicks (2,100) and calls (450), yet conversion (12.5%) trails Trek's 13.1%—unlock their checkout tactics.
+                </p>
+              </div>
+              <div className="p-3 bg-green-50 rounded-lg">
+                <p className="text-sm text-green-700">
+                  <span className="font-semibold">Conversion Champion:</span> Trek Bikes #SOMA boasts the highest conversion rate (13.1%)—run a deep dive on their in-store promotions.
+                </p>
+              </div>
+              <div className="p-3 bg-red-50 rounded-lg">
+                <p className="text-sm text-red-700">
+                  <span className="font-semibold">Underperformer Alert:</span> Erik's Bike Shop #Mission has the lowest CTR (5.2%) and 9.8% conversion—prioritize a local ad blitz.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Store Prominence Leaderboard */}
@@ -640,6 +659,25 @@ const StoreInsightsTab: React.FC<StoreInsightsTabProps> = ({
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* Store Prominence Leaderboard Insights */}
+            <div className="mt-6 space-y-3">
+              <div className="p-3 bg-yellow-50 rounded-lg">
+                <p className="text-sm text-yellow-700">
+                  <span className="font-semibold">Top-Rated Rival:</span> Specialized #Union Square leads with a 4.8⭐️ rating and 2,100 reviews—reverse-engineer their review-solicitation playbook.
+                </p>
+              </div>
+              <div className="p-3 bg-orange-50 rounded-lg">
+                <p className="text-sm text-orange-700">
+                  <span className="font-semibold">Citation Gap:</span> Jenson USA #Sunset lags at 85% citation accuracy—schedule a listings audit this week.
+                </p>
+              </div>
+              <div className="p-3 bg-purple-50 rounded-lg">
+                <p className="text-sm text-purple-700">
+                  <span className="font-semibold">Brand Mentions Miss:</span> Mike's Bikes #Downtown at 340 mentions vs. Specialized's 520—run a targeted PR push locally.
+                </p>
+              </div>
             </div>
           </div>
         </div>
