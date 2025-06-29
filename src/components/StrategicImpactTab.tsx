@@ -711,16 +711,18 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
         {/* Share of Voice & Share of Search Insights */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="p-4 bg-green-50 rounded-lg">
-            <h4 className="font-medium text-green-700 mb-2">Biggest Gainer SoV</h4>
-            <p className="text-sm text-green-600">
-              Specialized jumped <span className="font-semibold">+2.0% MoM</span>, stealing the spotlight.
-            </p>
+            <h4 className="font-medium text-green-700 mb-2">Biggest Gainers</h4>
+            <div className="space-y-2 text-sm text-green-600">
+              <div><span className="font-semibold">Voice:</span> Specialized jumped +2.0% MoM, stealing the spotlight.</div>
+              <div><span className="font-semibold">Search:</span> Trek Bikes jumped +5.0% MoM, highest jump this year</div>
+            </div>
           </div>
           <div className="p-4 bg-red-50 rounded-lg">
-            <h4 className="font-medium text-red-700 mb-2">Biggest Loser SoV</h4>
-            <p className="text-sm text-red-600">
-              Trek Bikes dropped <span className="font-semibold">−1.2% MoM</span>—an early warning sign.
-            </p>
+            <h4 className="font-medium text-red-700 mb-2">Biggest Losers</h4>
+            <div className="space-y-2 text-sm text-red-600">
+              <div><span className="font-semibold">Voice:</span> Trek Bikes dropped −1.2% MoM—an early warning sign.</div>
+              <div><span className="font-semibold">Search:</span> Jenson USA dropped 10% - signs of instability</div>
+            </div>
           </div>
           <div className="p-4 bg-blue-50 rounded-lg">
             <h4 className="font-medium text-blue-700 mb-2">Mike's Bikes MoM Change</h4>
