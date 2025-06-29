@@ -707,6 +707,28 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
             </div>
           </div>
         </div>
+
+        {/* Share of Voice & Share of Search Insights */}
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Biggest Gainer SoV</h4>
+            <p className="text-sm text-green-600">
+              Specialized jumped <span className="font-semibold">+2.0% MoM</span>, stealing the spotlight.
+            </p>
+          </div>
+          <div className="p-4 bg-red-50 rounded-lg">
+            <h4 className="font-medium text-red-700 mb-2">Biggest Loser SoV</h4>
+            <p className="text-sm text-red-600">
+              Trek Bikes dropped <span className="font-semibold">−1.2% MoM</span>—an early warning sign.
+            </p>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">Mike's Bikes MoM Change</h4>
+            <p className="text-sm text-blue-600">
+              Up <span className="font-semibold">+0.8%</span> in Share of Voice and <span className="font-semibold">+0.5%</span> in Share of Search—momentum is on our side.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Strategic Insights */}
