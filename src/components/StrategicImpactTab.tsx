@@ -352,6 +352,28 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
             color="#8b5cf6"
           />
         </div>
+
+        {/* SEO Attribution Insights */}
+        <div className="mt-8 space-y-4">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Conversion Efficiency</h4>
+            <p className="text-sm text-green-600">
+              Local SEO drives just <span className="font-semibold">27.7% of total views</span> but delivers <span className="font-semibold">38.5% of conversions</span>—1.4× more efficient than Core SEO. Prioritize expanding local listing optimizations to capture more high-intent traffic.
+            </p>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">Click-Through Strength</h4>
+            <p className="text-sm text-blue-600">
+              With a <span className="font-semibold">12% CTR vs. 8% for organic</span>, Local SEO listings clearly resonate better. Scaling local keyword targeting could boost overall clicks by up to 50%.
+            </p>
+          </div>
+          <div className="p-4 bg-orange-50 rounded-lg">
+            <h4 className="font-medium text-orange-700 mb-2">Opportunity in Scale</h4>
+            <p className="text-sm text-orange-600">
+              Organic still generates <span className="font-semibold">36K clicks vs. Local's 15K</span>, but at half the conversion rate (0.64% vs. 1.4%). Apply Local SEO best practices (e.g., rich snippets, location extensions) to core pages to lift their performance.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Customer Journey Funnel */}
@@ -554,6 +576,28 @@ const StrategicImpactTab: React.FC<StrategicImpactTabProps> = ({
                 Local SEO customers show 15% higher repeat rates
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Conversion Insights */}
+        <div className="mt-8 space-y-4">
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h4 className="font-medium text-green-700 mb-2">Local Foot Traffic Power</h4>
+            <p className="text-sm text-green-600">
+              Store visits account for <span className="font-semibold">55% of conversions</span>—confirming our local SEO optimizations are effectively driving in-store sales.
+            </p>
+          </div>
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-medium text-blue-700 mb-2">E-commerce Balance</h4>
+            <p className="text-sm text-blue-600">
+              Online orders make up <span className="font-semibold">40% of conversions</span>. This split shows the need to invest equally in website UX alongside local listing accuracy.
+            </p>
+          </div>
+          <div className="p-4 bg-orange-50 rounded-lg">
+            <h4 className="font-medium text-orange-700 mb-2">Customer Loyalty Window</h4>
+            <p className="text-sm text-orange-600">
+              Repeat purchase probability drops from <span className="font-semibold">85% at 6 months to 45% at 18 months</span>—suggesting a targeted retention campaign (e.g., local events or promotions) around month 5–6 to prolong engagement.
+            </p>
           </div>
         </div>
       </div>
