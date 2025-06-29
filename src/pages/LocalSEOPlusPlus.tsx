@@ -35,7 +35,7 @@ const LocalSEOPlusPlus = () => {
   const tabs = [
     { id: 'strategic', label: 'Strategic Impact', icon: Target },
     { id: 'store', label: 'Store Insights', icon: Store },
-    { id: 'regional', label: 'Regional Performance', icon: MapPin }
+    { id: 'regional', label: 'Marketing Insights', icon: MapPin }
   ];
 
   const exportCSV = (filename: string) => {
